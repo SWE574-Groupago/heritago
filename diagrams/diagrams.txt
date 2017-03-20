@@ -1,0 +1,2 @@
+All concept/UML diagrams will be comitted here.
+Ex: use-case diagrams, class diagrams, component diagrams... etc
