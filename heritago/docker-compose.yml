@@ -1,0 +1,32 @@
+version: '2'
+services:
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana:5.2.2
+#    depends_on:
+#      - elasticsearch
+#    ports:
+#        - "5601:5601"
+#    links:
+#      - elasticsearch:elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.2.2
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+#  redis:
+#    image: redis
+#    ports:
+#      - "6379:6379"
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+
