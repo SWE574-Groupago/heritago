@@ -5,4 +5,14 @@ package com.heritago.heritandroid;
  */
 
 public class Heritage {
+    String id;
+    String description;
+    String title;
+    String creator;
+
+    public Heritage(String id){
+        this.id = id;
+    }
+
+
 }

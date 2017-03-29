@@ -21,12 +21,11 @@ public class AddTabFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.search_tab_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_tab_add, container, false);
         TextView textView = (TextView) view.findViewById(R.id.textView);
         textView.setText("Add");
         return view;
     }
-
 
 
 }

@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HeritageDetailActivity"
+            android:label="@string/title_activity_heritage_detail"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
