@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Heritandroid</string>
-    <string name="title_activity_heritage_detail">HeritageDetailActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="sultanahmet_camii_detail">The Sultan Ahmed Mosque or Sultan Ahmet Mosque (Turkish: Sultan Ahmet Camii) is a historic mosque located in Istanbul, Turkey. A popular tourist site, the Sultan Ahmed Mosque continues to function as a mosque today; men still kneel in prayer on the mosque\'s lush red carpet after the call to prayer. The Blue Mosque, as it is popularly known, was constructed between 1609 and 1616 during the rule of Ahmed I. Its Külliye contains Ahmed\'s tomb, a madrasah and a hospice. Hand-painted blue tiles adorn the mosque’s interior walls, and at night the mosque is bathed in blue as lights frame the mosque’s five main domes, six minarets and eight secondary domes.[2] It sits next to the Hagia Sophia, another popular tourist site.</string>
 </resources>
