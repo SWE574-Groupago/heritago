@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sultanahmet Camii"
+        style="@style/Base.TextAppearance.AppCompat.Headline"
+        android:layout_marginTop="10dp"
+        android:padding="10dp" />
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sultanahmet_camii_detail"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:maxHeight="180dp" />
+
+        <ListView
+        android:id="@+id/heritage_detail_list"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        </ListView>
+
+        <com.etsy.android.grid.StaggeredGridView
+        android:id="@+id/heritage_detail_multimedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        </com.etsy.android.grid.StaggeredGridView>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        app:fabSize="normal"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="10dp" />
+
+</FrameLayout>
+
+
+
+
