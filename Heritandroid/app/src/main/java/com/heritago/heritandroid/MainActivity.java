@@ -1,10 +1,12 @@
 package com.heritago.heritandroid;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,9 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
 import com.heritago.heritandroid.fragments.AddHeritageFragment;
+import com.heritago.heritandroid.fragments.SearchFragment;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,15 +47,31 @@ public class MainActivity extends AppCompatActivity
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final AppCompatActivity activity = this;
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            }
+        };
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         mainContent = (FrameLayout) findViewById(R.id.main_content);
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+            .build();
+        ImageLoader.getInstance().init(config);
+
+        Fragment searchFrag = new SearchFragment();
+        getFragmentManager().beginTransaction().addToBackStack(null)
+                .add(R.id.main_content, searchFrag).commit();
     }
 
     @Override
@@ -92,19 +115,15 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_search) {
+            Fragment searchFrag = new SearchFragment();
+            fragmentManager.beginTransaction().addToBackStack(null)
+                    .add(R.id.main_content, searchFrag).commit();
+        } else if (id == R.id.nav_add) {
             Fragment addFrag = new AddHeritageFragment();
             fragmentManager.beginTransaction().addToBackStack(null)
                     .add(R.id.main_content, addFrag).commit();
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_profile) {
 
         }
 
@@ -112,4 +131,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
