@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,10 +18,14 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 
+import com.heritago.heritandroid.bus.BusProvider;
+import com.heritago.heritandroid.bus.DidTapHeritageCardEvent;
 import com.heritago.heritandroid.fragments.AddHeritageFragment;
+import com.heritago.heritandroid.fragments.HeritageDetailFragment;
 import com.heritago.heritandroid.fragments.SearchFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.otto.Subscribe;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,6 +75,19 @@ public class MainActivity extends AppCompatActivity
         Fragment searchFrag = new SearchFragment();
         getFragmentManager().beginTransaction().addToBackStack(null)
                 .add(R.id.main_content, searchFrag).commit();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
     }
 
     @Override
@@ -114,7 +130,6 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getFragmentManager();
 
-
         if (id == R.id.nav_search) {
             Fragment searchFrag = new SearchFragment();
             fragmentManager.beginTransaction().addToBackStack(null)
@@ -130,6 +145,14 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Subscribe public void didTapHeritageCard(DidTapHeritageCardEvent event){
+        HeritageDetailFragment detail = new HeritageDetailFragment();
+        detail.setHeritage(event.getHeritage());
+        getFragmentManager().beginTransaction().addToBackStack(null)
+                .add(R.id.main_content, detail).commit();
     }
 
 }

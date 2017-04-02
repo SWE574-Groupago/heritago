@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.heritago.heritandroid.R;
+import com.heritago.heritandroid.bus.BusProvider;
+import com.heritago.heritandroid.bus.DidTapHeritageCardEvent;
 import com.heritago.heritandroid.model.Heritage;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -51,7 +53,7 @@ public class HeritageAdapter extends RecyclerView.Adapter<HeritageAdapter.Herita
 
     @Override
     public void onBindViewHolder(HeritageViewHolder holder, int position) {
-        Heritage heritage = heritageList.get(position);
+        final Heritage heritage = heritageList.get(position);
         holder.title.setText(heritage.getTitle());
         holder.creator.setText(heritage.getCreator());
         ImageLoader.getInstance().displayImage(heritage.imageUrl, holder.image);
@@ -59,6 +61,7 @@ public class HeritageAdapter extends RecyclerView.Adapter<HeritageAdapter.Herita
             @Override
             public void onClick(View v) {
                 Log.d("Adapter", "Holder clicked");
+                BusProvider.getInstance().post(new DidTapHeritageCardEvent(heritage));
             }
         });
     }
