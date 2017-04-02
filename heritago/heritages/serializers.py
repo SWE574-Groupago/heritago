@@ -22,13 +22,17 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class MultimediaSerializer(serializers.ModelSerializer):
-    source = serializers.FileField(write_only=True)
+    file = serializers.FileField(write_only=True)
 
     class Meta:
         model = Multimedia
-        fields = ("createdAt", "url", "type", "id", "source")
+        fields = ("createdAt", "url", "type", "id", "file")
+        write_only_fields = ("file",)
         read_only_fields = ("id", "url",)
 
+    def create(self, validated_data):
+        multimedia = Multimedia.objects.create(**validated_data)
+        multimedia.url = ""
 
 class HeritageSerializer(serializers.ModelSerializer):
     basicInformation = BasicInformationSerializer(many=True)

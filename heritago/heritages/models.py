@@ -46,6 +46,7 @@ class Multimedia(models.Model):
     createdAt = models.DateField(auto_now_add=True)
     type = models.CharField(choices=CATEGORIES.to_set(), max_length=10)
     url = models.URLField()
+    file = models.FileField(upload_to="uploads/")
 
     #             "type": "video",
     #             "id": 51,
@@ -99,7 +100,7 @@ class Multimedia(models.Model):
     #         {
     #             "type": "audio",
     #             "id": 22,
-    #             "url": "http://www.heritago.com/heritages/1/audio/22.mp3",
+    #             "url": "http://www.heritago.com/,
     #             "createdAt": "2017-01-19 11:11:12+3"
     #         },
     #         {

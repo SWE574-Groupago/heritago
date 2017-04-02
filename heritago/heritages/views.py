@@ -9,4 +9,12 @@ class HeritagesList(generics.ListCreateAPIView):
     serializer_class = HeritageSerializer
 
 
+class MultimediaView(generics.ListCreateAPIView):
+    queryset = Multimedia.objects.all()
+    serializer_class = MultimediaSerializer
+
+    def perform_create(self, serializer):
+        heritage_id = self.kwargs["heritage_id"]
+        heritage = Heritage.objects.get(pk=heritage_id)
+        serializer.save(heritage=heritage)
 

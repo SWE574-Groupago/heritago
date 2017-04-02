@@ -4,7 +4,7 @@ from heritages import views
 
 urlpatterns = [
     url(r"^$", views.HeritagesList.as_view()),
-    url(r"^(?P<recipe_id>\d+)/multimedia$",
+    url(r"^(?P<heritage_id>\d+)/multimedia$",
         views.MultimediaView.as_view()),
 
 ]
