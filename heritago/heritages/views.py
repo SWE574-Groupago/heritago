@@ -1,3 +1,5 @@
+import os
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpResponse
@@ -10,6 +12,7 @@ from rest_framework.viewsets import ViewSet
 
 from heritages.models import Heritage, Multimedia
 from heritages.serializers import HeritageSerializer, MultimediaSerializer
+from heritago import settings
 
 
 class HeritagesListView(generics.ListCreateAPIView):

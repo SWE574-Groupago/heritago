@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 
 
@@ -12,6 +14,11 @@ class Heritage(models.Model):
     description = models.TextField(null=False)
     annotationCount = models.IntegerField(default=0)
     tags = models.ManyToManyField(to=Tag, related_name="tags")
+
+    def delete(self, using=None, keep_parents=False):
+        for m in self.multimedia.all():
+            m.delete()
+        return super().delete(using, keep_parents)
 
 
 class Origin(models.Model):
@@ -46,3 +53,7 @@ class Multimedia(models.Model):
     type = models.CharField(choices=CATEGORIES.to_set(), max_length=10)
     url = models.URLField()
     file = models.FileField(upload_to="uploads/")
+
+    def delete(self, using=None, keep_parents=False):
+        os.remove(os.path.join(self.file.name))
+        return super().delete(using, keep_parents)
