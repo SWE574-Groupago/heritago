@@ -12,7 +12,7 @@ class Heritage(models.Model):
     title = models.TextField(max_length=255, null=False)
     description = models.TextField(null=False)
     annotationCount = models.IntegerField(default=0)
-    tags = models.ManyToManyField(to=Tag,related_name="tags")
+    tags = models.ManyToManyField(to=Tag, related_name="tags")
 
 
 class Origin(models.Model):

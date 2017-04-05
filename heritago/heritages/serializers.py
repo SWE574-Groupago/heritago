@@ -32,7 +32,11 @@ class MultimediaSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         multimedia = Multimedia.objects.create(**validated_data)
-        multimedia.url = ""
+        multimedia.url = "/heritages/{}/{}/{}.png".format(
+            multimedia.type, multimedia.heritage.id, multimedia.id)
+        multimedia.save()
+        return multimedia
+
 
 class HeritageSerializer(serializers.ModelSerializer):
     basicInformation = BasicInformationSerializer(many=True)
