@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +17,7 @@ import com.heritago.heritandroid.model.Heritage;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by onurtokoglu on 02/04/2017.
- */
+
 
 public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
