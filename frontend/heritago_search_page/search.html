@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- Latest Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--
+        <script src="https://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.22&key=AIzaSyDRPEdno_kUtxizDFj9JTyxHE3L57xhEGU">
+        </script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/maplace-js/0.2.9/maplace.js"></script>
+    <script>
+        (function() {
+            var testJSON = "http://localhost:3000/items";
+            $.getJSON( testJSON, {
+                format: "json"
+            })
+                .done(function( data ) {
+                    var count = 0;
+                    $.each( data, function(key, item) {
+                        $('#itemName' + count).text(item.itemName);
+                        $('#itemOwner' + count).text(item.itemOwner);
+                        count++;
+                    });
+                });
+        })();
+    </script>
+    <style>
+        *, *:before, *:after {
+            box-sizing:  border-box !important;
+        }
+        .rounded {
+            border-radius: 10px;
+            border: 2px solid #000;
+        }
+        .img-fluid {
+            width: 110%;
+            length: 100%;
+        }
+        .well {
+            position: relative;
+            display: block;
+        }
+        .item {
+            display: inline-block;
+            padding: 0%;
+            width: 100%;
+        }
+        .row {
+            -moz-column-width: 15em;
+            -webkit-column-width: 15em;
+        }
+        .nopadding {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+        <br/>
+        <input id="searchInput" type="text" class="form-control input-sm" placeholder="Search" >
+        <br/>
+    </div>
+    <br/>
+    <div class="col-xs-12 col-sm-5 col-md-3 col-lg-3">
+        <button class="btn btn-primary">Search</button>
+        <button class="btn btn-primary">Advanced Search</button>
+    </div>
+
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li>
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
+    <div class="container">
+        <div class="row nopadding">
+            <div class="item">
+                <div class="well">
+                    <p id="itemName0"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row nopadding">
+            <div class="media nopadding">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-left img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-right img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pull-left row nopadding">
+            <br/>
+            <div class="item">
+                <div class="text-right well">
+                    <p id="itemOwner0"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
+    <div class="container">
+        <div class="row nopadding">
+            <div class="item">
+                <div class="well">
+                    <p id="itemName1"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row nopadding">
+            <div class="media nopadding">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-left img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-right img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pull-left row nopadding">
+            <br/>
+            <div class="item">
+                <div class="text-right well">
+                    <p id="itemOwner1"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
+    <div class="container">
+        <div class="row nopadding">
+            <div class="item">
+                <div class="well">
+                    <p id="itemName2"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row nopadding">
+            <div class="media nopadding">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-left img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-right img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pull-left row nopadding">
+            <br/>
+            <div class="item">
+                <div class="text-right well">
+                    <p id="itemOwner2"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
+    <div class="container">
+        <div class="row nopadding">
+            <div class="item">
+                <div class="well">
+                    <p id="itemName3"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row nopadding">
+            <div class="media nopadding">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-left img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-right img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pull-left row nopadding">
+            <br/>
+            <div class="item">
+                <div class="text-right well">
+                    <p id="itemOwner3"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
+    <div class="container">
+        <div class="row nopadding">
+            <div class="item">
+                <div class="well">
+                    <p id="itemName4"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row nopadding">
+            <div class="media nopadding">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-left img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-right img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pull-left row nopadding">
+            <br/>
+            <div class="item">
+                <div class="text-right well">
+                    <p id="itemOwner4"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
+    <div class="container">
+        <div class="row nopadding">
+            <div class="item">
+                <div class="well">
+                    <p id="itemName5"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row nopadding">
+            <div class="media nopadding">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-left img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-right img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pull-left row nopadding">
+            <br/>
+            <div class="item">
+                <div class="text-right well">
+                    <p id="itemOwner5"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-4 col-lg-3">
+    <div class="container">
+        <div class="row nopadding">
+            <div class="item">
+                <div class="well">
+                    <p id="itemName6"></p>
+                </div>
+            </div>
+        </div>
+        <div class="row nopadding">
+            <div class="media nopadding">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-left img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="rounded float-right img-fluid" src="ford-mustang-1967-fastback.jpg" alt="Mustang Fastback">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="pull-left row nopadding">
+            <br/>
+            <div class="item">
+                <div class="text-right well">
+                    <p id="itemOwner6"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
