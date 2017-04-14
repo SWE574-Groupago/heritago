@@ -1,18 +1,12 @@
-import os
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpResponse
 from rest_framework import generics
-from rest_framework import mixins
 from rest_framework.exceptions import NotFound
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
 
 from heritages.models import Heritage, Multimedia
 from heritages.serializers import HeritageSerializer, MultimediaSerializer
-from heritago import settings
 
 
 class HeritagesListView(generics.ListCreateAPIView):
