@@ -28,7 +28,7 @@ public class HeritageDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_heritage_detail, container, false);
 
         TextView title = (TextView) view.findViewById(R.id.title);
-        title.setText(heritage.getTitle());
+        title.setText(heritage.title);
 
         return view;
     }

@@ -1,53 +1,87 @@
 package com.heritago.heritandroid.model;
 
+import java.util.List;
+
 /**
  * Created by onurtokoglu on 02/04/2017.
  */
 
 public class Heritage {
-    private String id;
-    private String title;
-    private String description;
-    private String creator;
-    public String imageUrl;
+    private final String defaultImageUrl = "http://i.sozcu.com.tr/wp-content/uploads/2015/04/01/670sultanahmetcamii.jpg";
+    public String id;
+    public String title;
+    public String description;
+    public String createdAt;
+    public List<BasicInformation> basicInformation;
+    public List<String> origins;
+    public List<String> tags;
+    public int annotationCount;
+    private Owner owner;
+    private List<Multimedia> multimedia;
 
-    public Heritage(String id, String title, String description, String creator) {
+
+    public Heritage(String id, String title, String description, Owner owner) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.creator = creator;
-        this.imageUrl = "http://i.sozcu.com.tr/wp-content/uploads/2015/04/01/670sultanahmetcamii.jpg";
+        this.owner = owner;
     }
 
-    public String getId() {
-        return id;
+    public String getThumbnailImageUrl(){
+        for (Multimedia m: multimedia){
+            if (m.getType().equals(Multimedia.Type.image)){
+                return m.url;
+            }
+        }
+
+        return defaultImageUrl;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getOwnerName(){
+        return owner.name;
     }
 
-    public String getTitle() {
-        return title;
+    public static class Owner {
+        public String id;
+        public String name;
+
+        public Owner(String id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+    }
+    public static class BasicInformation {
+        public String key;
+        public String value;
+
+        public BasicInformation(String key, String value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public static class Multimedia {
+        public String type;
+        public String id;
+        public String url;
+        public String createdAt;
+        public Selector selector;
 
-    public String getDescription() {
-        return description;
-    }
+        public Type getType(){
+            for (Type t: Type.values()){
+                if (this.type.equals(t.name())){
+                    return t;
+                }
+            }
+            return Type.unknown;
+        }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
+        public class Selector {
+            public String type;
+            public Object value;
+        }
+        public enum Type {
+            image, video, audio, location, unknown
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,14 +13,22 @@ import android.view.ViewGroup;
 
 import com.heritago.heritandroid.R;
 import com.heritago.heritandroid.adapters.HeritageAdapter;
+import com.heritago.heritandroid.api.ApiClient;
+import com.heritago.heritandroid.api.ApiInterface;
 import com.heritago.heritandroid.model.Heritage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class SearchFragment extends Fragment {
+    private final String TAG = "Search";
+
     private RecyclerView recyclerView;
     private HeritageAdapter adapter;
     private List<Heritage> heritageList = new ArrayList<>();
@@ -62,11 +71,38 @@ public class SearchFragment extends Fragment {
     }
 
     private void updateCardsForSearch(String query){
-        heritageList.clear();
-        for (int i = 0; i < 10; i++){
-            heritageList.add(new Heritage("id","Sultanahmet Mosque","description","Suzan U."));
-        }
-        adapter.notifyDataSetChanged();
+//        heritageList.clear();
+//        for (int i = 0; i < 10; i++){
+//            heritageList.add(new Heritage("id","Sultanahmet Mosque","description", new Heritage.Owner("1","Suzan U.")));
+//        }
+//        adapter.notifyDataSetChanged();
+
+        ApiInterface inter = ApiClient.getClient().create(ApiInterface.class);
+        Call call = inter.getHeritages();
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                Log.d(TAG, "api call success");
+                ArrayList<Heritage> heritages;
+                try {
+                    heritages = (ArrayList<Heritage>) response.body();
+                    heritageList.clear();
+                    heritageList.addAll(heritages);
+                    adapter.notifyDataSetChanged();
+                }catch (Exception e){
+                    Log.d(TAG, "heritages cast error");
+                    return;
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.d(TAG, "api call failed " + t.getMessage());
+                call.cancel();
+            }
+        });
     }
 
 }
