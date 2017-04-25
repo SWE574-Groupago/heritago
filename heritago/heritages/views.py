@@ -4,6 +4,10 @@ from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.exceptions import NotFound
 from rest_framework.viewsets import ViewSet
+from django.contrib import auth
+from django.template.context_processors import csrf
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import (render_to_response, render)
 
 from heritages.models import Heritage, Multimedia
 from heritages.serializers import HeritageSerializer, MultimediaSerializer
@@ -53,3 +57,7 @@ class MultimediaFileView(ViewSet):
         file = UploadedFile(m.file)
         return HttpResponse(file, content_type="image/png")
 
+def login(request):
+    c = {}
+    c.update(csrf(request))
+    return render_to_response('login.html', c)

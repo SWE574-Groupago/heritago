@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+import heritages.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r"api/v1/heritages/", include("heritages.urls"))
+    url(r"api/v1/heritages/", include("heritages.urls")),
+    # user auth urls
+    url(r'^login/$', heritages.views.login, name='login'),
 ]
