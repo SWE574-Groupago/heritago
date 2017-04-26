@@ -29,5 +29,14 @@
             }]
         }).Load();
 
+        $('#heritage-item-description').annotator();
+
+        $('.annotator-adder button').attr( "data-toggle", "modal" );
+        $('.annotator-adder button').attr( "data-target", "#add-annotation-on-description-modal" );
+
+        $('.annotator-adder button').click(function() {
+            console.log("Button, for adding annotation on description text, is clicked.");
+            $('.annotator-cancel').click();
+        });
 
     });
