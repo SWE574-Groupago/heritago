@@ -57,6 +57,7 @@ class MultimediaFileView(ViewSet):
         file = UploadedFile(m.file)
         return HttpResponse(file, content_type="image/png")
 
+
 def login(request):
     c = {}
     c.update(csrf(request))

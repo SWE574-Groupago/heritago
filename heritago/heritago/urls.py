@@ -22,4 +22,5 @@ urlpatterns = [
     url(r"api/v1/heritages/", include("heritages.urls")),
     # user auth urls
     url(r'^login/$', heritages.views.login, name='login'),
+
 ]
