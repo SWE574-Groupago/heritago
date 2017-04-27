@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Page</title>
+
+	<!-- BEGIN META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="keywords" content="your,keywords">
+	<meta name="description" content="Short explanation about this website">
+	<!-- END META -->
+
+	<!-- BEGIN STYLESHEETS -->
+	<link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+	<link type="text/css" rel="stylesheet" href="assets/css/theme-default/bootstrap.css?1422792965" />
+	<link type="text/css" rel="stylesheet" href="assets/css/theme-default/materialadmin.css?1425466319" />
+	<link type="text/css" rel="stylesheet" href="assets/css/theme-default/font-awesome.min.css?1422529194" />
+	<link type="text/css" rel="stylesheet" href="assets/css/theme-default/material-design-iconic-font.min.css?1421434286" />
+	<link type="text/css" rel="stylesheet" href="assets/css/autocomplete.css" />
+
+	<link type="text/css" rel="stylesheet" href="assets/css/searchPages.css" />
+	<!-- END STYLESHEETS -->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="assets/js/libs/utils/html5shiv.js?1403934957"></script>
+	<script type="text/javascript" src="assets/js/libs/utils/respond.min.js?1403934956"></script>
+	<![endif]-->
+
+</head>
+<body class="menubar-hoverable header-fixed ">
+
+<!-- BEGIN HEADER-->
+<header id="header" >
+	<div class="headerbara">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class=" navbar navbar-default">
+
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="navbar-brand">
+					<div class="brand-holder">
+						<a href="home.html">
+							<span class="text-lg text-bold text-primary">HERITAGO</span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav main-text-nav">
+					<li><a href="discover.html">Discover</a></li>
+					<li ><!--class="active" --> <a href="create.html">Create</a></li>
+					<li><a href="my_portfolio.html">My portfolio</a></li>
+					<li><a href="my_annotations.html">My annotations</a></li>
+				</ul>
+
+				<div class="nav navbar-nav navbar-right">
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="headerbar-right">
+						<ul class="header-nav header-nav-options">
+						</ul><!--end .header-nav-options -->
+
+						<ul class="header-nav header-nav-profile user-profile">
+							<li class="dropdown">
+								<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
+									<img src="assets/img/avatar.png" alt="" class="avatar" />
+									<span class="profile-info name">
+                                                Suzan Üsküdarlı
+                                            </span>
+								</a>
+								<ul class="dropdown-menu animation-dock">
+									<li class="dropdown-header">Settings</li>
+									<li><a href="my_profile.html">My profile</a></li>
+									<li><a href="change_password.html">Change password</a></li>
+									<li class="divider"></li>
+									<li><a href="#" class="logout"><i class="fa fa-fw fa-lock"></i> Logout</a></li>
+								</ul><!--end .dropdown-menu -->
+							</li><!--end .dropdown -->
+						</ul><!--end .header-nav-profile -->
+
+					</div><!--end #header-navbar-collapse -->
+				</div>
+
+			</div> <!--collapse navbar-collapse -->
+
+		</div>
+
+
+	</div>
+</header>
+<!-- END HEADER-->
+
+<div id="base">
+	<!-- BEGIN CARDSCONTAINER -->
+	<div class="col-md-offset-1 col-md-5">
+		<div class="card tabs-left style-default-light">
+			<br/><br/><br/><br/>
+			<div class="col-md-10">
+				<div class="input-group">
+					<div class="col-md-5">
+						<input class="form-control" placeholder="Enter Your Search">
+					</div>
+					<div class="col-md-2">
+						<button class="btn btn-default glyphicon glyphicon-search" type="button"></button>
+					</div>
+					<div class="col-md-5">
+						<a id="buttonAdvSearch" class="btn btn-block btn-raised btn-primary" href="advSearch.html">Advanced Search</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-12">
+			<br/><br/><br/>
+			</div>
+			<br/>
+			<!-- BEGIN CAROUSEL -->
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
+					<li data-target="#myCarousel" data-slide-to="3"></li>
+				</ol>
+
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner" role="listbox">
+					<!-- START ITEM -->
+					<div class="item active">
+						<!-- BEGIN CARD0 -->
+						<div class="col-md-6">
+							<div id="card0" class="card">
+								<!-- START CARD0 HEAD -->
+								<div class="card-head style-primary">
+									<header id="itemName0"></header>
+								</div>
+								<!-- END CARD0 HEAD -->
+								<!-- START CARD0 IMAGES -->
+								<div class="nopadding divimg">
+									<a href="#">
+										<img id="img00" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img01" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img02" class="bordered imgimg">
+									</a>
+								</div>
+								<!-- END CARD0 IMAGES -->
+								<!-- START CARD0 BODY -->
+								<div id="itemOwner0" class="card-body">
+									<blockquote><small>card-head-xs, card-head-sm, regular, card-head-lg</small></blockquote>
+								</div>
+								<!-- END CARD0 BODY -->
+							</div>
+						</div>
+						<!-- END CARD0 -->
+						<!-- BEGIN CARD1 -->
+						<div class="col-md-6">
+							<div id="card1" class="card">
+								<!-- START CARD1 HEAD -->
+								<div class="card-head style-primary">
+									<header id="itemName1"></header>
+								</div>
+								<!-- END CARD1 HEAD -->
+								<!-- START CARD1 IMAGES -->
+								<div class="nopadding divimg">
+									<a href="#">
+										<img id="img10" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img11" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img12" class="bordered imgimg">
+									</a>
+								</div>
+								<!-- END CARD1 IMAGES -->
+								<!-- START CARD1 BODY -->
+								<div id="itemOwner1" class="card-body">
+									<blockquote><small>card-head-xs, card-head-sm, regular, card-head-lg</small></blockquote>
+								</div>
+								<!-- END CARD1 BODY -->
+							</div>
+						</div>
+						<!-- END CARD1 -->
+					</div>
+					<div class="item">
+						<!-- BEGIN CARD2 -->
+						<div class="col-md-6">
+							<div id="card2" class="card">
+								<!-- START CARD2 HEAD -->
+								<div class="card-head style-primary">
+									<header id="itemName2"></header>
+								</div>
+								<!-- END CARD2 HEAD -->
+								<!-- END CARD2 IMAGES -->
+								<div class="nopadding divimg">
+									<a href="#">
+										<img id="img20" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img21" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img22" class="bordered imgimg">
+									</a>
+								</div>
+								<!-- END CARD2 IMAGES -->
+								<!-- START CARD2 BODY -->
+								<div id="itemOwner2" class="card-body">
+									<blockquote><small>card-head-xs, card-head-sm, regular, card-head-lg</small></blockquote>
+								</div>
+								<!-- END CARD2 BODY -->
+							</div>
+						</div>
+						<!-- END CARD2 -->
+						<!-- BEGIN CARD3 -->
+						<div class="col-md-6">
+							<div id="card3" class="card">
+								<!-- START CARD3 HEAD -->
+								<div class="card-head style-primary">
+									<header id="itemName3"></header>
+								</div>
+								<!-- END CARD3 HEAD -->
+								<!-- END CARD3 IMAGES -->
+								<div class="nopadding divimg">
+									<a href="#">
+										<img id="img30" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img31" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img32" class="bordered imgimg">
+									</a>
+								</div>
+								<!-- END CARD3 IMAGES -->
+								<!-- START CARD3 BODY -->
+								<div id="itemOwner3" class="card-body">
+									<blockquote><small>card-head-xs, card-head-sm, regular, card-head-lg</small></blockquote>
+								</div>
+								<!-- END CARD3 BODY -->
+							</div>
+						</div>
+						<!-- END CARD3 -->
+					</div>
+					<!-- END ITEM -->
+					<!-- START ITEM -->
+					<div class="item">
+						<!-- BEGIN CARD4 -->
+						<div class="col-md-6">
+							<div id="card4" class="card">
+								<!-- START CARD4 HEAD -->
+								<div class="card-head style-primary">
+									<header id="itemName4"></header>
+								</div>
+								<!-- END CARD4 HEAD -->
+								<!-- START CARD4 IMAGES -->
+								<div class="nopadding divimg">
+									<a href="#">
+										<img id="img40" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img41" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img42" class="bordered imgimg">
+									</a>
+								</div>
+								<!-- END CARD4 IMAGES -->
+								<!-- START CARD4 BODY -->
+								<div id="itemOwner4" class="card-body">
+									<blockquote><small>card-head-xs, card-head-sm, regular, card-head-lg</small></blockquote>
+								</div>
+								<!-- END CARD4 BODY -->
+							</div>
+						</div>
+						<!-- END CARD4 -->
+						<!-- BEGIN CARD5 -->
+						<div class="col-md-6">
+							<div id="card1" class="card">
+								<!-- START CARD5 HEAD -->
+								<div class="card-head style-primary">
+									<header id="itemName5"></header>
+								</div>
+								<!-- END CARD5 HEAD -->
+								<!-- START CARD5 IMAGES -->
+								<div class="nopadding divimg">
+									<a href="#">
+										<img id="img50" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img51" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img52" class="bordered imgimg">
+									</a>
+								</div>
+								<!-- END CARD5 IMAGES -->
+								<!-- START CARD5 BODY -->
+								<div id="itemOwner5" class="card-body">
+									<blockquote><small>card-head-xs, card-head-sm, regular, card-head-lg</small></blockquote>
+								</div>
+								<!-- END CARD5 BODY -->
+							</div>
+						</div>
+						<!-- END CARD5 -->
+					</div>
+					<div class="item">
+						<!-- BEGIN CARD6 -->
+						<div class="col-md-6">
+							<div id="card6" class="card">
+								<!-- START CARD6 HEAD -->
+								<div class="card-head style-primary">
+									<header id="itemName6"></header>
+								</div>
+								<!-- END CARD6 HEAD -->
+								<!-- END CARD6 IMAGES -->
+								<div class="nopadding divimg">
+									<a href="#">
+										<img id="img60" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img61" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img62" class="bordered imgimg">
+									</a>
+								</div>
+								<!-- END CARD6 IMAGES -->
+								<!-- START CARD6 BODY -->
+								<div id="itemOwner6" class="card-body">
+									<blockquote><small>card-head-xs, card-head-sm, regular, card-head-lg</small></blockquote>
+								</div>
+								<!-- END CARD6 BODY -->
+							</div>
+						</div>
+						<!-- END CARD6 -->
+						<!-- BEGIN CARD7 -->
+						<div class="col-md-6">
+							<div id="card7" class="card">
+								<!-- START CARD7 HEAD -->
+								<div class="card-head style-primary">
+									<header id="itemName7"></header>
+								</div>
+								<!-- END CARD7 HEAD -->
+								<!-- END CARD7 IMAGES -->
+								<div class="nopadding divimg">
+									<a href="#">
+										<img id="img70" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img71" class="bordered imgimg">
+									</a>
+									<a href="#">
+										<img id="img72" class="bordered imgimg">
+									</a>
+								</div>
+								<!-- END CARD7 IMAGES -->
+								<!-- START CARD7 BODY -->
+								<div id="itemOwner7" class="card-body">
+									<blockquote><small>card-head-xs, card-head-sm, regular, card-head-lg</small></blockquote>
+								</div>
+								<!-- END CARD7 BODY -->
+							</div>
+						</div>
+						<!-- END CARD7 -->
+					</div>
+					<!-- END ITEM -->
+					<!-- Left and right controls -->
+					<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						<span class="sr-only">Previous</span>
+					</a>
+					<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						<span class="sr-only">Next</span>
+					</a>
+				</div>
+				<!-- END CAROUSEL -->
+			</div>
+		</div>
+		<!-- END CARDSCONTAINER -->
+	</div>
+</div>
+<!-- END #BASE -->
+<div class="col-md-offset-1 col-md-5">
+</div>
+
+<!-- BEGIN JAVASCRIPT -->
+<script src="assets/js/libs/jquery/jquery-1.11.2.min.js"></script>
+<script src="assets/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="assets/js/libs/bootstrap/bootstrap.min.js"></script>
+<script src="assets/js/libs/spin.js/spin.min.js"></script>
+<script src="assets/js/libs/autosize/jquery.autosize.min.js"></script>
+<script src="assets/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
+<script src="assets/js/libs/mustache.min.js"></script>
+<script src="assets/js/libs/jquery.autocomplete.min.js"></script>
+<script src="assets/js/libs/js.cookie.js"></script>
+<script src="assets/js/core/source/App.js"></script>
+<script src="assets/js/core/source/AppNavigation.js"></script>
+<script src="assets/js/core/source/AppOffcanvas.js"></script>
+<script src="assets/js/core/source/AppCard.js"></script>
+<script src="assets/js/core/source/AppForm.js"></script>
+<script src="assets/js/core/source/AppNavSearch.js"></script>
+<script src="assets/js/core/source/AppVendor.js"></script>
+<script src="assets/js/core/demo/Demo.js"></script>
+
+<script src="assets/js/searchPages.js"></script>
+<!-- END JAVASCRIPT -->
+</body>
+</html>
