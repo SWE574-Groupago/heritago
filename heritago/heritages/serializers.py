@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia
+from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, UserProfile
+
+from django.contrib.auth.models import User
 
 
 class BasicInformationSerializer(serializers.ModelSerializer):
@@ -75,5 +77,7 @@ class HeritageSerializer(serializers.ModelSerializer):
             heritage.tags.add(*Tag.objects.get_or_create(**entry))
 
         return heritage
+
+
 
 

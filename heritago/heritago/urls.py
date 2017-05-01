@@ -15,12 +15,28 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-import heritages.views
+from heritages import views
+from django.contrib.auth.views import password_reset
+
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r"api/v1/heritages/", include("heritages.urls")),
-    # user auth urls
-    url(r'^login/$', heritages.views.login, name='login'),
+
+# user auth urls
+
+   # url(r'^$', views.diary, name='home'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^auth/$', views.auth_view, name='auth_view'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^loggedin/$', views.loggedin, name='loggedin'),
+    url(r'^invalid/$', views.invalid_login, name='invalid_login'),
+    url(r'^register/$', views.register_user, name='register_user'),
+    url(r'^register_success/$', views.register_success, name='register_success'),
+    url(r'^profile/$', views.user_profile, name='user_profile'),
+    url(r'^change_password/$', views.change_password , name='password-change'),
+    url(r'^profile_update/$', views.profile_update, name='profile_update'),
+
 
 ]
