@@ -86,4 +86,18 @@
          $('#display-annotations-modal-highlighted-text').text('"' + $(this).text() + '"');
      });
 
+
+     $('.heritage-item-details-thumbnail-img-to-expand').attr( "data-toggle", "modal" );
+     $('.heritage-item-details-thumbnail-img-to-expand').attr( "data-target", "#heritage-item-details-add-annotation-on-image-modal" );
+     $('.heritage-item-details-thumbnail-img-to-expand').click(function() {
+         $('#heritage-item-details-add-annotation-on-image-modal-target-image').attr( "src", $( this ).children('img').attr('src') );
+     });
+
+
+     $('#heritage-item-annotate-but').click(function() {
+         introJs().start();
+     });
+
+
+
  });

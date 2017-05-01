@@ -32,6 +32,8 @@
         }
 
         .annotator-hl { cursor: pointer; }
+
+        .heritage-item-details-thumbnail-img-to-expand { cursor: pointer; }
     </style>
 
 </head>
@@ -119,7 +121,7 @@
                 <div class="card">
                     <div class="card-head card-head-lg style-primary">
                         <div class="col-md-12">
-                            <header id="heritage-item-title">
+                            <header id="heritage-item-title" data-step='1' data-intro='Hello there! This is a guide about how to annotate the heritage item you are inspecting right now. <br><br>You can annotate; <br>- the description text <br>- an image <br>- or a video of the heritage item'>
                                 Sultan Ahmed Mosque
                             </header>
                             <span><button type="button" class="btn ink-reaction btn-primary btn-xs active" id="heritage-item-annotate-but">Annotate</button></span>
@@ -130,7 +132,7 @@
                         </div>
 
                     </div><!--end .card-head -->
-                    <div class="card-body col-md-12" style="white-space: pre-wrap" id="heritage-item-description">
+                    <div class="card-body col-md-12" style="white-space: pre-wrap" id="heritage-item-description" data-step='2' data-intro="To annotate the description text, you need to select a fragment of text you want to add annotation. Then you will see a button appearing just above the right corner of selected fragment which opens you a dialog to add your annotation in one of the forms; text, image or video.">
                         The Sultan Ahmed Mosque or Sultan Ahmet Mosque (Turkish: Sultan Ahmet Camii) is a historic mosque located in Istanbul, Turkey. A popular tourist site, the Sultan Ahmed Mosque continues to function as a mosque today; men still kneel in prayer on the mosque's lush red carpet after the call to prayer. The Blue Mosque, as it is popularly known, was constructed between 1609 and 1616 during the rule of Ahmed I. Its Külliye contains Ahmed's tomb, a madrasah and a hospice.
 
                         After the Peace of Zsitvatorok and the crushing loss in the 1603–1618 war with Persia, Sultan Ahmet I, decided to build a large mosque in Istanbul to reassert Ottoman power. It would be the first imperial mosque for more than forty years. While his predecessors had paid for their mosques with the spoils of war, Ahmet I procured funds from the Treasury, because he had not gained remarkable victories.
@@ -188,31 +190,31 @@
                     <div class="col-md-12">
                         <div class="pull-left"><h4>Image(s)</h4></div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" data-step='3' data-intro="To annotate an image, click thumbnail of the image you want to annotate. When the dialog appears, you will see the image is expanded and you can select a region or point by using the tooltip. Following your selection, just add your comment and submit annotation.">
                         <div class="col-md-11 col-md-offset-1">
                             <div class="row">
                                 <div class="col-md-4" id="heritage-item-image-1">
-                                    <a href="#" class="thumbnail">
+                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Blue_Mosque_Courtyard_Dusk_Wikimedia_Commons.jpg">
                                     </a>
                                 </div>
                                 <div class="col-md-4" id="heritage-item-image-2">
-                                    <a href="#" class="thumbnail">
+                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
                                         <img src="https://images7.alphacoders.com/538/thumb-350-538098.jpg">
                                     </a>
                                 </div>
                                 <div class="col-md-4" id="heritage-item-image-3">
-                                    <a href="#" class="thumbnail">
+                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
                                         <img src="http://www.bluemosque.co/uploads/8/7/4/4/8744530/7682324_orig.jpg">
                                     </a>
                                 </div>
                                 <div class="col-md-4" id="heritage-item-image-4">
-                                    <a href="#" class="thumbnail">
+                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
                                         <img src="https://ka-perseus-images.s3.amazonaws.com/2bd6afdf5dae299fa7b8dcac625f42590be25eda.jpg">
                                     </a>
                                 </div>
                                 <div class="col-md-4" id="heritage-item-image-5">
-                                    <a href="#" class="thumbnail">
+                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
                                         <img src="http://holeinthedonut.smugmug.com/DailyPhotos/HITD-Daily-Photos/i-p6JmGWb/0/L/Turkey-Istanbul-Blue-Mosque-Interior3-L.jpg">
                                     </a>
                                 </div>
@@ -225,7 +227,7 @@
                     <div class="col-md-12">
                         <div class="pull-left"><h4>Video(s)</h4></div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" data-step='4' data-intro="Annotating a video is quite like annotating an image. To annotate an video, click thumbnail of the video you want to annotate. When the dialog appears, you will see the video is expanded and you can select a time interval or an instance by using the tooltip. Following your selection, just add your comment and submit your annotation.">
                         <div class="col-md-11 col-md-offset-1">
                             <div class="row">
                                 <div class="col-md-4" id="heritage-item-video-1">
@@ -378,7 +380,7 @@
                     <form class="form-horizontal" role="form">
                         <div class="modal-body tab-content">
                             <div class="tab-pane active" id="display-text-annotations-on-highlighted-text-tab">
-                                <div>
+                                <div class="heritage-item-text-annotation-on-description-comment">
                                     Ahmed I was the Sultan of the Ottoman Empire from 1603 until his death in 1617.
                                 </div>
                                 <div>
@@ -388,7 +390,7 @@
                                     &nbsp;
                                 </div>
                                 <hr>
-                                <div>
+                                <div class="heritage-item-text-annotation-on-description-comment">
                                     Ahmed ascended the throne after his father's death in 1603.
                                 </div>
                                 <div>
@@ -448,6 +450,45 @@
         <!-- END DISPLAY-ANNOTATIONS-ON-HIGHLIGHTED-TEXT MODAL MARKUP -->
 
 
+        <!-- BEGIN HERITAGE-ITEM-DETAILS-ANNOTATION-ON-IMAGE MODAL MARKUP -->
+        <div class="modal fade" id="heritage-item-details-add-annotation-on-image-modal" tabindex="-1" role="dialog" aria-labelledby="heritage-item-details-add-annotation-on-image-modal-label" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" id="heritage-item-details-add-annotation-on-image-modal-dialog" style="width: 75%;">
+                <div class="modal-content" style="overflow: auto; height: 100%">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="heritage-item-details-add-annotation-on-image-modal-close-but">×</button>
+                        <h4 class="modal-title" id="heritage-item-details-add-annotation-on-image-modal-label">Annotation on image</h4>
+                    </div>
+                    <div class="modal-body" style="overflow-y: auto; overflow-x: auto">
+                        <div class="col-md-9">
+                            <div>
+                                <img class="img-responsive" id="heritage-item-details-add-annotation-on-image-modal-target-image">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <div class="heritage-item-details-add-annotation-on-image-comment">
+                                    Truely an amazing view.
+                                </div>
+                                <div>
+                                    <div class="pull-right heritage-item-details-add-annotation-on-image-date">22/04/2017 - <span class="heritage-item-details-add-annotation-on-image-owner">Ece Mutlu</span></div>
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        &nbsp;
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END HERITAGE-ITEM-DETAILS-ANNOTATION-ON-IMAGE MODAL MARKUP -->
+
+
     </div><!--end #content-->
     <!-- END CONTENT -->
 
@@ -474,13 +515,18 @@
 <script src="assets/js/core/demo/Demo.js"></script>
 
 
-
-
-
 <!-- BEGIN MAPLACE JS -->
 <script src="https://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.22&key=AIzaSyDRPEdno_kUtxizDFj9JTyxHE3L57xhEGU"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplace-js/0.2.9/maplace.js"></script>
 <!-- END MAPLACE JS -->
+
+
+<!-- BEGIN IntroJS -->
+<script src="assets/intro.js-2.5.0/intro.js"></script>
+<link rel="stylesheet" href="assets/intro.js-2.5.0/introjs.css">
+<!-- END IntroJS -->
+
+
 <!-- END JAVASCRIPT -->
 
 <script type="text/javascript" src="assets/js/user.js"></script>
