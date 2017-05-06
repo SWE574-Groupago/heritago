@@ -8,19 +8,20 @@
             var cnt = 0;
                 $.each(data, function (key, item) {
                     if( cnt < 6 ) {
-                        items.push('<div class="col-md-4 nopadding">' +
+                        items.push('<a href="#">' +
+                            '<div class="col-md-4 nopadding">' +
                             '<div id="card0" class="thumbnail">' +
                             '<div class="card-head style-primary">' +
                             '<header>' + item.itemName + '</header>' +
                             '</div>' +
                             '<div class="nopadding divimg">' +
-                            '<a href="#">' +
                             '<img src="assets/img/' + item.imgSrc[0] + '" alt="assets/img/' + item.imgSrc[0] + '" class="bordered imgimg">' +
-                            '</a>' +
                             '</div>' +
                             '<div class="text-right">' + item.itemOwner + '</div>' +
                             '<div class="card-body">' + item.itemDesc + '</div>' +
-                            '</div></div>');
+                            '</div>' +
+                            '</div>' +
+                            '</a>');
                         cnt++;
                     }
                 });
