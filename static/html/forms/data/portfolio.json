@@ -1,0 +1,14 @@
+{
+	"userName":["Suzan Üsküdarlı"],
+	"usersItems":
+		[
+			{"itemName":"Anıtkabir", "itemOwner":"Suzan Üsküdarlı", "imgSrc":[ "ford-mustang-1967-fastback.jpg", "Spain_Bridge.jpg", "NYC_Bridge.jpg" ]},
+			{"itemName":"Sultanahmed Mosque", "itemOwner":"Sedefkâr Mehmed Ağa", "imgSrc":[ "ford-mustang-1967-fastback.jpg", "Spain_Bridge.jpg", "NYC_Bridge.jpg" ]},
+			{"itemName":"Great Wall of China", "itemOwner":"Ali Kara", "imgSrc":[ "ford-mustang-1967-fastback.jpg", "Spain_Bridge.jpg", "NYC_Bridge.jpg" ]},
+			{"itemName":"Eiffel Tower", "itemOwner":"Ali Kara", "imgSrc":[ "ford-mustang-1967-fastback.jpg", "Spain_Bridge.jpg", "NYC_Bridge.jpg" ]},
+			{"itemName":"Red Square", "itemOwner":"Ali Kara", "imgSrc":[ "ford-mustang-1967-fastback.jpg", "Spain_Bridge.jpg", "NYC_Bridge.jpg" ]},
+			{"itemName":"Taksim Square", "itemOwner":"Ali Kara", "imgSrc":[ "ford-mustang-1967-fastback.jpg", "Spain_Bridge.jpg", "NYC_Bridge.jpg" ]},
+			{"itemName":"Pisa Tower", "itemOwner":"Suzan Üsküdarlı", "imgSrc":[ "ford-mustang-1967-fastback.jpg", "Spain_Bridge.jpg", "NYC_Bridge.jpg" ]},
+			{"itemName":"Basilica Cistern", "itemOwner":"Emperor Justinian I", "imgSrc":[ "Cisterna_Basilica_Junto_a_Santa_Sofia_Estambul.jpg", "Spain_Bridge.jpg", "NYC_Bridge.jpg" ]}
+		]
+}
