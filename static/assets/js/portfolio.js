@@ -6,8 +6,6 @@
 		format: "json"
 	})
 		.done(function( data ) {
-			var count = 0;
-			var cnt = 0;
 			$.each( data, function(key, userName) {
 				$('#userName').text(userName);
 			});
@@ -16,18 +14,24 @@
 	$.getJSON( itemsJSON, {
 		format: "json"
 	})
-		.done(function( data ) {
-			var count = 0;
-			var cnt = 0;
-			$.each( data, function(key, item) {
-				$('#itemName' + count).text(item.itemName);
-				$('#itemOwner' + count).text(item.itemOwner);
-
-				for(cnt = 0; cnt <= 2; cnt++) {
-					$('#img' + count + cnt).attr("src", "assets/img/" + item.imgSrc[cnt]);
-					$('#img' + count + cnt).attr("alt", "assets/img/" + item.imgSrc[cnt]);
-				}
-				count++;
-			});
+        .done(function( data ) {
+            var items = [];
+            $.each( data, function(key, item) {
+                items.push('<div class="col-md-4 nopadding">' +
+                    '<a href="#">' +
+                    '<div id="card0" class="thumbnail">' +
+                    '<div class="card-head style-primary">' +
+                    '<header>' + item.itemName + '</header>' +
+                    '</div>' +
+                    '<div class="nopadding divimg">' +
+                    '<img src="assets/img/' + item.imgSrc[0] + '" alt="assets/img/' + item.imgSrc[0] + '" class="bordered imgimg center-block">' +
+                    '</div>' +
+                    '<div class="text-right">' + item.itemOwner + '</div>' +
+                    '<div class="card-body scrollDesc">' + item.itemDesc + '</div>' +
+                    '</div>' +
+                    '</a>' +
+                    '</div>');
+            });
+            $('#cards').append( items.join('') );
 		});
 })();

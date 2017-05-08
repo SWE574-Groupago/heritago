@@ -3,20 +3,11 @@
 	border: 1px solid #FFFFFF;
 }
 .imgimg {
-	height: 100%;
-	width: auto;
-}
-.divimg {
-	height: 3.5em;
+	max-height: 10em;
 }
 .nopadding {
 	padding: 0 !important;
 	margin: 0 !important;
-}
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-	width: 70%;
-	margin: auto;
 }
 .searchNoMargin {
 	margin: 0.3em 0 0 1em;
@@ -24,4 +15,15 @@
 .noBreak {
 	text-indent: 2%;
 	display: inline;
+}
+.hidden {
+	display: none !important;
+	visibility: hidden !important;
+}
+.scrollDesc{
+	height: 20em;
+	overflow: scroll;
+}
+#AnyTime--normDate, #AnyTime--startDate, #AnyTime--endDate {
+    opacity: 1;
 }
