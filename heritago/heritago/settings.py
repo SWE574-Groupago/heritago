@@ -125,3 +125,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "../static"),
 ]
 
+ELASTICSEARCH_URL = "elastic:changeme@localhost"
+
+HERITAGE_SEARCH = {
+    "INDEX": "heritages",
+    "TYPE": "heritages"
+}
