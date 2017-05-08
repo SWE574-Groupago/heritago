@@ -94,9 +94,10 @@
      });
 
 
-     $('#heritage-item-annotate-but').click(function() {
+     $('#heritage-item-guide-but').click(function() {
          introJs().start();
      });
+     
 
 
 

@@ -124,7 +124,7 @@
                             <header id="heritage-item-title" data-step='1' data-intro='Hello there! This is a guide about how to annotate the heritage item you are inspecting right now. <br><br>You can annotate; <br>- the description text <br>- an image <br>- or a video of the heritage item'>
                                 Sultan Ahmed Mosque
                             </header>
-                            <span><button type="button" class="btn ink-reaction btn-primary btn-xs active" id="heritage-item-annotate-but">Annotate</button></span>
+                            <span><button type="button" class="btn ink-reaction btn-primary btn-xs active" id="heritage-item-guide-but">Guide</button></span>
                         </div>
                         <div class="col-md-12" style="height: 4em">
                             <div class="pull-left" id="heritage-item-total-no-annotations">189</div><span>&nbsp;annotation(s)</span>
@@ -282,10 +282,34 @@
                             <div class="tab-pane active" id="annotate-description-by-text-tab">
                                 <div class="form-group">
                                     <div class="col-sm-3">
-                                        <label for="add-annotation-on-description-modal-textarea">Comment :</label>
+                                        <label for="add-annotation-on-description-modal-select-motivation">Select motivation:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select id="add-annotation-on-description-modal-select-motivation" name="add-annotation-on-description-modal-select-motivation" class="form-control">
+                                            <option value="">&nbsp;</option>
+                                            <option value="commenting">commenting</option>
+                                            <option value="describing">describing</option>
+                                            <option value="questioning">questioning</option>
+                                            <option value="replying">replying</option>
+                                            <option value="linking">linking</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-textarea">Textual body:&nbsp;</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <textarea id="add-annotation-on-description-modal-textarea" class="form-control" rows="3" placeholder="type here"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-url">Link to resource:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="add-annotation-on-description-modal-url">
                                     </div>
                                 </div>
                                 <div class="form-group">
