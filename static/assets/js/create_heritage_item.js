@@ -23,8 +23,42 @@ $(function() {
     });
 
 
+    AnyTime.picker( "create_new_heritage_item_start_date",
+        {
+            format: "%e %b %Y %E",
+            formatUtcOffset: "%: (%@)",
+            placement: "popup",
+            latest: new Date()
+        }
+    );
 
+    AnyTime.picker( "create_new_heritage_item_end_date",
+        {
+            format: "%e %b %Y %E",
+            formatUtcOffset: "%: (%@)",
+            placement: "popup",
+            latest: new Date()
+        }
+    );
 
+    AnyTime.picker( "create_new_heritage_item_exact_date",
+        {
+            format: "%e %b %Y %E",
+            formatUtcOffset: "%: (%@)",
+            placement: "popup",
+            latest: new Date()
+        }
+    );
+
+    $( "#create_new_heritage_item_clear_start_date_but" ).click(function() {
+        $( "#create_new_heritage_item_start_date" ).val("");
+    });
+    $( "#create_new_heritage_item_clear_end_date_but" ).click(function() {
+        $( "#create_new_heritage_item_end_date" ).val("");
+    });
+    $( "#create_new_heritage_item_clear_exact_date_but" ).click(function() {
+        $( "#create_new_heritage_item_exact_date" ).val("");
+    });
 
 });
 
