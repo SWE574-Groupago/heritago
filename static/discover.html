@@ -109,11 +109,11 @@
 				</ol>
 			</div>
 			<!-- BEGIN CARDSCONTAINER -->
-			<div class="col-md-offset-1 col-md-5">
+			<div class="col-md-offset-1 col-md-7">
 				<div class="card tabs-left style-default-light">
 					<br/>
 					<div class="col-md-12">
-						<div class="input-group">
+						<div class="form-group">
 							<div id="enterSearch" class="col-md-5">
 								<input class="form-control" placeholder="Enter Your Search">
 							</div>
@@ -128,152 +128,94 @@
 							</div>
 							<div id="butAdvSearchHidden" class="hidden">
 								<div class="col-md-12">
-								<a class="btn btn-block btn-raised btn-primary" onclick="hideAdv()" >
-									Normal Search
-									<label class="glyphicon glyphicon-arrow-up"></label>
-								</a>
+									<div class="col-md-4 nopadding">
+									<a class="btn btn-block btn-raised btn-primary" onclick="hideAdv()" >
+										Normal Search
+										<label class="glyphicon glyphicon-arrow-up"></label>
+									</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<div class="col-md-12"><br/></div>
 					<div id="advSearch" class="hidden">
 						<div class="col-md-12">
-							<div class="input-group">
-								<div class="col-md-10">
+							<div class="form-group">
+								<div class="col-md-4">
 									<input class="form-control" placeholder="User Search">
 								</div>
 								<div class="col-md-2"></div>
 							</div>
 						</div>
-						<br/>
-						<br/>
 						<!-- BEGIN SEARCH TITLE BUTTON -->
 						<div class="col-md-12">
-							<div class="input-group">
-								<div class="col-md-10">
+							<div class="form-group">
+								<div class="col-md-4">
 									<input class="form-control" placeholder="Title Search">
 								</div>
 								<div class="col-md-2"></div>
 							</div>
 						</div>
 						<!-- END SEARCH TITLE BUTTON -->
-						<br/>
-						<br/>
 						<!-- BEGIN DESCRIPTION SEARCH BUTTON -->
 						<div class="col-md-12">
-							<div class="input-group">
-								<div class="col-md-10">
+							<div class="form-group">
+								<div class="col-md-4">
 									<input class="form-control" placeholder="Description Search">
 								</div>
 								<div class="col-md-2"></div>
 							</div>
 						</div>
 						<!-- END DESCRIPTION SEARCH BUTTON -->
-						<br/>
-						<br/>
-						<!-- BEGIN TAG SEARCH BUTTON -->
-						<div class="col-md-12">
-							<div class="input-group">
-								<div class="col-md-10">
-									<input class="form-control" placeholder="Tag Search">
-								</div>
-								<div class="col-md-2"></div>
-							</div>
-						</div>
-						<!-- END TAG SEARCH BUTTON -->
                         <div class="col-md-12"><br/></div>
 						<!-- BEGIN COUNTRY ORIGIN AUTOCOMPLETE -->
-						<div class="col-md-4">
-							<h4 class="searchNoMargin">Country Origin</h4>
+						<div class="col-md-3">
+							<h4 >Origin Search</h4>
 						</div>
-						<div class="col-md-7">
-                            <div class="col-md-2 nopadding noBreak">
-                                <h3 class="nopadding noBreak">1</h3>
-                            </div>
-                            <div class="btn-group col-md-10 nopadding noBreak">
-                                <input id="autocomplete1" type="text" class="autocomplete form-control" data-source="http://localhost:3000/Countries" placeholder="Countries">
-                            </div>
+						<div class="col-md-4 btn-group">
+							<input id="autocomplete1" type="text" class="form-control" data-source="http://localhost:3000/Countries" placeholder="Countries" >
                         </div>
-						<div class="col-md-1" onclick="addCountry()" >
-							<div class="glyphicon glyphicon-plus">
-							</div>
-						</div>
-						<br/>
-						<div id="countries" class="col-md-12" ></div>
+						<div class="col-md-5"></div>
                         <!-- END COUNTRY ORIGIN AUTOCOMPLETE -->
-                        <div class="col-md-12"><br/></div>
-                        <!-- BEGIN CITY ORIGIN AUTOCOMPLETE -->
-                        <div class="col-md-4">
-                            <h4 class="searchNoMargin">City Origin</h4>
-                        </div>
-                        <div class="col-md-7">
-                            <div class="col-md-2 nopadding noBreak">
-                                <h3 class="nopadding noBreak">1</h3>
-                            </div>
-                            <div class="form-group col-md-10 nopadding noBreak">
-                                <input id="autocomplete101" type="text" class="autocomplete form-control" data-source="http://localhost:3000/Turkey" placeholder="Cities">
-                            </div>
-                        </div>
-						<div class="col-md-1" onclick="addCity()" >
-							<div class="glyphicon glyphicon-plus">
-							</div>
-						</div>
-						<br/>
-						<div id="cities" class="col-md-12" ></div>
-                        <!-- END CITY ORIGIN AUTOCOMPLETE -->
-                        <div class="col-md-12"><br/></div>
-						<!-- BEGIN DATE -->
-						<div class="col-md-8">
-							<form class="form">
-								<div class="form-group control-width-normal">
-									<div class="input-group date searchNoMargin demo-date">
-										<div class="input-group-content">
-											<input id="normDate" type="text" class="form-control">
-											<label>Date</label>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
-						<!-- END DATE -->
-						<br/>
-						<br/>
+						<div class="col-md-12"><br/></div>
 						<!-- BEGIN START DATE -->
-						<div class="col-md-8">
+						<div class="col-md-4">
 							<form class="form">
 								<div class="form-group control-width-normal">
-									<div class="input-group date searchNoMargin demo-date">
+									<div class="form-group searchNoMargin">
                                         <div class="input-group-content">
                                             <input id="startDate" type="text" class="form-control">
-                                            <label>Start Date</label>
+                                            <label>Interval Beginning Date</label>
                                         </div>
 									</div>
 								</div>
 							</form>
 						</div>
+                        <div class="col-md-8"></div>
 						<!-- END START DATE -->
-						<br/>
-						<br/>
-						<br/>
+						<div class="col-md-12"><br/></div>
 						<!-- BEGIN END DATE -->
-						<div class="col-md-8">
+						<div class="col-md-4">
 							<form class="form">
 								<div class="form-group control-width-normal">
-									<div class="input-group date searchNoMargin demo-date">
+									<div class="form-group searchNoMargin">
 										<div class="input-group-content">
 											<input id="endDate" type="text" class="form-control">
-											<label>End Date</label>
+											<label>Interval Ending Date</label>
 										</div>
 									</div>
 								</div>
 							</form>
 						</div>
+                        <div class="col-md-8"></div>
 						<!-- END END DATE -->
 						<!-- BEGIN SEARCH BUTTON -->
-						<div class="col-md-9">
+                        <div class="col-md-11">
 							<button type="button" class="btn pull-right ink-reaction btn-raised btn-primary searchNoMargin">Search</button>
+                        </div>
+                        <div class="col-md-1"></div>
 						</div>
-						<div class="col-md-3"></div>
 						<!-- END SEARCH BUTTON -->
                         <div class="col-md-12"><br/></div>
 					</div>
