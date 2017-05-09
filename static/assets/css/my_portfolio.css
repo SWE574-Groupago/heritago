@@ -1,0 +1,15 @@
+.nopadding {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.noBreak {
+	text-indent: 2%;
+	display: inline;
+}
+.scrollDesc{
+	height: 20em;
+	overflow: scroll;
+}
+.imgimg {
+	max-height: 10em;
+}
