@@ -31,7 +31,7 @@
 	<![endif]-->
 
 </head>
-<body class="menubar-hoverable header-fixed" onload="cityAC101()">
+<body class="menubar-hoverable header-fixed">
 
 <!-- BEGIN HEADER-->
 <header id="header" >
@@ -111,121 +111,78 @@
 			<!-- BEGIN CARDSCONTAINER -->
 			<div class="col-md-offset-1 col-md-7">
 				<div class="card tabs-left style-default-light">
-					<br/>
-					<div class="col-md-12">
-						<div class="form-group">
-							<div id="enterSearch" class="col-md-5">
-								<input class="form-control" placeholder="Enter Your Search">
-							</div>
-							<div id="enterSearchButton" class="col-md-2">
-								<button class="btn btn-default glyphicon glyphicon-search" type="button"></button>
-							</div>
-							<div id="butAdvSearchShow" class="col-md-5">
-								<a class="btn btn-block btn-raised btn-primary" onclick="showAdv()" >
-									Advanced Search
-									<label class="glyphicon glyphicon-arrow-down"></label>
-								</a>
-							</div>
-							<div id="butAdvSearchHidden" class="hidden">
-								<div class="col-md-12">
-									<div class="col-md-4 nopadding">
-									<a class="btn btn-block btn-raised btn-primary" onclick="hideAdv()" >
-										Normal Search
-										<label class="glyphicon glyphicon-arrow-up"></label>
-									</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12"><br/></div>
-					<div id="advSearch" class="hidden">
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="col-md-4">
-									<input class="form-control" placeholder="User Search">
-								</div>
-								<div class="col-md-2"></div>
-							</div>
-						</div>
-						<!-- BEGIN SEARCH TITLE BUTTON -->
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="col-md-4">
-									<input class="form-control" placeholder="Title Search">
-								</div>
-								<div class="col-md-2"></div>
-							</div>
-						</div>
-						<!-- END SEARCH TITLE BUTTON -->
-						<!-- BEGIN DESCRIPTION SEARCH BUTTON -->
-						<div class="col-md-12">
-							<div class="form-group">
-								<div class="col-md-4">
-									<input class="form-control" placeholder="Description Search">
-								</div>
-								<div class="col-md-2"></div>
-							</div>
-						</div>
-						<!-- END DESCRIPTION SEARCH BUTTON -->
-                        <div class="col-md-12"><br/></div>
-						<!-- BEGIN COUNTRY ORIGIN AUTOCOMPLETE -->
-						<div class="col-md-3">
-							<h4 >Origin Search</h4>
-						</div>
-						<div class="col-md-4 btn-group">
-							<input id="autocomplete1" type="text" class="form-control" data-source="http://localhost:3000/Countries" placeholder="Countries" >
+                    <div class="col-md-12"><br/></div>
+                    <div class="form-group">
+                        <div id="enterSearch" class="col-md-5">
+                            <input class="form-control" placeholder="Enter Your Search">
                         </div>
-						<div class="col-md-5"></div>
-                        <!-- END COUNTRY ORIGIN AUTOCOMPLETE -->
-						<div class="col-md-12"><br/></div>
-						<!-- BEGIN START DATE -->
-						<div class="col-md-4">
-							<form class="form">
-								<div class="form-group control-width-normal">
-									<div class="form-group searchNoMargin">
+                        <div id="enterSearchButton" class="col-md-2">
+                            <button class="btn btn-default glyphicon glyphicon-search" type="button"></button>
+                        </div>
+                        <div id="butAdvSearchShow" class="col-md-5">
+                            <a class="btn btn-block btn-raised btn-primary" onclick="showAdv()" >
+                                Advanced Search
+                                <label class="glyphicon glyphicon-arrow-down"></label>
+                            </a>
+                        </div>
+                        <div id="butAdvSearchHidden" class="hidden">
+                            <div class="col-md-5">
+                                <a class="btn btn-block btn-raised btn-primary" onclick="hideAdv()" >
+                                    Normal Search
+                                    <label class="glyphicon glyphicon-arrow-up"></label>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+					<div class="col-md-12"><br/></div>
+                    <div class="col-md-12"><br/></div>
+                    <div class="col-md-12"><br/></div>
+					<div id="advSearch" class="hidden">
+                        <!-- Without that autocomplete, datepicker does not work properly. -->
+                        <input id="autocomplete1" type="text" class="form-control hidden" data-source="http://localhost:3000/Countries" placeholder="Countries" >
+                        <!-- BEGIN INTERVAL BEGINNING DATE -->
+                        <div class="col-md-6">
+                            <form class="form">
+                                <div class="form-group control-width-normal">
+                                    <div class="form-group">
                                         <div class="input-group-content">
                                             <input id="startDate" type="text" class="form-control">
                                             <label>Interval Beginning Date</label>
                                         </div>
-									</div>
-								</div>
-							</form>
-						</div>
-                        <div class="col-md-8"></div>
-						<!-- END START DATE -->
-						<div class="col-md-12"><br/></div>
-						<!-- BEGIN END DATE -->
-						<div class="col-md-4">
-							<form class="form">
-								<div class="form-group control-width-normal">
-									<div class="form-group searchNoMargin">
-										<div class="input-group-content">
-											<input id="endDate" type="text" class="form-control">
-											<label>Interval Ending Date</label>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
-                        <div class="col-md-8"></div>
-						<!-- END END DATE -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- BEGIN INTERVAL BEGINNING DATE -->
+                        <!-- BEGIN INTERVAL ENDING DATE -->
+                        <div class="col-md-6">
+                            <form class="form">
+                                <div class="form-group control-width-normal">
+                                    <div class="form-group">
+                                        <div class="input-group-content">
+                                            <input id="endDate" type="text" class="form-control">
+                                            <label>Interval Ending Date</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- END INTERVAL ENDING DATE -->
 						<!-- BEGIN SEARCH BUTTON -->
                         <div class="col-md-11">
-							<button type="button" class="btn pull-right ink-reaction btn-raised btn-primary searchNoMargin">Search</button>
+							<button type="button" class="btn pull-right ink-reaction btn-raised btn-primary">Search</button>
                         </div>
                         <div class="col-md-1"></div>
-						</div>
 						<!-- END SEARCH BUTTON -->
-                        <div class="col-md-12"><br/></div>
+                    </div>
+                    <div class="col-md-12"><br/></div>
 					</div>
                     <div class="col-md-12"><br/></div>
-                    <div id="cards" class="nopadding"></div>
+                    <div id="cards" class="col-md-12 nopadding"></div>
 				</div>
-			</div>
-		</section>
+		    </section>
+        </div>
 	</div>
-</div>
 <!-- END #BASE -->
 
 <!-- BEGIN JAVASCRIPT -->

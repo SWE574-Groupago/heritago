@@ -14,7 +14,7 @@
                             '<div class="card-head style-primary">' +
                             '<header>' + item.itemName + '</header>' +
                             '</div>' +
-                            '<div class="nopadding divimg">' +
+                            '<div class="nopadding">' +
                             '<img src="assets/img/' + item.imgSrc[0] + '" alt="assets/img/' + item.imgSrc[0] + '" class="bordered imgimg center-block">' +
                             '</div>' +
                             '<div class="text-right">' + item.itemOwner + '</div>' +
@@ -51,32 +51,10 @@ function showAdv() {
     $('#advSearch').removeClass('hidden');
     $('#butAdvSearchHidden').removeClass('hidden');
     $('#butAdvSearchShow').addClass('hidden');
-    $('#enterSearch').addClass('hidden');
-    $('#enterSearchButton').addClass('hidden');
 }
 
 function hideAdv() {
     $('#advSearch').addClass('hidden');
     $('#butAdvSearchHidden').addClass('hidden');
     $('#butAdvSearchShow').removeClass('hidden');
-    $('#enterSearch').removeClass('hidden');
-    $('#enterSearchButton').removeClass('hidden');
 }
-
-$('#ulOriginCountries0 li').on("click", function() {
-    $('#butOriginCountries0').text($(this).text());
-});
-
-$('#ulOriginCities0 li').on("click", function() {
-    $('#butOriginCities0').text($(this).text());
-    alert($(this).text());
-});
-
-$('#ulOriginCountries1 li').on("click", function() {
-    $('#butOriginCountries1').text($(this).text());
-});
-
-$('#ulOriginCities1 li').on("click", function() {
-    $('#butOriginCities1').text($(this).text());
-    alert($(this).text());
-});
