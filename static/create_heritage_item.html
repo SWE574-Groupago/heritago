@@ -170,25 +170,15 @@
                                 <div class="col-md-12">
                                     <div class="col-md-11">
                                         <div class="form-group floating-label">
-                                            <input type="text" class="form-control" id="create_new_heritage_item_free_origin_1">
-                                            <label for="create_new_heritage_item_free_origin_1">Origin (free-text field)</label>
+                                            <input type="text" class="form-control create_new_heritage_item_free_origin">
+                                            <label>Origin (free-text field)</label>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
-                                        <button type="button" class="btn ink-reaction btn-floating-action btn-primary"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn ink-reaction btn-floating-action btn-primary add-free-origin-field-but"><i class="fa fa-plus"></i></button>
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="col-md-11">
-                                        <div class="form-group">
-                                            <input type="text" id="create_new_heritage_item_origin_country_1" class="form-control ui-autocomplete-input" data-source="html/forms/data/countries.json" placeholder="Origin Country" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <button type="button" class="btn ink-reaction btn-floating-action btn-primary"><i class="fa fa-plus"></i></button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </form>
@@ -207,25 +197,26 @@
                             <div class="col-md-12">
                                 e.g. Architect (key) - Sedefkar Mehmed Agha (value)
                             </div>
-                            <div class="col-md-5">
-                                <div class="form-group floating-label">
-                                    <input type="text" class="form-control" id="create_new_heritage_item_basic_info_key_1">
-                                    <label for="create_new_heritage_item_basic_info_key_1">key</label>
+                            <div class="col-md-12">
+                                <div class="col-md-5">
+                                    <div class="form-group floating-label">
+                                        <input type="text" class="form-control">
+                                        <label>key</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group floating-label">
+                                        <input type="text" class="form-control">
+                                        <label>value</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn ink-reaction btn-floating-action btn-primary add-key-value-field-but"><i class="fa fa-plus"></i></button>
                                 </div>
                             </div>
-                            <div class="col-md-1">
-                                &nbsp;
-                            </div>
-                            <div class="col-md-5">
-                                <div class="form-group floating-label">
-                                    <input type="text" class="form-control" id="create_new_heritage_item_basic_info_value_1">
-                                    <label for="create_new_heritage_item_basic_info_value_1">value</label>
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <button type="button" class="btn ink-reaction btn-floating-action btn-primary"><i class="fa fa-plus"></i></button>
-                            </div>
-
                         </div>
 
                     </div>
@@ -241,35 +232,52 @@
                             <header>Geo-Location</header>
                         </div>
                         <div class="card-body">
-                            <div class="col-md-12">
+                            <form class="form" role="form">
+                                <div class="form-group floating-label">
+                                    <select id="create_new_heritage_item_select_map_type" name="create_new_heritage_item_select_map_type" class="form-control">
+                                        <option value="not-selected" selected>select a marker/region type</option>
+                                        <option value="pin">pin</option>
+                                        <option value="circle">circle</option>
+                                        <option value="polygon">polygon</option>
+                                        <option value="path-polyline">path-polyline</option>
+                                    </select>
+                                    <label for="create_new_heritage_item_select_map_type">Make sure you have selected a map type from dropdown below if you want to include geo-location for your item</label>
+                                </div>
+                            </form>
+                            <div class="col-md-12 create_new_heritage_item_map_container" id="create_new_heritage_item_pin_gmap_container">
                                 <div class="col-md-10 col-md-offset-1">
-                                    <div id="create_new_heritage_item_gmap" style="height:300px;"></div>
+                                    <div id="create_new_heritage_item_pin_gmap" style="height:300px;"></div>
                                 </div>
                                 <div class="col-md-1">
                                     &nbsp;
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                &nbsp;
-                            </div>
-                            <div class="col-md-12">
-                                <div class="col-md-5 col-md-offset-1">
-                                    Latitude:&nbsp;<span id="create_new_heritage_item_lat"></span>
-                                </div>
-                                <div class="col-md-5">
-                                    Longitude:&nbsp;<span id="create_new_heritage_item_lon"></span>
+                            <div class="col-md-12 create_new_heritage_item_map_container" id="create_new_heritage_item_circle_gmap_container">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div id="create_new_heritage_item_circle_gmap" style="height:300px;"></div>
                                 </div>
                                 <div class="col-md-1">
                                     &nbsp;
                                 </div>
                             </div>
-                            <div class="row justify-content-md-center">
-                                <div class="col-12 col-md-auto">
-                                    <button type="button" class="btn btn-block ink-reaction btn-default-light" style="text-transform: none" id="create_new_heritage_item_clear_coord_but">Clear Coordinates</button>
+                            <div class="col-md-12 create_new_heritage_item_map_container" id="create_new_heritage_item_polygon_gmap_container">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div id="create_new_heritage_item_polygon_gmap" style="height:300px;"></div>
+                                </div>
+                                <div class="col-md-1">
+                                    &nbsp;
                                 </div>
                             </div>
-
+                            <div class="col-md-12 create_new_heritage_item_map_container" id="create_new_heritage_item_polyline_gmap_container">
+                                <div class="col-md-10 col-md-offset-1">
+                                    <div id="create_new_heritage_item_path_polyline_gmap" style="height:300px;"></div>
+                                </div>
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                            </div>
                         </div>
+
 
                     </div>
                 </div>
@@ -284,7 +292,7 @@
                             <header>Image uploader</header>
                         </div>
                         <div class="card-body no-padding">
-                            <form action="../../html/forms/advanced.html" class="dropzone" id="create_new_heritage_item_dropzone">
+                            <form action="../static/html/forms/advanced.html" class="dropzone" id="create_new_heritage_item_dropzone">
                                 <div class="dz-message">
                                     <h3>Drop images here or click to upload.</h3>
                                     <em>(Only images.)</em>
