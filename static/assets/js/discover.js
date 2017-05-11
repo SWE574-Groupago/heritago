@@ -1,5 +1,5 @@
 (function() {
-	var itemsJSON = "http://localhost:3000/searchItems";
+	var itemsJSON = "http://localhost:8000/api/v1/heritages";
 	$.getJSON( itemsJSON, {
 		format: "json"
 	})
@@ -7,23 +7,29 @@
             var items = [];
             var cnt = 0;
                 $.each(data, function (key, item) {
-                    if( cnt < 6 ) {
+
+
+                        if (item.multimedia.length > 0 )
+                            var preview = item.multimedia[0].url;
+                        else
+                            var preview = "placeholder.png";
+
                         items.push('<div class="col-md-4 nopadding">' +
-                            '<a href="#">' +
+                            '<a href="heritage.html?'+item.id+'">' +
                             '<div id="card0" class="thumbnail">' +
                             '<div class="card-head style-primary">' +
-                            '<header>' + item.itemName + '</header>' +
+                            '<header>' + item.title + '</header>' +
                             '</div>' +
                             '<div class="nopadding">' +
-                            '<img src="assets/img/' + item.imgSrc[0] + '" alt="assets/img/' + item.imgSrc[0] + '" class="bordered imgimg center-block">' +
+                            '<img src="/api/v1' + preview + '" alt="preview" class="bordered imgimg center-block">' +
                             '</div>' +
-                            '<div class="text-right">' + item.itemOwner + '</div>' +
-                            '<div class="card-body scrollDesc">' + item.itemDesc + '</div>' +
+                            '<div class="text-right">Not Implemented</div>' +
+                            '<div class="card-body scrollDesc">' + item.description + '</div>' +
                             '</div>' +
                             '</a>' +
                             '</div>');
                         cnt++;
-                    }
+
                 });
             $('#cards').append(items.join(''));
 		});
