@@ -15,6 +15,10 @@ class Heritage(models.Model):
     annotationCount = models.IntegerField(default=0)
     tags = models.ManyToManyField(to=Tag, related_name="tags")
 
+    startDate = models.TextField()
+    endDate = models.TextField()
+    exactDate = models.TextField()
+
     def delete(self, using=None, keep_parents=False):
         for m in self.multimedia.all():
             m.delete()
@@ -53,6 +57,7 @@ class Multimedia(models.Model):
     type = models.CharField(choices=CATEGORIES.to_set(), max_length=10)
     url = models.URLField()
     file = models.FileField(upload_to="uploads/")
+    meta = models.TextField()
 
     def delete(self, using=None, keep_parents=False):
         os.remove(os.path.join(self.file.name))
