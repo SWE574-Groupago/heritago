@@ -119,25 +119,11 @@
                         <div id="enterSearchButton" class="col-md-2">
                             <button class="btn btn-default glyphicon glyphicon-search" type="button"></button>
                         </div>
-                        <div id="butAdvSearchShow" class="col-md-5">
-                            <a class="btn btn-block btn-raised btn-primary" onclick="showAdv()" >
-                                Advanced Search
-                                <label class="glyphicon glyphicon-arrow-down"></label>
-                            </a>
-                        </div>
-                        <div id="butAdvSearchHidden" class="hidden">
-                            <div class="col-md-5">
-                                <a class="btn btn-block btn-raised btn-primary" onclick="hideAdv()" >
-                                    Normal Search
-                                    <label class="glyphicon glyphicon-arrow-up"></label>
-                                </a>
-                            </div>
-                        </div>
                     </div>
 					<div class="col-md-12"><br/></div>
                     <div class="col-md-12"><br/></div>
                     <div class="col-md-12"><br/></div>
-					<div id="advSearch" class="hidden">
+					<div id="advSearch">
                         <!-- Without that autocomplete, datepicker does not work properly. -->
                         <input id="autocomplete1" type="text" class="form-control hidden" data-source="http://localhost:3000/Countries" placeholder="Countries" >
                         <!-- BEGIN INTERVAL BEGINNING DATE -->
@@ -168,12 +154,6 @@
                             </form>
                         </div>
                         <!-- END INTERVAL ENDING DATE -->
-						<!-- BEGIN SEARCH BUTTON -->
-                        <div class="col-md-11">
-							<button type="button" class="btn pull-right ink-reaction btn-raised btn-primary">Search</button>
-                        </div>
-                        <div class="col-md-1"></div>
-						<!-- END SEARCH BUTTON -->
                     </div>
                     <div class="col-md-12"><br/></div>
 					</div>

@@ -46,15 +46,3 @@ AnyTime.picker( "endDate",
         latest: new Date()
     }
 );
-
-function showAdv() {
-    $('#advSearch').removeClass('hidden');
-    $('#butAdvSearchHidden').removeClass('hidden');
-    $('#butAdvSearchShow').addClass('hidden');
-}
-
-function hideAdv() {
-    $('#advSearch').addClass('hidden');
-    $('#butAdvSearchHidden').addClass('hidden');
-    $('#butAdvSearchShow').removeClass('hidden');
-}
