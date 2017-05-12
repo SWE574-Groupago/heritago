@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Heritago - Heritage Item Details</title>
+
+    <!-- BEGIN META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="your,keywords">
+    <meta name="description" content="Short explanation about this website">
+    <!-- END META -->
+
+    <!-- BEGIN STYLESHEETS -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/bootstrap.css?1422792965" />
+    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/materialadmin.css?1425466319" />
+    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/font-awesome.min.css?1422529194" />
+    <link type="text/css" rel="stylesheet" href="assets/css/theme-default/material-design-iconic-font.min.css?1421434286" />
+    <link type="text/css" rel="stylesheet" href="assets/css/autocomplete.css" />
+    <!-- END STYLESHEETS -->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="assets/js/libs/utils/html5shiv.js?1403934957"></script>
+    <script type="text/javascript" src="assets/js/libs/utils/respond.min.js?1403934956"></script>
+    <![endif]-->
+
+    <style>
+        #heritage-item-description {
+            height: 16em;
+            overflow: hidden;
+        }
+
+        .annotator-hl { cursor: pointer; }
+
+        .heritage-item-details-thumbnail-img-to-expand { cursor: pointer; }
+    </style>
+
+</head>
+<body class="menubar-hoverable header-fixed ">
+
+<!-- BEGIN HEADER-->
+<header id="header" >
+    <div class="headerbara">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class=" navbar navbar-default">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand">
+                    <div class="brand-holder">
+                        <a href="home.html">
+                            <span class="text-lg text-bold text-primary">HERITAGO</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav main-text-nav">
+                    <li><a href="discover.html">Discover</a></li>
+                    <li ><!--class="active" --> <a href="create.html">Create</a></li>
+                    <li><a href="my_portfolio.html">My portfolio</a></li>
+                    <li><a href="my_annotations.html">My annotations</a></li>
+                </ul>
+
+                <div class="nav navbar-nav navbar-right">
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="headerbar-right">
+                        <ul class="header-nav header-nav-options">
+                        </ul><!--end .header-nav-options -->
+
+                        <ul class="header-nav header-nav-profile user-profile">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
+                                    <img src="assets/img/avatar.png" alt="" class="avatar" />
+                                    <span class="profile-info name">
+                                                Suzan Üsküdarlı
+                                            </span>
+                                </a>
+                                <ul class="dropdown-menu animation-dock">
+                                    <li class="dropdown-header">Settings</li>
+                                    <li><a href="my_profile.html">My profile</a></li>
+                                    <li><a href="change_password.html">Change password</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#" class="logout"><i class="fa fa-fw fa-lock"></i> Logout</a></li>
+                                </ul><!--end .dropdown-menu -->
+                            </li><!--end .dropdown -->
+                        </ul><!--end .header-nav-profile -->
+
+                    </div><!--end #header-navbar-collapse -->
+                </div>
+
+            </div> <!--collapse navbar-collapse -->
+
+        </div>
+
+
+    </div>
+</header>
+<!-- END HEADER-->
+
+<!-- BEGIN BASE-->
+<div id="base">
+
+    <!-- BEGIN CONTENT-->
+    <div id="content">
+        <section>
+            <div class="section-header">
+                <ol class="breadcrumb">
+                    <li>Heritage Item Details</li>
+                </ol>
+            </div>
+            <div class="col-md-offset-1 col-md-7">
+                <div class="card">
+                    <div class="card-head card-head-lg style-primary">
+                        <div class="col-md-12">
+                            <header id="heritage-item-title" data-step='1' data-intro='Hello there! This is a guide about how to annotate the heritage item you are inspecting right now. <br><br>You can annotate; <br>- the description text <br>- an image <br>- or a video of the heritage item'>
+                                Sultan Ahmed Mosque
+                            </header>
+                            <span><button type="button" class="btn ink-reaction btn-primary btn-xs active" id="heritage-item-guide-but">Guide</button></span>
+                        </div>
+                        <div class="col-md-12" style="height: 4em">
+                            <div class="pull-left" id="heritage-item-total-no-annotations">189</div><span>&nbsp;annotation(s)</span>
+                            <div class="pull-right" id="heritage-item-owner">Suzan Üsküdarlı</div>
+                        </div>
+
+                    </div><!--end .card-head -->
+                    <div class="card-body col-md-12" style="white-space: pre-wrap" id="heritage-item-description" data-step='2' data-intro="To annotate the description text, you need to select a fragment of text you want to add annotation. Then you will see a button appearing just above the right corner of selected fragment which opens you a dialog to add your annotation in one of the forms; text, image or video.">
+                        The Sultan Ahmed Mosque or Sultan Ahmet Mosque (Turkish: Sultan Ahmet Camii) is a historic mosque located in Istanbul, Turkey. A popular tourist site, the Sultan Ahmed Mosque continues to function as a mosque today; men still kneel in prayer on the mosque's lush red carpet after the call to prayer. The Blue Mosque, as it is popularly known, was constructed between 1609 and 1616 during the rule of Ahmed I. Its Külliye contains Ahmed's tomb, a madrasah and a hospice.
+
+                        After the Peace of Zsitvatorok and the crushing loss in the 1603–1618 war with Persia, Sultan Ahmet I, decided to build a large mosque in Istanbul to reassert Ottoman power. It would be the first imperial mosque for more than forty years. While his predecessors had paid for their mosques with the spoils of war, Ahmet I procured funds from the Treasury, because he had not gained remarkable victories.
+
+                        It caused the anger of the ulema, the Muslim jurists. The mosque was built on the site of the palace of the Byzantine emperors, in front of the basilica Hagia Sophia (at that time, the primary imperial mosque in Istanbul) and the hippodrome, a site of significant symbolic meaning as it dominated the city skyline from the south. Big parts of the south shore of the mosque rest on the foundations, the vaults of the old Grand Palace.
+
+                        The Sultan Ahmed Mosque has five main domes, six minarets, and eight secondary domes. The design is the culmination of two centuries of Ottoman mosque development. It incorporates some Byzantine Christian elements of the neighboring Hagia Sophia with traditional Islamic architecture and is considered to be the last great mosque of the classical period. The architect, Sedefkâr Mehmed Ağa, synthesized the ideas of his master Sinan, aiming for overwhelming size, majesty and splendour.
+
+                        At its lower levels and at every pier, the interior of the mosque is lined with more than 20,000 handmade İznik style ceramic tiles, made at Iznik (the ancient Nicaea) in more than fifty different tulip designs. The tiles at lower levels are traditional in design, while at gallery level their design becomes flamboyant with representations of flowers, fruit and cypresses. The tiles were made under the supervision of the Iznik master. The price to be paid for each tile was fixed by the sultan's decree, while tile prices in general increased over time. As a result, the quality of the tiles used in the building decreased gradually.
+                    </div>
+                    <div class="col-md-12">
+                        <a class="pull-right" id="heritage-item-description-read-more">read more..</a>
+                        <a class="pull-right" id="heritage-item-description-read-less" hidden>read less..</a>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pull-left"><h3>Basic Information</h3></div>
+                    </div>
+
+                    <div class="col-md-12" id="basic-information">
+
+                    </div>
+                    <script id="template-basic-information" type="x-tmpl-mustache">
+                        {{#basicInformation}}
+                        <div class="col-md-2 col-md-offset-1" style="font-weight: bold">
+                            {{name}}
+                        </div>
+                        <div class="col-md-9">
+                            {{value}}
+                        </div>
+                        {{/basicInformation}}
+                    </script>
+
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pull-left"><h3>Location</h3></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4 col-md-offset-1">
+                            <div id="gmap" style="height:300px;"></div>
+                        </div>
+                        <div class="col-md-7">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pull-left"><h3>Multimedia</h3></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pull-left"><h4>Image(s)</h4></div>
+                    </div>
+                    <div class="col-md-12" data-step='3' data-intro="To annotate an image, click thumbnail of the image you want to annotate. When the dialog appears, you will see the image is expanded and you can select a region or point by using the tooltip. Following your selection, just add your comment and submit annotation.">
+                        <div class="col-md-11 col-md-offset-1">
+
+
+                                <script id="template-images" type="x-tmpl-mustache">
+                                {{#multimedia}}
+                                <div class="col-md-4" id="heritage-item-image-{{id}}">
+                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand" data-toggle="modal" data-target="#heritage-item-details-add-annotation-on-image-modal">
+                                        <img src="/api/v1{{url}}">
+                                    </a>
+                                </div>
+                                {{/multimedia}}
+                                </script>
+
+                            <div class="row" id="heritage-images">
+                            </div>
+                        </div>
+                        <div class="col-md-11 col-md-offset-1">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pull-left"><h4>Video(s)</h4></div>
+                    </div>
+                    <div class="col-md-12" data-step='4' data-intro="Annotating a video is quite like annotating an image. To annotate an video, click thumbnail of the video you want to annotate. When the dialog appears, you will see the video is expanded and you can select a time interval or an instance by using the tooltip. Following your selection, just add your comment and submit your annotation.">
+                        <div class="col-md-11 col-md-offset-1">
+                            <div class="row">
+                                <div class="col-md-4" id="heritage-item-video-1">
+                                    <div class="thumbnail">
+                                        <iframe style="width: 100%" class="embed-responsive-item" src="https://www.youtube.com/embed/bVhlpCqNfe4" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="heritage-item-video-2">
+                                    <div class="thumbnail">
+                                        <iframe style="width: 100%" class="embed-responsive-item" src="https://www.youtube.com/embed/ocyyxHkCvm8" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="heritage-item-video-3">
+                                    <div class="thumbnail">
+                                        <iframe style="width: 100%" class="embed-responsive-item" src="https://www.youtube.com/embed/__8Xte_aZ6Y" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                <div class="col-md-4" id="heritage-item-video-4">
+                                    <div class="thumbnail">
+                                        <iframe style="width: 100%" class="embed-responsive-item" src="https://www.youtube.com/embed/Zb75Yaya4iY" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-11 col-md-offset-1">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pull-left"><h4>Audio(s)</h4></div>
+                    </div><!--end .card-body -->
+                </div>
+            </div>
+        </section>
+
+        <!-- BEGIN ANNOTATION-ON-DESCRIPTION MODAL MARKUP -->
+        <div class="modal fade" id="add-annotation-on-description-modal" tabindex="-1" role="dialog" aria-labelledby="add-annotation-on-description-modal-label" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="add-annotation-on-description-modal-close-but">×</button>
+                        <h4 class="modal-title" id="add-annotation-on-description-modal-label">Add annotation on selected text</h4>
+                        <ul class="nav nav-tabs nav-justified" data-toggle="tabs">
+                            <li class="active"><a href="#annotate-description-by-text-tab">by text</a></li>
+                            <li><a href="#annotate-description-by-image-tab">by image</a></li>
+                            <li><a href="#annotate-description-by-video-tab">by video</a></li>
+                            <li><a href="#annotate-description-by-audio-tab">by audio</a></li>
+                        </ul>
+                    </div>
+                    <form class="form-horizontal" role="form">
+                        <div class="modal-body tab-content">
+                            <div class="tab-pane active" id="annotate-description-by-text-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-select-motivation">Select motivation:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select id="add-annotation-on-description-modal-select-motivation" name="add-annotation-on-description-modal-select-motivation" class="form-control">
+                                            <option value="">&nbsp;</option>
+                                            <option value="commenting">commenting</option>
+                                            <option value="describing">describing</option>
+                                            <option value="questioning">questioning</option>
+                                            <option value="replying">replying</option>
+                                            <option value="linking">linking</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-textarea">Textual body:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <textarea id="add-annotation-on-description-modal-textarea" class="form-control" rows="3" placeholder="type here"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-url">Link to resource:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="add-annotation-on-description-modal-url">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-text-but">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="annotate-description-by-image-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-upload-image">Upload image :</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                            <input type="file" id="add-annotation-on-description-modal-upload-image">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-image-but">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="annotate-description-by-video-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-upload-video">Upload video :</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="file" id="add-annotation-on-description-modal-upload-video">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-video-but">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="annotate-description-by-audio-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-upload-audio">Upload audio :</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="file" id="add-annotation-on-description-modal-upload-audio">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-audio-but">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="add-annotation-on-description-modal-cancel-but">Cancel</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END ANNOTATION-ON-DESCRIPTION MODAL MARKUP -->
+
+
+        <!-- BEGIN DISPLAY-ANNOTATIONS-ON-HIGHLIGHTED-TEXT MODAL MARKUP -->
+        <div class="modal fade" id="display-annotations-on-highlighted-text-modal" tabindex="-1" role="dialog" aria-labelledby="display-annotations-on-highlighted-text-modal-label" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="display-annotations-on-highlighted-text-modal-close-but">×</button>
+                        <h4 class="modal-title" id="display-annotations-on-highlighted-text-modal-label">Displaying annotations for <span id="display-annotations-modal-highlighted-text">&nbsp;</span></h4>
+                        <ul class="nav nav-tabs nav-justified" data-toggle="tabs">
+                            <li class="active"><a href="#display-text-annotations-on-highlighted-text-tab">Text(s)</a></li>
+                            <li><a href="#display-image-annotations-on-highlighted-text-tab">Image(s)</a></li>
+                            <li><a href="#display-video-annotations-on-highlighted-text-tab">Video(s)</a></li>
+                            <li><a href="#display-audio-annotations-on-highlighted-text-tab">Audio(s)</a></li>
+                        </ul>
+                    </div>
+                    <form class="form-horizontal" role="form">
+                        <div class="modal-body tab-content">
+                            <div class="tab-pane active" id="display-text-annotations-on-highlighted-text-tab">
+                                <div class="heritage-item-text-annotation-on-description-comment">
+                                    Ahmed I was the Sultan of the Ottoman Empire from 1603 until his death in 1617.
+                                </div>
+                                <div>
+                                    <div class="pull-right heritage-item-text-annotation-on-description-date">28/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Ayşe Güneş</span></div>
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <hr>
+                                <div class="heritage-item-text-annotation-on-description-comment">
+                                    Ahmed ascended the throne after his father's death in 1603.
+                                </div>
+                                <div>
+                                    <div class="pull-right heritage-item-text-annotation-on-description-date">24/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Ali Kara</span></div>
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="tab-pane" id="display-image-annotations-on-highlighted-text-tab">
+                                <div>
+                                <img class="img-responsive" src="http://orig06.deviantart.net/7a2a/f/2014/095/a/b/the_sultan_ahmed_i_by_eduartinehistorise-d7d4zt8.jpg">
+                            </div>
+                                <div>
+                                    <div class="pull-right heritage-item-text-annotation-on-description-date">27/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Mehmet Sedef</span></div>
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <hr>
+                                <div>
+                                    <img class="img-responsive" src="https://upload.wikimedia.org/wikipedia/commons/5/59/Ahmed_I_by_John_Young.jpg">
+                                </div>
+                                <div>
+                                    <div class="pull-right heritage-item-text-annotation-on-description-date">25/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Bulut Güney</span></div>
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="tab-pane" id="display-video-annotations-on-highlighted-text-tab">
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="//www.youtube.com/embed/nglTZh4EpSc"></iframe>
+                                </div>
+                                <div>
+                                    <div class="pull-right heritage-item-text-annotation-on-description-date">20/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Ali Gün</span></div>
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="tab-pane" id="display-audio-annotations-on-highlighted-text-tab">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="display-annotations-on-highlighted-text-modal-cancel-but">Cancel</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END DISPLAY-ANNOTATIONS-ON-HIGHLIGHTED-TEXT MODAL MARKUP -->
+
+
+        <!-- BEGIN HERITAGE-ITEM-DETAILS-ANNOTATION-ON-IMAGE MODAL MARKUP -->
+        <div class="modal fade" id="heritage-item-details-add-annotation-on-image-modal" tabindex="-1" role="dialog" aria-labelledby="heritage-item-details-add-annotation-on-image-modal-label" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog" id="heritage-item-details-add-annotation-on-image-modal-dialog" style="width: 75%;">
+                <div class="modal-content" style="overflow: auto; height: 100%">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="heritage-item-details-add-annotation-on-image-modal-close-but">×</button>
+                        <h4 class="modal-title" id="heritage-item-details-add-annotation-on-image-modal-label">Annotation on image</h4>
+                    </div>
+                    <div class="modal-body" style="overflow-y: auto; overflow-x: auto">
+                        <div class="col-md-9">
+                            <div>
+                                <img class="img-responsive" id="heritage-item-details-add-annotation-on-image-modal-target-image">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                <div class="heritage-item-details-add-annotation-on-image-comment">
+                                    Truely an amazing view.
+                                </div>
+                                <div>
+                                    <div class="pull-right heritage-item-details-add-annotation-on-image-date">22/04/2017 - <span class="heritage-item-details-add-annotation-on-image-owner">Ece Mutlu</span></div>
+                                </div>
+                                <div>
+                                    &nbsp;
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        &nbsp;
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END HERITAGE-ITEM-DETAILS-ANNOTATION-ON-IMAGE MODAL MARKUP -->
+
+
+    </div><!--end #content-->
+    <!-- END CONTENT -->
+
+</div><!--end #base-->
+<!-- END BASE -->
+
+<!-- BEGIN JAVASCRIPT -->
+<script src="assets/js/libs/jquery/jquery-1.11.2.min.js"></script>
+<script src="assets/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="assets/js/libs/bootstrap/bootstrap.min.js"></script>
+<script src="assets/js/libs/spin.js/spin.min.js"></script>
+<script src="assets/js/libs/autosize/jquery.autosize.min.js"></script>
+<script src="assets/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
+<script src="assets/js/libs/mustache.min.js"></script>
+<script src="assets/js/libs/jquery.autocomplete.min.js"></script>
+<script src="assets/js/libs/js.cookie.js"></script>
+<script src="assets/js/core/source/App.js"></script>
+<script src="assets/js/core/source/AppNavigation.js"></script>
+<script src="assets/js/core/source/AppOffcanvas.js"></script>
+<script src="assets/js/core/source/AppCard.js"></script>
+<script src="assets/js/core/source/AppForm.js"></script>
+<script src="assets/js/core/source/AppNavSearch.js"></script>
+<script src="assets/js/core/source/AppVendor.js"></script>
+<script src="assets/js/core/demo/Demo.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+
+<!-- BEGIN MAPLACE JS -->
+<script src="https://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.22&key=AIzaSyDRPEdno_kUtxizDFj9JTyxHE3L57xhEGU"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplace-js/0.2.9/maplace.js"></script>
+<!-- END MAPLACE JS -->
+
+
+<!-- BEGIN IntroJS -->
+<script src="assets/intro.js-2.5.0/intro.js"></script>
+<link rel="stylesheet" href="assets/intro.js-2.5.0/introjs.css">
+<!-- END IntroJS -->
+
+
+<!-- END JAVASCRIPT -->
+
+<script type="text/javascript" src="assets/js/user.js"></script>
+
+<link rel="stylesheet" type="text/css" href="assets/css/theme-default/libs/toastr/toastr.css?1425466569">
+<script src="assets/js/libs/toastr/toastr.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
+
+<!-- BEGIN ANNOTATOR JS -->
+<script src="assets/js/libs/annotator/annotator_edited.min.js"></script>
+<link rel="stylesheet" href="assets/css/annotator/annotator.min.css">
+<!-- END ANNOTATOR JS -->
+
+<script type="text/javascript" src="assets/js/heritage_item_detail.js"></script>
+
+</body>
+</html>
