@@ -91,8 +91,33 @@ class AnnotationBody(models.Model):
                 ("location", cls.LOCATION),
                 ("text", cls.TEXT))
 
+    class MIMES(object):
+        PLAINTEXT = "text/plain"
+        MPEGVIDEO = "video/mpeg"
+        AVIVIDEO = "video/avi"
+        PNGIMAGE = "image/png"
+        BMPIMAGE = "image/bmp"
+        GIFIMAGE = "image/gif"
+        JPEGIMAGE = "image/jpeg"
+        MIDIAUDIO = "audio/midi"
+        MPEGAUDIO = "audio/mpeg"
+
+        @classmethod
+        def to_set(cls):
+            return (
+                ("text/plain", cls.PLAINTEXT),
+                ("video/mpeg", cls.MPEGVIDEO),
+                ("video/avi", cls.AVIVIDEO),
+                ("image/png", cls.PNGIMAGE),
+                ("image/bmp", cls.BMPIMAGE),
+                ("image/gif", cls.GIFIMAGE),
+                ("image/jpeg", cls.JPEGIMAGE),
+                ("audio/midi", cls.MIDIAUDIO),
+                ("audio/mpeg", cls.MPEGAUDIO))
+
     annotation = models.ForeignKey(to=Annotation, related_name="annotationBody", on_delete=models.CASCADE)
     type = models.CharField(choices=TYPES.to_set(), max_length=10)
+    format = models.CharField(choices=MIMES.to_set(), max_length=15)
     value = models.CharField(max_length=255, null=False)
 
 

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia
+from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, Selector, AnnotationTarget, \
+    AnnotationBody, Annotation
 
 
 class BasicInformationSerializer(serializers.ModelSerializer):
@@ -22,13 +23,14 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class MultimediaSerializer(serializers.ModelSerializer):
-    file = serializers.FileField(write_only=True)
-
+    # Field specification for "write_only" attribute is a duplicate of "extra_kwargs" option in Meta class.
     class Meta:
         model = Multimedia
         fields = ("createdAt", "url", "type", "id", "file", "meta")
-        write_only_fields = ("file",)
         read_only_fields = ("id", "url",)
+        # "write_only_fields" is a PendingDeprecation and it is replaced with "extra_kwargs" /
+        # Source: http://www.django-rest-framework.org/topics/3.0-announcement/#the-extra_kwargs-option
+        extra_kwargs = {'file': {'write_only': True}}
 
     def create(self, validated_data):
         multimedia = Multimedia.objects.create(**validated_data)
@@ -66,6 +68,7 @@ class HeritageSerializer(serializers.ModelSerializer):
         tags = validated_data.pop("tags")
         origin = validated_data.pop("origin")
         heritage = Heritage.objects.create(**validated_data)
+        tag_set = set()
 
         for entry in basic_information:
             BasicInformation.objects.create(heritage=heritage, **entry)
@@ -74,9 +77,75 @@ class HeritageSerializer(serializers.ModelSerializer):
             Origin.objects.create(heritage=heritage, **entry)
 
         for entry in tags:
-            # TODO: test to ensure tags are not duplicated
+            tag_set.add(entry)
+
+        for entry in tag_set:
             heritage.tags.add(*Tag.objects.get_or_create(**entry))
 
         return heritage
 
 
+class SelectorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Selector
+        fields = ("type",
+                  "conformsTo",
+                  "value")
+
+
+class AnnotationTargetSerializer(serializers.ModelSerializer):
+    selector = SelectorSerializer(many=True)
+
+    class Meta:
+        model = AnnotationTarget
+        fields = ("id",
+                  "type",
+                  "format",
+                  "selector")
+
+    def create(self, validated_data):
+        validated_selector = validated_data.pop("selector")
+        target = AnnotationTarget.objects.create(**validated_data)
+
+        for entry in validated_selector:
+            Selector.objects.create(target=target, **entry)
+
+
+class AnnotationBodySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AnnotationBody
+        fields = ("type",
+                  "value",
+                  "format")
+
+
+class AnnotationSerializer(serializers.ModelSerializer):
+    body = AnnotationBodySerializer(many=True)
+    target = AnnotationTargetSerializer(many=True)
+
+    class Meta:
+        model = Annotation
+        fields = ("context",
+                  "id",
+                  "type",
+                  "creator",
+                  "created",
+                  "body",
+                  "target")
+
+    def __init__(self, *args, **kwargs):
+        super(AnnotationSerializer, self).__init__(*args, **kwargs)
+        self.fields["context"].label = "@context"
+
+    def create(self, validated_data):
+        validated_body = validated_data.pop("body")
+        validated_target = validated_data.pop("target")
+        annotation = Annotation.objects.create(**validated_data)
+
+        for entry in validated_body:
+            AnnotationBody.objects.create(annotation=annotation, **entry)
+
+        for entry in validated_target:
+            AnnotationSerializer.objects.create(annotation=annotation, **entry)
+
+        return annotation
