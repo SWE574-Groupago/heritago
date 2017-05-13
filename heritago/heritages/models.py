@@ -67,7 +67,7 @@ class Multimedia(models.Model):
 class Annotation(models.Model):
     heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE)
     context = models.URLField(default="http://www.w3.org/ns/anno.jsonld", null=False)
-    id = models.URLField(max_length=255, null=False)
+    id = models.URLField(max_length=255, null=False, primary_key=True)
     type = models.CharField(max_length=255, null=False, default="Annotation")
     creator = models.CharField(max_length=255, null=False)
     created = models.DateTimeField(auto_now_add=True)
@@ -162,7 +162,7 @@ class AnnotationTarget(models.Model):
                 ("audio/mpeg", cls.MPEGAUDIO))
 
     annotation = models.ForeignKey(to=Annotation, related_name="annotationTarget", on_delete=models.CASCADE)
-    id = models.CharField(max_length=255, null=False)
+    id = models.CharField(max_length=255, null=False, primary_key=True)
     type = models.CharField(choices=TYPES.to_set(), max_length=10)
     format = models.CharField(choices=MIMES.to_set(), max_length=15)
 
@@ -183,6 +183,6 @@ class Selector(models.Model):
                 ("http://www.w3.org/TR/SVG/", cls.IMAGE))
 
     target = models.ForeignKey(to=AnnotationTarget, related_name="selector", on_delete=models.CASCADE)
-    type = models.CharField(default="FragmentSelector", null=False)
+    type = models.CharField(default="FragmentSelector", max_length=25, null=False)
     conformsTo = models.CharField(choices=SPECIFICATIONS.to_set(), max_length=50)
     value = models.CharField(max_length=255, null=False)
