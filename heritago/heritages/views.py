@@ -4,11 +4,13 @@ from django.core.files.uploadedfile import UploadedFile
 from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.exceptions import NotFound
+from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from django.shortcuts import (render, render_to_response, redirect)
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from heritages.models import Heritage, Multimedia
+from heritages.search import search_heritages
 from heritages.serializers import HeritageSerializer, MultimediaSerializer
 from .forms import MyRegistrationForm
 from django.contrib.auth.forms import PasswordChangeForm
@@ -22,6 +24,14 @@ from django.contrib.auth import update_session_auth_hash
 class HeritagesListView(generics.ListCreateAPIView):
     queryset = Heritage.objects.all()
     serializer_class = HeritageSerializer
+
+    def list(self, request, *args, **kwargs):
+        keyword = self.request.query_params.get("keyword", None)
+        if not keyword:
+            return super().list(request, *args, **kwargs)
+
+        result = Response(search_heritages(keyword)).data
+        return Response(i["_source"] for i in result["hits"]["hits"])
 
 
 class HeritageView(generics.RetrieveUpdateDestroyAPIView):
