@@ -26,7 +26,7 @@ class MultimediaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Multimedia
-        fields = ("createdAt", "url", "type", "id", "file")
+        fields = ("createdAt", "url", "type", "id", "file", "meta")
         write_only_fields = ("file",)
         read_only_fields = ("id", "url",)
 
@@ -54,6 +54,9 @@ class HeritageSerializer(serializers.ModelSerializer):
             "createdAt",
             "updatedAt",
             "tags",
+            "startDate",
+            "endDate",
+            "exactDate",
             "origin",
             "multimedia")
         read_only_fields = ("id", )

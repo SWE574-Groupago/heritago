@@ -26,7 +26,7 @@ $(function() {
         }]
     }).Load();
 
-    var geo_location_polygon_map = new Maplace({
+    geo_location_polygon_map = new Maplace({
         map_div: '#create_new_heritage_item_polygon_gmap',
         type: 'polygon',
         locations: [{
@@ -241,6 +241,9 @@ $(function() {
     });
 
     $( "#create_new_heritage_item_create_but" ).click(function() {
+
+        var heritage = {};
+
         console.log("Pin type map");
         console.dir(geo_location_pin_map);
         console.log("Circle type map");
@@ -250,8 +253,35 @@ $(function() {
         console.log(geo_location_polygon_map.markers[0].position.lat());
         console.log(geo_location_polygon_map.markers[0].position.lng());
 
-        var title_input = $( "#create_new_heritage_item_title" ).val();
-        var description_input = $( "#create_new_heritage_item_title" ).val();
+        heritage.title = $( "#create_new_heritage_item_title" ).val();
+        heritage.description = $( "#create_new_heritage_item_description" ).val();
+        heritage.basicInformation = [];
+        heritage.startDate = "";
+        heritage.endDate = "";
+        heritage.exactDate = "";
+        heritage.multimedia = [];
+
+        var location = {
+            "type": "polygon",
+            "markers": []
+        };
+
+        for (var i = geo_location_polygon_map.markers.length - 1; i >= 0; i--) {
+            var marker = geo_location_polygon_map.markers[i];
+
+            location.markers.push({
+                "lat": marker.position.lat(),
+                "long": marker.position.lng()
+            });
+        }
+
+
+        heritage.multimedia.push(location);
+
+        console.log(heritage)
+
+
+
 
         if (title_input == "" || description_input == "") {
             $( "#create_new_heritage_item_errors" ).html("<b>You should provide a title and a description while submitting a new heritage item.</b>");
