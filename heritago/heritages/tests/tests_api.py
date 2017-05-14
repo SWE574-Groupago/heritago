@@ -6,7 +6,6 @@ heritagePath = '/api/v1/heritages/'
 
 class APITests(unittest.TestCase):
     def setUp(self):
-
         """Creating a client"""
         self.client = Client()
 
