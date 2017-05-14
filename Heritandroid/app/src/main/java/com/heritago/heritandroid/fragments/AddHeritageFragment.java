@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Build;
 import android.os.Bundle;
@@ -153,6 +154,11 @@ public class AddHeritageFragment extends Fragment {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK){
             Toast.makeText(getActivity(), "Activity Result", Toast.LENGTH_SHORT).show();
             Bitmap photo = (Bitmap) data.getExtras().get("data");
+            //rotate 90 deg
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90f);
+            photo = Bitmap.createBitmap(photo, 0, 0, photo.getWidth(), photo.getHeight(), matrix, true);
+
             Heritage.Multimedia image = new Heritage.Multimedia(Heritage.Multimedia.Type.image);
             multimediaList.add(image);
             multimediaAdapter.addBitmap(multimediaList.size()-1, photo);

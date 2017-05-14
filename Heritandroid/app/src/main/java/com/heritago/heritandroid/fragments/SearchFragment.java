@@ -15,6 +15,7 @@ import com.heritago.heritandroid.R;
 import com.heritago.heritandroid.adapters.HeritageAdapter;
 import com.heritago.heritandroid.api.ApiClient;
 import com.heritago.heritandroid.api.ApiInterface;
+import com.heritago.heritandroid.helpers.LoginHelper;
 import com.heritago.heritandroid.model.Heritage;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class SearchFragment extends Fragment {
     private HeritageAdapter adapter;
     private List<Heritage> heritageList = new ArrayList<>();
     private SearchView searchView;
+    public boolean parentIsProfile = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,25 +55,32 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         searchView = (SearchView) view.findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchView.clearFocus();
-                updateCardsForSearch(query);
-                return true;
-            }
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
+
+        if (parentIsProfile){
+            searchView.setAlpha(0f);
+            searchView.setEnabled(false);
+            updateCardsForSearch(null, LoginHelper.shared.getUsername());
+        }else{
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    searchView.clearFocus();
+                    updateCardsForSearch(query, null);
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return true;
+                }
+            });
+        }
 
         return view;
     }
 
-    private void updateCardsForSearch(String query){
+    private void updateCardsForSearch(String query, String username){
         ApiInterface inter = ApiClient.getClient().create(ApiInterface.class);
-        Call call = inter.getHeritages();
+        Call call = inter.getHeritages(query, null);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
