@@ -17,7 +17,6 @@ import com.heritago.heritandroid.api.ApiClient;
 import com.heritago.heritandroid.api.ApiInterface;
 import com.heritago.heritandroid.model.Heritage;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,12 +70,6 @@ public class SearchFragment extends Fragment {
     }
 
     private void updateCardsForSearch(String query){
-//        heritageList.clear();
-//        for (int i = 0; i < 10; i++){
-//            heritageList.add(new Heritage("id","Sultanahmet Mosque","description", new Heritage.Owner("1","Suzan U.")));
-//        }
-//        adapter.notifyDataSetChanged();
-
         ApiInterface inter = ApiClient.getClient().create(ApiInterface.class);
         Call call = inter.getHeritages();
         call.enqueue(new Callback() {

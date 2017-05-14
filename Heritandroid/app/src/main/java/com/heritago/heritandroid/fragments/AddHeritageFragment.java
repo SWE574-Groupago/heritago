@@ -5,12 +5,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.ExifInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +26,15 @@ import android.widget.Toast;
 
 import com.heritago.heritandroid.R;
 import com.heritago.heritandroid.adapters.AddHeritageDetailAdapter;
+import com.heritago.heritandroid.adapters.HeritageAdapter;
+import com.heritago.heritandroid.adapters.HeritageMultimediaAdapter;
 import com.heritago.heritandroid.bus.BusProvider;
 import com.heritago.heritandroid.bus.DidRemoveHeritageDetailItemEvent;
-import com.heritago.heritandroid.model.HeritageDetail;
+import com.heritago.heritandroid.model.Heritage;
 import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by onurtokoglu on 30/03/2017.
@@ -40,9 +46,13 @@ public class AddHeritageFragment extends Fragment {
 
     private ListView mListView;
     private AddHeritageDetailAdapter adapter;
-    private ArrayList<HeritageDetail> detailList;
+    private ArrayList<Heritage.BasicInformation> detailList;
+    private ArrayList<Heritage.Multimedia> multimediaList;
+    private RecyclerView recyclerView;
+    private HeritageMultimediaAdapter multimediaAdapter;
 
     private ImageButton locationButton;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +71,6 @@ public class AddHeritageFragment extends Fragment {
         BusProvider.getInstance().unregister(this);
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,7 +85,7 @@ public class AddHeritageFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailList.add(new HeritageDetail());
+                detailList.add(new Heritage.BasicInformation("",""));
                 adapter.notifyDataSetChanged();
                 resizeDetailListView();
             }
@@ -91,6 +100,12 @@ public class AddHeritageFragment extends Fragment {
         });
 
         locationButton = (ImageButton) view.findViewById(R.id.location_button);
+
+        multimediaList = new ArrayList<>();
+        multimediaAdapter = new HeritageMultimediaAdapter(multimediaList);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(multimediaAdapter);
 
         return view;
     }
@@ -138,7 +153,10 @@ public class AddHeritageFragment extends Fragment {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK){
             Toast.makeText(getActivity(), "Activity Result", Toast.LENGTH_SHORT).show();
             Bitmap photo = (Bitmap) data.getExtras().get("data");
-            locationButton.setImageBitmap(photo);
+            Heritage.Multimedia image = new Heritage.Multimedia(Heritage.Multimedia.Type.image);
+            multimediaList.add(image);
+            multimediaAdapter.addBitmap(multimediaList.size()-1, photo);
+            multimediaAdapter.notifyDataSetChanged();
         }else{
             super.onActivityResult(requestCode, resultCode, data);
         }

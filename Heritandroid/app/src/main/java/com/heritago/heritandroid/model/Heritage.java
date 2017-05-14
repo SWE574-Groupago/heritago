@@ -67,6 +67,10 @@ public class Heritage {
         public String createdAt;
         public Selector selector;
 
+        public Multimedia(Type t){
+            this.type = t.name();
+        }
+
         public Type getType(){
             for (Type t: Type.values()){
                 if (this.type.equals(t.name())){

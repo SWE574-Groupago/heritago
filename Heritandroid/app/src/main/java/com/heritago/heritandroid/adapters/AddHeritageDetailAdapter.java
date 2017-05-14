@@ -12,16 +12,16 @@ import android.widget.EditText;
 import com.heritago.heritandroid.R;
 import com.heritago.heritandroid.bus.BusProvider;
 import com.heritago.heritandroid.bus.DidRemoveHeritageDetailItemEvent;
-import com.heritago.heritandroid.model.HeritageDetail;
+import com.heritago.heritandroid.model.Heritage;
 
 import java.util.ArrayList;
 
 
 
 public class AddHeritageDetailAdapter extends BaseAdapter {
-    private ArrayList<HeritageDetail> detailList;
+    private ArrayList<Heritage.BasicInformation> detailList;
 
-    public AddHeritageDetailAdapter(ArrayList<HeritageDetail> detailList) {
+    public AddHeritageDetailAdapter(ArrayList<Heritage.BasicInformation> detailList) {
         this.detailList = detailList;
     }
 
@@ -62,7 +62,7 @@ public class AddHeritageDetailAdapter extends BaseAdapter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                detailList.get(position).setKey(s.toString());
+                detailList.get(position).key = s.toString();
             }
 
             @Override
@@ -80,7 +80,7 @@ public class AddHeritageDetailAdapter extends BaseAdapter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                detailList.get(position).setValue(s.toString());
+                detailList.get(position).value = s.toString();
             }
 
             @Override
