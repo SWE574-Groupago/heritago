@@ -1,6 +1,8 @@
 import os
 
 from django.db import models
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 
 class Tag(models.Model):
@@ -66,11 +68,12 @@ class Multimedia(models.Model):
 
 class Annotation(models.Model):
     heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE)
-    context = models.URLField(default="http://www.w3.org/ns/anno.jsonld", null=False)
-    id = models.URLField(max_length=255, null=False, primary_key=True)
+    context = models.URLField(null=False, default="http://www.w3.org/ns/anno.jsonld")
+    annotation_id = models.URLField(max_length=255, unique=True)
     type = models.CharField(max_length=255, null=False, default="Annotation")
     creator = models.CharField(max_length=255, null=False)
     created = models.DateTimeField(auto_now_add=True)
+    votes = models.IntegerField(null=False, default=0)
 
 
 class AnnotationBody(models.Model):
@@ -115,7 +118,7 @@ class AnnotationBody(models.Model):
                 ("audio/midi", cls.MIDIAUDIO),
                 ("audio/mpeg", cls.MPEGAUDIO))
 
-    annotation = models.ForeignKey(to=Annotation, related_name="annotationBody", on_delete=models.CASCADE)
+    annotation = models.ForeignKey(to=Annotation, related_name="body", on_delete=models.CASCADE)
     type = models.CharField(choices=TYPES.to_set(), max_length=10)
     format = models.CharField(choices=MIMES.to_set(), max_length=15)
     value = models.CharField(max_length=255, null=False)
@@ -127,6 +130,7 @@ class AnnotationTarget(models.Model):
         VIDEO = "video"
         AUDIO = "audio"
         IMAGE = "image"
+        LOCATION = "location"
         TEXT = "text"
 
         @classmethod
@@ -135,6 +139,7 @@ class AnnotationTarget(models.Model):
                 ("video", cls.VIDEO),
                 ("audio", cls.AUDIO),
                 ("image", cls.IMAGE),
+                ("location", cls.LOCATION),
                 ("text", cls.TEXT))
 
     class MIMES(object):
@@ -162,7 +167,7 @@ class AnnotationTarget(models.Model):
                 ("audio/mpeg", cls.MPEGAUDIO))
 
     annotation = models.ForeignKey(to=Annotation, related_name="annotationTarget", on_delete=models.CASCADE)
-    id = models.CharField(max_length=255, null=False, primary_key=True)
+    target_id = models.CharField(max_length=255, null=False)
     type = models.CharField(choices=TYPES.to_set(), max_length=10)
     format = models.CharField(choices=MIMES.to_set(), max_length=15)
 
@@ -186,3 +191,16 @@ class Selector(models.Model):
     type = models.CharField(default="FragmentSelector", max_length=25, null=False)
     conformsTo = models.CharField(choices=SPECIFICATIONS.to_set(), max_length=50)
     value = models.CharField(max_length=255, null=False)
+
+
+@receiver(post_save, sender=Annotation, dispatch_uid="annotation_id_setter")
+def annotation_id_setter(sender, instance, **kwargs):
+    annotation_id = "http://574heritago.com/annotations/{}/".format(instance.id)
+    instance.annotation_id = annotation_id
+
+
+@receiver(post_save, sender=Annotation, dispatch_uid="target_id_setter")
+def target_id_setter(sender, instance, **kwargs):
+    annotation_id = "http://574heritago.com/annotations/{}/".format(instance.id)
+    instance.annotation_id = annotation_id
+

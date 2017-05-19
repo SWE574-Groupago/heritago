@@ -68,7 +68,6 @@ class HeritageSerializer(serializers.ModelSerializer):
         tags = validated_data.pop("tags")
         origin = validated_data.pop("origin")
         heritage = Heritage.objects.create(**validated_data)
-        tag_set = set()
 
         for entry in basic_information:
             BasicInformation.objects.create(heritage=heritage, **entry)
@@ -77,10 +76,12 @@ class HeritageSerializer(serializers.ModelSerializer):
             Origin.objects.create(heritage=heritage, **entry)
 
         for entry in tags:
-            tag_set.add(entry)
-
-        for entry in tag_set:
-            heritage.tags.add(*Tag.objects.get_or_create(**entry))
+            existing_tags = Tag.objects.filter(name=entry)
+            if not existing_tags:
+                Tag.objects.create(name=entry)
+            heritage_tags = heritage.tags.filter(name=entry)
+            if not heritage_tags:
+                heritage.tags.add(*Tag.objects.get_or_create(**entry))
 
         return heritage
 
@@ -98,10 +99,14 @@ class AnnotationTargetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AnnotationTarget
-        fields = ("id",
+        fields = ("target_id",
                   "type",
                   "format",
                   "selector")
+
+    def __init__(self, *args, **kwargs):
+        super(AnnotationTargetSerializer, self).__init__(*args, **kwargs)
+        self.fields["target_id"].label = "id"
 
     def create(self, validated_data):
         validated_selector = validated_data.pop("selector")
@@ -126,7 +131,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Annotation
         fields = ("context",
-                  "id",
+                  "annotation_id",
                   "type",
                   "creator",
                   "created",
@@ -136,6 +141,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
     def __init__(self, *args, **kwargs):
         super(AnnotationSerializer, self).__init__(*args, **kwargs)
         self.fields["context"].label = "@context"
+        self.fields["annotation_id"].label = "id"
 
     def create(self, validated_data):
         validated_body = validated_data.pop("body")
