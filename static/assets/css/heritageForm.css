@@ -1,0 +1,7 @@
+.create_new_heritage_item_map_container{
+    display: none;
+}
+
+.create_new_heritage_item_map_container.active{
+    display: block;
+}
