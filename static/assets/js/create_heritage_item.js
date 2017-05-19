@@ -195,10 +195,10 @@ $(function() {
             $(this).parent().prev().children().eq(0).children().eq(1).text("");
             $(this).removeClass( "add-key-value-field-but" ).addClass("remove-key-value-field-but").addClass("btn-danger");
             $(this).children().eq(0).removeClass( "fa-plus" ).addClass("fa-minus");
-            $(this).parent().parent().after("<div class=\"col-md-12\">"+
+            $(this).parent().parent().after("<div class=\"col-md-12 basicInformation-name-value\">"+
                 "<div class=\"col-md-5\">"+
                 "<div class=\"form-group floating-label\">"+
-                "<input type=\"text\" class=\"form-control\">"+
+                "<input type=\"text\" class=\"form-control basicInformation-name\">"+
                 "<label>key</label>"+
                 "</div>"+
                 "</div>"+
@@ -207,7 +207,7 @@ $(function() {
                 "</div>"+
                 "<div class=\"col-md-5\">"+
                 "<div class=\"form-group floating-label\">"+
-                "<input type=\"text\" class=\"form-control\">"+
+                "<input type=\"text\" class=\"form-control basicInformation-value\">"+
                 "<label>value</label>"+
                 "</div>"+
                 "</div>"+
@@ -244,14 +244,14 @@ $(function() {
 
         var heritage = {};
 
-        console.log("Pin type map");
-        console.dir(geo_location_pin_map);
-        console.log("Circle type map");
-        console.dir(geo_location_circle_map);
-        console.log("Polygon type map");
-        console.dir(geo_location_polygon_map);
-        console.log(geo_location_polygon_map.markers[0].position.lat());
-        console.log(geo_location_polygon_map.markers[0].position.lng());
+        // console.log("Pin type map");
+        // console.dir(geo_location_pin_map);
+        // console.log("Circle type map");
+        // console.dir(geo_location_circle_map);
+        // console.log("Polygon type map");
+        // console.dir(geo_location_polygon_map);
+        // console.log(geo_location_polygon_map.markers[0].position.lat());
+        // console.log(geo_location_polygon_map.markers[0].position.lng());
 
         heritage.title = $( "#create_new_heritage_item_title" ).val();
         heritage.description = $( "#create_new_heritage_item_description" ).val();
@@ -260,6 +260,18 @@ $(function() {
         heritage.endDate = "";
         heritage.exactDate = "";
         heritage.multimedia = [];
+
+
+        $(".basicInformation-name-value").each(function(index, nv){
+            var name = $(".basicInformation-name", nv).val();
+            var value = $(".basicInformation-value", nv).val();
+            if (name) {
+                heritage.basicInformation.push({
+                    "name": name,
+                    "value": value
+                });
+            }
+        });
 
         var location = {
             "type": "polygon",
@@ -283,12 +295,12 @@ $(function() {
 
 
 
-        if (title_input == "" || description_input == "") {
-            $( "#create_new_heritage_item_errors" ).html("<b>You should provide a title and a description while submitting a new heritage item.</b>");
-        }
-        else {
-            // submit form here
-        }
+        // if (title_input == "" || description_input == "") {
+        //     $( "#create_new_heritage_item_errors" ).html("<b>You should provide a title and a description while submitting a new heritage item.</b>");
+        // }
+        // else {
+        //     // submit form here
+        // }
     });
 
 
