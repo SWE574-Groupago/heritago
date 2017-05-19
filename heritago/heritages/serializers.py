@@ -22,18 +22,19 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class MultimediaSerializer(serializers.ModelSerializer):
-    file = serializers.FileField(write_only=True)
+    file = serializers.FileField(write_only=True, required=False)
 
     class Meta:
         model = Multimedia
-        fields = ("createdAt", "url", "type", "id", "file")
+        fields = ("createdAt", "url", "type", "id", "file", "meta")
         write_only_fields = ("file",)
         read_only_fields = ("id", "url",)
 
     def create(self, validated_data):
         multimedia = Multimedia.objects.create(**validated_data)
-        multimedia.url = "/heritages/{}/{}/{}.png".format(
-            multimedia.heritage.id, multimedia.type, multimedia.id)
+        if multimedia.file:
+            multimedia.url = "/heritages/{}/{}/{}.png".format(
+                multimedia.heritage.id, multimedia.type, multimedia.id)
         multimedia.save()
         return multimedia
 
@@ -54,6 +55,9 @@ class HeritageSerializer(serializers.ModelSerializer):
             "createdAt",
             "updatedAt",
             "tags",
+            "startDate",
+            "endDate",
+            "exactDate",
             "origin",
             "multimedia")
         read_only_fields = ("id", )

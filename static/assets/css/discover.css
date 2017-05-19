@@ -1,0 +1,22 @@
+.bordered {
+	border-radius: 1px;
+	border: 1px solid #FFFFFF;
+}
+.nopadding {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.hidden {
+	display: none !important;
+	visibility: hidden !important;
+}
+#AnyTime--normDate, #AnyTime--startDate, #AnyTime--endDate {
+    opacity: 1;
+}
+.scrollDesc{
+    height: 20em;
+    overflow: scroll;
+}
+.imgimg {
+    max-height: 10em;
+}

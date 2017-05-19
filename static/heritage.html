@@ -117,14 +117,14 @@
                     <li>Heritage Item Details</li>
                 </ol>
             </div>
-            <div class="col-md-offset-1 col-md-5">
+            <div class="col-md-offset-1 col-md-7">
                 <div class="card">
                     <div class="card-head card-head-lg style-primary">
                         <div class="col-md-12">
                             <header id="heritage-item-title" data-step='1' data-intro='Hello there! This is a guide about how to annotate the heritage item you are inspecting right now. <br><br>You can annotate; <br>- the description text <br>- an image <br>- or a video of the heritage item'>
                                 Sultan Ahmed Mosque
                             </header>
-                            <span><button type="button" class="btn ink-reaction btn-primary btn-xs active" id="heritage-item-annotate-but">Annotate</button></span>
+                            <span><button type="button" class="btn ink-reaction btn-primary btn-xs active" id="heritage-item-guide-but">Guide</button></span>
                         </div>
                         <div class="col-md-12" style="height: 4em">
                             <div class="pull-left" id="heritage-item-total-no-annotations">189</div><span>&nbsp;annotation(s)</span>
@@ -153,20 +153,21 @@
                     <div class="col-md-12">
                         <div class="pull-left"><h3>Basic Information</h3></div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="col-md-2 col-md-offset-1" style="font-weight: bold" id="heritage-item-basic-info-key-1">
-                            Completed
-                        </div>
-                        <div class="col-md-9" id="heritage-item-basic-info-desc-1">
-                            1616
-                        </div>
-                        <div class="col-md-2 col-md-offset-1" style="font-weight: bold" id="heritage-item-basic-info-key-2">
-                            Architect
-                        </div>
-                        <div class="col-md-9" id="heritage-item-basic-info-desc-2">
-                            Sedefkâr Mehmed Ağa
-                        </div>
+
+                    <div class="col-md-12" id="basic-information">
+
                     </div>
+                    <script id="template-basic-information" type="x-tmpl-mustache">
+                        {{#basicInformation}}
+                        <div class="col-md-2 col-md-offset-1" style="font-weight: bold">
+                            {{name}}
+                        </div>
+                        <div class="col-md-9">
+                            {{value}}
+                        </div>
+                        {{/basicInformation}}
+                    </script>
+
                     <div class="col-md-12">
                         <hr>
                     </div>
@@ -192,32 +193,19 @@
                     </div>
                     <div class="col-md-12" data-step='3' data-intro="To annotate an image, click thumbnail of the image you want to annotate. When the dialog appears, you will see the image is expanded and you can select a region or point by using the tooltip. Following your selection, just add your comment and submit annotation.">
                         <div class="col-md-11 col-md-offset-1">
-                            <div class="row">
-                                <div class="col-md-4" id="heritage-item-image-1">
-                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Blue_Mosque_Courtyard_Dusk_Wikimedia_Commons.jpg">
+
+
+                                <script id="template-images" type="x-tmpl-mustache">
+                                {{#multimedia}}
+                                <div class="col-md-4" id="heritage-item-image-{{id}}">
+                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand" data-toggle="modal" data-target="#heritage-item-details-add-annotation-on-image-modal">
+                                        <img src="/api/v1{{url}}">
                                     </a>
                                 </div>
-                                <div class="col-md-4" id="heritage-item-image-2">
-                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
-                                        <img src="https://images7.alphacoders.com/538/thumb-350-538098.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-md-4" id="heritage-item-image-3">
-                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
-                                        <img src="http://www.bluemosque.co/uploads/8/7/4/4/8744530/7682324_orig.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-md-4" id="heritage-item-image-4">
-                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
-                                        <img src="https://ka-perseus-images.s3.amazonaws.com/2bd6afdf5dae299fa7b8dcac625f42590be25eda.jpg">
-                                    </a>
-                                </div>
-                                <div class="col-md-4" id="heritage-item-image-5">
-                                    <a class="thumbnail heritage-item-details-thumbnail-img-to-expand">
-                                        <img src="http://holeinthedonut.smugmug.com/DailyPhotos/HITD-Daily-Photos/i-p6JmGWb/0/L/Turkey-Istanbul-Blue-Mosque-Interior3-L.jpg">
-                                    </a>
-                                </div>
+                                {{/multimedia}}
+                                </script>
+
+                            <div class="row" id="heritage-images">
                             </div>
                         </div>
                         <div class="col-md-11 col-md-offset-1">
@@ -282,10 +270,34 @@
                             <div class="tab-pane active" id="annotate-description-by-text-tab">
                                 <div class="form-group">
                                     <div class="col-sm-3">
-                                        <label for="add-annotation-on-description-modal-textarea">Comment :</label>
+                                        <label for="add-annotation-on-description-modal-select-motivation">Select motivation:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select id="add-annotation-on-description-modal-select-motivation" name="add-annotation-on-description-modal-select-motivation" class="form-control">
+                                            <option value="">&nbsp;</option>
+                                            <option value="commenting">commenting</option>
+                                            <option value="describing">describing</option>
+                                            <option value="questioning">questioning</option>
+                                            <option value="replying">replying</option>
+                                            <option value="linking">linking</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-textarea">Textual body:&nbsp;</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <textarea id="add-annotation-on-description-modal-textarea" class="form-control" rows="3" placeholder="type here"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-url">Link to resource:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="add-annotation-on-description-modal-url">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -513,7 +525,7 @@
 <script src="assets/js/core/source/AppNavSearch.js"></script>
 <script src="assets/js/core/source/AppVendor.js"></script>
 <script src="assets/js/core/demo/Demo.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
 
 <!-- BEGIN MAPLACE JS -->
 <script src="https://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.22&key=AIzaSyDRPEdno_kUtxizDFj9JTyxHE3L57xhEGU"></script>
