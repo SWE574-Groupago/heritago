@@ -15,9 +15,9 @@ class Heritage(models.Model):
     annotationCount = models.IntegerField(default=0)
     tags = models.ManyToManyField(to=Tag, related_name="tags")
 
-    startDate = models.TextField()
-    endDate = models.TextField()
-    exactDate = models.TextField()
+    startDate = models.TextField(null=True, default="")
+    endDate = models.TextField(null=True, default="")
+    exactDate = models.TextField(null=True, default="")
 
     def delete(self, using=None, keep_parents=False):
         for m in self.multimedia.all():
