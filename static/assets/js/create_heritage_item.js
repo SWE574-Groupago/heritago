@@ -243,19 +243,65 @@ $(function() {
         }, 150);
     });
 
+
+    function saveMultimedia(instanceId, mm) {
+        console.log("mm is saving")
+        mm.meta = JSON.stringify(mm.meta);
+        $.ajax({
+            method: "POST",
+            url: "/api/v1/heritages/" + instanceId + "/multimedia",
+            data: JSON.stringify(mm),
+            contentType: "application/json",
+            async: false
+        })
+        .done(function(instance) {
+            console.log(instance);
+        }).fail(function(jqXHR, textStatus){
+            console.log(jqXHR.responseText)
+        });
+    }
+
+    function uploadImages(instanceId) {
+
+        $(".multimedia-image").each(function(index, input) {
+            if (input.files.length == 0)
+                return;
+            var data = new FormData();
+            data.append("type", "image");
+            data.append("file", input.files[0]);
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/v1/heritages/" + instanceId + "/multimedia",
+                data: data,
+                cache: false,
+                async: false,
+                contentType: false,
+                processData: false,
+            })
+            .done(function(instance) {
+                console.log(instance);
+            }).fail(function(jqXHR, textStatus){
+                console.log(jqXHR.responseText)
+            });
+        });
+    }
+
     $( "#create_new_heritage_item_create_but" ).click(function() {
 
+        // TODO: dsiable create button until completed or failed
+        $("#create_new_heritage_item_create_but").attr("disabled", "1");
+
         var heritage = {};
-
-
         heritage.title = $( "#create_new_heritage_item_title" ).val();
         heritage.description = $( "#create_new_heritage_item_description" ).val();
         heritage.basicInformation = [];
-        heritage.origins = [];
+        heritage.origin = [];
         heritage.startDate = $("#create_new_heritage_item_start_date").val();
         heritage.endDate = $("#create_new_heritage_item_end_date").val();
         heritage.exactDate = $("#create_new_heritage_item_exact_date").val();
         heritage.multimedia = [];
+        heritage.tags = [];
 
         $(".basicInformation-name-value").each(function(index, nv){
             var name = $(".basicInformation-name", nv).val();
@@ -278,39 +324,52 @@ $(function() {
         });
 
 
-
-
-
         var selected_map_type = $( "#create_new_heritage_item_select_map_type" ).val();
 
-        // console.log("Pin type map");
-        // console.dir(geo_location_pin_map);
-        // console.log("Circle type map");
-        // console.dir(geo_location_circle_map);
-        // console.log("Polygon type map");
-        // console.dir(geo_location_polygon_map);
-        // console.log(geo_location_polygon_map.markers[0].position.lat());
-        // console.log(geo_location_polygon_map.markers[0].position.lng());
-
         if (selected_map_type != "not-selected") {
-            var location = {
+            var locationData = {
                 "type": selected_map_type,
                 "markers": []
             };
             for (var i = map.markers.length - 1; i >= 0; i--) {
                 var marker = map.markers[i];
 
-                location.markers.push({
+                locationData.markers.push({
                     "lat": marker.position.lat(),
                     "long": marker.position.lng()
                 });
             }
-            heritage.multimedia.push(location);
+            heritage.multimedia.push({
+                "type": "location",
+                "meta": locationData
+            });
         }
 
         console.log(heritage)
 
+        $.ajax({
+            method: "POST",
+            url: "/api/v1/heritages/",
+            data: JSON.stringify(heritage),
+            contentType: "application/json",
+            async: false
+        })
+        .done(function(instance) {
+            toastr.success('Heritage saved.')
+            for (var i = heritage.multimedia.length - 1; i >= 0; i--) {
+                saveMultimedia(instance.id, heritage.multimedia[i]);
+            }
 
+            toastr.success('Locations saved.')
+
+            uploadImages(instance.id);
+            toastr.success('Images saved.')
+
+            $("#create_new_heritage_item_create_but").removeAttr("disabled", "1");
+        }).fail(function(jqXHR, textStatus){
+            toastr.error(jqXHR.responseText)
+            $("#create_new_heritage_item_create_but").removeAttr("disabled", "1");
+        });
 
 
         // if (title_input == "" || description_input == "") {
