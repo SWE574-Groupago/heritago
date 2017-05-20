@@ -110,6 +110,7 @@
     var $title = $("#heritage-item-title");
     var $description = $("#heritage-item-description");
     var $basicInformation = $("#basic-information");
+    var $origin = $("#heritage-origin");
     var $images = $("#heritage-images");
 
     function render(heritage) {
@@ -122,10 +123,37 @@
         var rendered = Mustache.render($template, heritage);
         $basicInformation.html(rendered);
 
-        var $template = $('#template-images').html();
+
+        var $template = $('#template-origin').html();
         Mustache.parse($template);
         var rendered = Mustache.render($template, heritage);
+        $origin.html(rendered);
+
+        var $template = $('#template-images').html();
+        Mustache.parse($template);
+        var images = [];
+        for (var i = heritage.multimedia.length - 1; i >= 0; i--) {
+            if (heritage.multimedia[i].type == "image")
+                images.push(heritage.multimedia[i])
+        }
+        var rendered = Mustache.render($template, images);
         $images.html(rendered);
+
+        // LOCATION
+        for (var i = heritage.multimedia.length - 1; i >= 0; i--) {
+            var mm = heritage.multimedia[i];
+
+            if (mm.type == "location") {
+                var locationData = JSON.parse(mm.meta);
+                console.log(locationData)
+                new Maplace({
+                    map_div: '#gmap',
+                    type: locationData.type,
+                    locations: locationData.markers
+                }).Load();
+            }
+        }
+
 
         bind();
     }
@@ -135,8 +163,14 @@
         $.getJSON(url, {
             format: "json"
         })
+        .fail(function(xhr, status){
+            toastr.error("heritage not found");
+        })
         .done(function( data ) {
             render(data);
+            $("#content").show();
+        }).always(function(data){
+            $("#page-loading").hide();
         });
     }
 
@@ -145,7 +179,5 @@
         toastr.error("heritage item id not found in the url");
     else
         fetch(heritageId);
-    $("#page-loading").hide();
-    $("#content").show();
 
  });

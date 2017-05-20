@@ -317,7 +317,7 @@ $(function() {
         $(".create_new_heritage_item_free_origin").each(function(index, origin){
             var origin = $(origin).val();
             if (origin) {
-                heritage.origins.push({
+                heritage.origin.push({
                     "name": origin
                 })
             }
@@ -327,17 +327,26 @@ $(function() {
         var selected_map_type = $( "#create_new_heritage_item_select_map_type" ).val();
 
         if (selected_map_type != "not-selected") {
+            if (selected_map_type == "pin")
+                selected_map_type = "marker"
             var locationData = {
                 "type": selected_map_type,
                 "markers": []
             };
             for (var i = map.markers.length - 1; i >= 0; i--) {
                 var marker = map.markers[i];
-
-                locationData.markers.push({
+                var d = {
                     "lat": marker.position.lat(),
-                    "long": marker.position.lng()
-                });
+                    "lon": marker.position.lng(),
+                    "zoom": marker.zoom
+                };
+
+                if (selected_map_type == "circle") {
+                    d.circle_options = marker.circle_options;
+                    d.circle_options.editable = false;
+                }
+
+                locationData.markers.push(d);
             }
             heritage.multimedia.push({
                 "type": "location",
@@ -366,6 +375,7 @@ $(function() {
             toastr.success('Images saved.')
 
             $("#create_new_heritage_item_create_but").removeAttr("disabled", "1");
+            location.href = "heritage.html?id=" + instance.id;
         }).fail(function(jqXHR, textStatus){
             toastr.error(jqXHR.responseText)
             $("#create_new_heritage_item_create_but").removeAttr("disabled", "1");

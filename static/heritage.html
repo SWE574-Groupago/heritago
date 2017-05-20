@@ -66,7 +66,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav main-text-nav">
                     <li><a href="discover.html">Discover</a></li>
-                    <li ><!--class="active" --> <a href="create.html">Create</a></li>
+                    <li ><!--class="active" --> <a href="heritageForm.html">Create</a></li>
                     <li><a href="my_portfolio.html">My portfolio</a></li>
                     <li><a href="my_annotations.html">My annotations</a></li>
                 </ul>
@@ -122,26 +122,18 @@
                     <div class="card-head card-head-lg style-primary">
                         <div class="col-md-12">
                             <header id="heritage-item-title" data-step='1' data-intro='Hello there! This is a guide about how to annotate the heritage item you are inspecting right now. <br><br>You can annotate; <br>- the description text <br>- an image <br>- or a video of the heritage item'>
-                                Sultan Ahmed Mosque
+                                {{TITLE}}
                             </header>
                             <span><button type="button" class="btn ink-reaction btn-primary btn-xs active" id="heritage-item-guide-but">Guide</button></span>
                         </div>
                         <div class="col-md-12" style="height: 4em">
-                            <div class="pull-left" id="heritage-item-total-no-annotations">189</div><span>&nbsp;annotation(s)</span>
-                            <div class="pull-right" id="heritage-item-owner">Suzan Üsküdarlı</div>
+                            <div class="pull-left" id="heritage-item-total-no-annotations">{{ANNOTAITON COUNT}}</div><span>&nbsp;annotation(s)</span>
+                            <div class="pull-right" id="heritage-item-owner">{{USER}}</div>
                         </div>
 
                     </div><!--end .card-head -->
                     <div class="card-body col-md-12" style="white-space: pre-wrap" id="heritage-item-description" data-step='2' data-intro="To annotate the description text, you need to select a fragment of text you want to add annotation. Then you will see a button appearing just above the right corner of selected fragment which opens you a dialog to add your annotation in one of the forms; text, image or video.">
-                        The Sultan Ahmed Mosque or Sultan Ahmet Mosque (Turkish: Sultan Ahmet Camii) is a historic mosque located in Istanbul, Turkey. A popular tourist site, the Sultan Ahmed Mosque continues to function as a mosque today; men still kneel in prayer on the mosque's lush red carpet after the call to prayer. The Blue Mosque, as it is popularly known, was constructed between 1609 and 1616 during the rule of Ahmed I. Its Külliye contains Ahmed's tomb, a madrasah and a hospice.
 
-                        After the Peace of Zsitvatorok and the crushing loss in the 1603–1618 war with Persia, Sultan Ahmet I, decided to build a large mosque in Istanbul to reassert Ottoman power. It would be the first imperial mosque for more than forty years. While his predecessors had paid for their mosques with the spoils of war, Ahmet I procured funds from the Treasury, because he had not gained remarkable victories.
-
-                        It caused the anger of the ulema, the Muslim jurists. The mosque was built on the site of the palace of the Byzantine emperors, in front of the basilica Hagia Sophia (at that time, the primary imperial mosque in Istanbul) and the hippodrome, a site of significant symbolic meaning as it dominated the city skyline from the south. Big parts of the south shore of the mosque rest on the foundations, the vaults of the old Grand Palace.
-
-                        The Sultan Ahmed Mosque has five main domes, six minarets, and eight secondary domes. The design is the culmination of two centuries of Ottoman mosque development. It incorporates some Byzantine Christian elements of the neighboring Hagia Sophia with traditional Islamic architecture and is considered to be the last great mosque of the classical period. The architect, Sedefkâr Mehmed Ağa, synthesized the ideas of his master Sinan, aiming for overwhelming size, majesty and splendour.
-
-                        At its lower levels and at every pier, the interior of the mosque is lined with more than 20,000 handmade İznik style ceramic tiles, made at Iznik (the ancient Nicaea) in more than fifty different tulip designs. The tiles at lower levels are traditional in design, while at gallery level their design becomes flamboyant with representations of flowers, fruit and cypresses. The tiles were made under the supervision of the Iznik master. The price to be paid for each tile was fixed by the sultan's decree, while tile prices in general increased over time. As a result, the quality of the tiles used in the building decreased gradually.
                     </div>
                     <div class="col-md-12">
                         <a class="pull-right" id="heritage-item-description-read-more">read more..</a>
@@ -157,6 +149,7 @@
                     <div class="col-md-12" id="basic-information">
 
                     </div>
+
                     <script id="template-basic-information" type="x-tmpl-mustache">
                         {{#basicInformation}}
                         <div class="col-md-2 col-md-offset-1" style="font-weight: bold">
@@ -169,13 +162,29 @@
                     </script>
 
                     <div class="col-md-12">
+                        <div class="pull-left"><h3>Origin</h3></div>
+                    </div>
+                    <div class="col-md-12" id="heritage-origin">
+                    </div>
+
+                    <script id="template-origin" type="x-tmpl-mustache">
+                        <ul>
+                        {{#origin}}
+                        <li>
+                            {{name}}
+                        </li>
+                        {{/origin}}
+                        </ul>
+                    </script>
+
+                    <div class="col-md-12">
                         <hr>
                     </div>
                     <div class="col-md-12">
                         <div class="pull-left"><h3>Location</h3></div>
                     </div>
                     <div class="col-md-12">
-                        <div class="col-md-4 col-md-offset-1">
+                        <div class="col-md-10 col-md-offset-1">
                             <div id="gmap" style="height:300px;"></div>
                         </div>
                         <div class="col-md-7">
@@ -196,13 +205,13 @@
 
 
                                 <script id="template-images" type="x-tmpl-mustache">
-                                {{#multimedia}}
+                                {{#.}}
                                 <div class="col-md-4" id="heritage-item-image-{{id}}">
                                     <a class="thumbnail heritage-item-details-thumbnail-img-to-expand" data-toggle="modal" data-target="#heritage-item-details-add-annotation-on-image-modal">
                                         <img src="/api/v1{{url}}">
                                     </a>
                                 </div>
-                                {{/multimedia}}
+                                {{/.}}
                                 </script>
 
                             <div class="row" id="heritage-images">
@@ -212,7 +221,7 @@
                             <hr>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                         <div class="pull-left"><h4>Video(s)</h4></div>
                     </div>
                     <div class="col-md-12" data-step='4' data-intro="Annotating a video is quite like annotating an image. To annotate an video, click thumbnail of the video you want to annotate. When the dialog appears, you will see the video is expanded and you can select a time interval or an instance by using the tooltip. Following your selection, just add your comment and submit your annotation.">
@@ -246,7 +255,8 @@
                     </div>
                     <div class="col-md-12">
                         <div class="pull-left"><h4>Audio(s)</h4></div>
-                    </div><!--end .card-body -->
+                    </div> -->
+                    <!--end .card-body -->
                 </div>
             </div>
         </section>
