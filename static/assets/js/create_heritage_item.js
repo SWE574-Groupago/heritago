@@ -375,6 +375,7 @@ $(function() {
             toastr.success('Images saved.')
 
             $("#create_new_heritage_item_create_but").removeAttr("disabled", "1");
+            location.href = "heritage.html?id=" + instance.id;
         }).fail(function(jqXHR, textStatus){
             toastr.error(jqXHR.responseText)
             $("#create_new_heritage_item_create_but").removeAttr("disabled", "1");
