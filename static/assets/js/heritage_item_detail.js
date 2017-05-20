@@ -163,8 +163,14 @@
         $.getJSON(url, {
             format: "json"
         })
+        .fail(function(xhr, status){
+            toastr.error("heritage not found");
+        })
         .done(function( data ) {
             render(data);
+            $("#content").show();
+        }).always(function(data){
+            $("#page-loading").hide();
         });
     }
 
@@ -173,7 +179,5 @@
         toastr.error("heritage item id not found in the url");
     else
         fetch(heritageId);
-    $("#page-loading").hide();
-    $("#content").show();
 
  });
