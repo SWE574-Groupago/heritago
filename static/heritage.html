@@ -17,6 +17,7 @@
     <link type="text/css" rel="stylesheet" href="assets/css/theme-default/font-awesome.min.css?1422529194" />
     <link type="text/css" rel="stylesheet" href="assets/css/theme-default/material-design-iconic-font.min.css?1421434286" />
     <link type="text/css" rel="stylesheet" href="assets/css/autocomplete.css" />
+    <link type="text/css" rel="stylesheet" href="assets/css/heritageDetail.css" />
     <!-- END STYLESHEETS -->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -110,13 +111,12 @@
 <div id="base">
 
     <!-- BEGIN CONTENT-->
+    <div id="page-loading" class="text-center">
+        <i class="fa fa-spinner fa-spin fa-3x fa-fw pull-center"></i>
+        <span class="sr-only">Loading...</span>
+    </div>
     <div id="content">
         <section>
-            <div class="section-header">
-                <ol class="breadcrumb">
-                    <li>Heritage Item Details</li>
-                </ol>
-            </div>
             <div class="col-md-offset-1 col-md-7">
                 <div class="card">
                     <div class="card-head card-head-lg style-primary">
@@ -175,7 +175,7 @@
                         <div class="pull-left"><h3>Location</h3></div>
                     </div>
                     <div class="col-md-12">
-                        <div class="col-md-4 col-md-offset-1">
+                        <div class="col-md-10 col-md-offset-1">
                             <div id="gmap" style="height:300px;"></div>
                         </div>
                         <div class="col-md-7">
@@ -196,13 +196,13 @@
 
 
                                 <script id="template-images" type="x-tmpl-mustache">
-                                {{#multimedia}}
+                                {{#.}}
                                 <div class="col-md-4" id="heritage-item-image-{{id}}">
                                     <a class="thumbnail heritage-item-details-thumbnail-img-to-expand" data-toggle="modal" data-target="#heritage-item-details-add-annotation-on-image-modal">
                                         <img src="/api/v1{{url}}">
                                     </a>
                                 </div>
-                                {{/multimedia}}
+                                {{/.}}
                                 </script>
 
                             <div class="row" id="heritage-images">
@@ -212,7 +212,7 @@
                             <hr>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <!-- <div class="col-md-12">
                         <div class="pull-left"><h4>Video(s)</h4></div>
                     </div>
                     <div class="col-md-12" data-step='4' data-intro="Annotating a video is quite like annotating an image. To annotate an video, click thumbnail of the video you want to annotate. When the dialog appears, you will see the video is expanded and you can select a time interval or an instance by using the tooltip. Following your selection, just add your comment and submit your annotation.">
@@ -246,7 +246,8 @@
                     </div>
                     <div class="col-md-12">
                         <div class="pull-left"><h4>Audio(s)</h4></div>
-                    </div><!--end .card-body -->
+                    </div> -->
+                    <!--end .card-body -->
                 </div>
             </div>
         </section>
@@ -554,6 +555,8 @@
 <script src="assets/js/libs/annotator/annotator_edited.min.js"></script>
 <link rel="stylesheet" href="assets/css/annotator/annotator.min.css">
 <!-- END ANNOTATOR JS -->
+
+<script src="assets/js/common.js"></script>
 
 <script type="text/javascript" src="assets/js/heritage_item_detail.js"></script>
 
