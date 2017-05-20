@@ -124,8 +124,29 @@
 
         var $template = $('#template-images').html();
         Mustache.parse($template);
-        var rendered = Mustache.render($template, heritage);
+        var images = [];
+        for (var i = heritage.multimedia.length - 1; i >= 0; i--) {
+            if (heritage.multimedia[i].type == "image")
+                images.push(heritage.multimedia[i])
+        }
+        var rendered = Mustache.render($template, images);
         $images.html(rendered);
+
+        // LOCATION
+        for (var i = heritage.multimedia.length - 1; i >= 0; i--) {
+            var mm = heritage.multimedia[i];
+
+            if (mm.type == "location") {
+                var locationData = JSON.parse(mm.meta);
+                console.log(locationData)
+                new Maplace({
+                    map_div: '#gmap',
+                    type: locationData.type,
+                    locations: locationData.markers
+                }).Load();
+            }
+        }
+
 
         bind();
     }
