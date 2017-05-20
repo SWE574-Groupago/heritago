@@ -157,6 +157,7 @@
                     <div class="col-md-12" id="basic-information">
 
                     </div>
+
                     <script id="template-basic-information" type="x-tmpl-mustache">
                         {{#basicInformation}}
                         <div class="col-md-2 col-md-offset-1" style="font-weight: bold">
@@ -166,6 +167,22 @@
                             {{value}}
                         </div>
                         {{/basicInformation}}
+                    </script>
+
+                    <div class="col-md-12">
+                        <div class="pull-left"><h3>Origin</h3></div>
+                    </div>
+                    <div class="col-md-12" id="heritage-origin">
+                    </div>
+
+                    <script id="template-origin" type="x-tmpl-mustache">
+                        <ul>
+                        {{#origin}}
+                        <li>
+                            {{name}}
+                        </li>
+                        {{/origin}}
+                        </ul>
                     </script>
 
                     <div class="col-md-12">

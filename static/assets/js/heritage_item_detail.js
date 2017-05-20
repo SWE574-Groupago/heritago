@@ -110,6 +110,7 @@
     var $title = $("#heritage-item-title");
     var $description = $("#heritage-item-description");
     var $basicInformation = $("#basic-information");
+    var $origin = $("#heritage-origin");
     var $images = $("#heritage-images");
 
     function render(heritage) {
@@ -121,6 +122,12 @@
         Mustache.parse($template);
         var rendered = Mustache.render($template, heritage);
         $basicInformation.html(rendered);
+
+
+        var $template = $('#template-origin').html();
+        Mustache.parse($template);
+        var rendered = Mustache.render($template, heritage);
+        $origin.html(rendered);
 
         var $template = $('#template-images').html();
         Mustache.parse($template);
