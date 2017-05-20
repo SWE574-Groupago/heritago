@@ -317,7 +317,7 @@ $(function() {
         $(".create_new_heritage_item_free_origin").each(function(index, origin){
             var origin = $(origin).val();
             if (origin) {
-                heritage.origins.push({
+                heritage.origin.push({
                     "name": origin
                 })
             }
