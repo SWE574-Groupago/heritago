@@ -22,7 +22,7 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class MultimediaSerializer(serializers.ModelSerializer):
-    file = serializers.FileField(write_only=True)
+    file = serializers.FileField(write_only=True, required=False)
 
     class Meta:
         model = Multimedia
@@ -32,8 +32,9 @@ class MultimediaSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         multimedia = Multimedia.objects.create(**validated_data)
-        multimedia.url = "/heritages/{}/{}/{}.png".format(
-            multimedia.heritage.id, multimedia.type, multimedia.id)
+        if multimedia.file:
+            multimedia.url = "/heritages/{}/{}/{}.png".format(
+                multimedia.heritage.id, multimedia.type, multimedia.id)
         multimedia.save()
         return multimedia
 

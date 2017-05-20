@@ -140,6 +140,12 @@
         });
     }
 
-    fetch(1)
+    var heritageId = getParameterByName("id");
+    if (!heritageId)
+        toastr.error("heritage item id not found in the url");
+    else
+        fetch(heritageId);
+    $("#page-loading").hide();
+    $("#content").show();
 
  });
