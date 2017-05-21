@@ -132,10 +132,6 @@ def register_user(request):
     return render_to_response('register.html', args)
 
 
-def register_success(request):
-    return render_to_response('register_success.html')
-
-
 @login_required
 def user_profile(request):
     if request.method == 'POST':
@@ -157,9 +153,6 @@ def user_profile(request):
 
     return render(request, 'profile.html', args)
 
-
-def profile_update(request):
-    return render_to_response('profile_update.html')
 
 
 @login_required

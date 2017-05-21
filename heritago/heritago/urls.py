@@ -33,10 +33,9 @@ urlpatterns = [
     url(r'^loggedin/$', views.loggedin, name='loggedin'),
     url(r'^invalid/$', views.invalid_login, name='invalid_login'),
     url(r'^register/$', views.register_user, name='register_user'),
-    url(r'^register_success/$', views.register_success, name='register_success'),
     url(r'^profile/$', views.user_profile, name='user_profile'),
     url(r'^change_password/$', views.change_password , name='password-change'),
-    url(r'^profile_update/$', views.profile_update, name='profile_update'),
+
 
 
 ]
