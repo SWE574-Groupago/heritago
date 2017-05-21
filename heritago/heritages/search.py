@@ -33,3 +33,16 @@ def search_heritages(keyword, size=50, from_record=0):
       }
     }
     return es.search(index_name, type_name, query)
+
+
+def search_annotations(keyword, size=50, from_record=0):
+    query = {
+      "from": from_record,
+      "size": size,
+      "query": {
+        "match": {
+          "_all": keyword
+        }
+      }
+    }
+    return es.search(index_name, type_name, query)
