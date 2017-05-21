@@ -68,6 +68,9 @@ class AnnotationListView(generics.ListCreateAPIView):
     queryset = Annotation.objects.all()
     serializer_class = AnnotationSerializer
 
+    def get_serializer_context(self):
+        return {"target_id": self.kwargs["heritage_id"]}
+
     def list(self, request, *args, **kwargs):
         keyword = self.request.query_params.get("keyword", None)
         if not keyword:

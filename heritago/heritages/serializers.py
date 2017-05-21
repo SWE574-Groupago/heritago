@@ -111,6 +111,8 @@ class AnnotationTargetSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_selector = validated_data.pop("selector")
         target = AnnotationTarget.objects.create(**validated_data)
+        target.target_id = "http://574heritago.com/heritages/{}/".format(self.context["target_id"])
+        target.save()
 
         for entry in validated_selector:
             Selector.objects.create(target=target, **entry)
@@ -146,12 +148,13 @@ class AnnotationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_body = validated_data.pop("body")
         validated_target = validated_data.pop("target")
-        annotation = Annotation.objects.create(**validated_data)
+        annotation = Annotation.objects.create(heritage=Heritage.objects.get(pk=self.context["target_id"]),
+                                               **validated_data)
 
         for entry in validated_body:
             AnnotationBody.objects.create(annotation=annotation, **entry)
 
         for entry in validated_target:
-            AnnotationSerializer.objects.create(annotation=annotation, **entry)
+            AnnotationTarget.objects.create(annotation=annotation, **entry)
 
         return annotation

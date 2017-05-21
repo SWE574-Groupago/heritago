@@ -69,7 +69,7 @@ class Multimedia(models.Model):
 class Annotation(models.Model):
     heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE)
     context = models.URLField(null=False, default="http://www.w3.org/ns/anno.jsonld")
-    annotation_id = models.URLField(max_length=255, unique=True)
+    annotation_id = models.URLField(max_length=255, default="http://574heritago.com/annotations/null/")
     type = models.CharField(max_length=255, null=False, default="Annotation")
     creator = models.CharField(max_length=255, null=False)
     created = models.DateTimeField(auto_now_add=True)
@@ -167,7 +167,7 @@ class AnnotationTarget(models.Model):
                 ("audio/mpeg", cls.MPEGAUDIO))
 
     annotation = models.ForeignKey(to=Annotation, related_name="annotationTarget", on_delete=models.CASCADE)
-    target_id = models.CharField(max_length=255, null=False)
+    target_id = models.CharField(max_length=255, null=False, default="http://574heritago.com/heritages/null/")
     type = models.CharField(choices=TYPES.to_set(), max_length=10)
     format = models.CharField(choices=MIMES.to_set(), max_length=15)
 
@@ -198,9 +198,4 @@ def annotation_id_setter(sender, instance, **kwargs):
     annotation_id = "http://574heritago.com/annotations/{}/".format(instance.id)
     instance.annotation_id = annotation_id
 
-
-@receiver(post_save, sender=Annotation, dispatch_uid="target_id_setter")
-def target_id_setter(sender, instance, **kwargs):
-    annotation_id = "http://574heritago.com/annotations/{}/".format(instance.id)
-    instance.annotation_id = annotation_id
 
