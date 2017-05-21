@@ -1,7 +1,7 @@
 import os
 
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Tag(models.Model):
     name = models.TextField(max_length=100)
@@ -62,3 +62,14 @@ class Multimedia(models.Model):
     def delete(self, using=None, keep_parents=False):
         os.remove(os.path.join(self.file.name))
         return super().delete(using, keep_parents)
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name="profile")
+    email = models.EmailField('email', null=True)
+    note = models.TextField('Notes', blank=True, null=True)
+
+    def __unicode__(self):
+        return self.user.username
+
+
