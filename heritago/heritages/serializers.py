@@ -1,7 +1,8 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 
 from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, Selector, AnnotationTarget, \
-    AnnotationBody, Annotation
+    AnnotationBody, Annotation, UserProfile
 
 
 class BasicInformationSerializer(serializers.ModelSerializer):
@@ -24,6 +25,9 @@ class TagSerializer(serializers.ModelSerializer):
 
 class MultimediaSerializer(serializers.ModelSerializer):
     # Field specification for "write_only" attribute is a duplicate of "extra_kwargs" option in Meta class.
+    # Consider removing the following line:
+    # file = serializers.FileField(write_only=True, required=False)
+
     class Meta:
         model = Multimedia
         fields = ("createdAt", "url", "type", "id", "file", "meta")
@@ -34,8 +38,9 @@ class MultimediaSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         multimedia = Multimedia.objects.create(**validated_data)
-        multimedia.url = "/heritages/{}/{}/{}.png".format(
-            multimedia.heritage.id, multimedia.type, multimedia.id)
+        if multimedia.file:
+            multimedia.url = "/heritages/{}/{}/{}.png".format(
+                multimedia.heritage.id, multimedia.type, multimedia.id)
         multimedia.save()
         return multimedia
 
