@@ -6,12 +6,13 @@ from rest_framework import generics
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+
 from django.shortcuts import (render, render_to_response, redirect)
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
-from heritages.models import Heritage, Multimedia
-from heritages.search import search_heritages
-from heritages.serializers import HeritageSerializer, MultimediaSerializer
+from heritages.models import Heritage, Multimedia, Annotation
+from heritages.search import search_heritages, search_annotations
+from heritages.serializers import HeritageSerializer, MultimediaSerializer, AnnotationSerializer
 from .forms import MyRegistrationForm
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import UserProfileForm
@@ -74,6 +75,27 @@ class MultimediaFileView(ViewSet):
         return HttpResponse(file, content_type="image/png")
 
 
+class AnnotationListView(generics.ListCreateAPIView):
+    queryset = Annotation.objects.all()
+    serializer_class = AnnotationSerializer
+
+    def get_serializer_context(self):
+        return {"target_id": self.kwargs["heritage_id"]}
+
+    def list(self, request, *args, **kwargs):
+        keyword = self.request.query_params.get("keyword", None)
+        if not keyword:
+            return super().list(request, *args, **kwargs)
+
+        result = Response(search_annotations(keyword)).data
+        return Response(i["_source"] for i in result["hits"]["hits"])
+
+
+class AnnotationView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Annotation.objects.all()
+    serializer_class = AnnotationSerializer
+
+
 def login(request):
     c = {}
     c.update(csrf(request))
@@ -92,10 +114,8 @@ def auth_view(request):
         return HttpResponseRedirect('/invalid')
 
 
-
 def invalid_login(request):
     return render_to_response('invalid_loggedin.html')
-
 
 
 def logout(request):
@@ -147,7 +167,6 @@ def user_profile(request):
     args['form'] = form
 
     return render(request, 'profile.html', args)
-
 
 
 @login_required
