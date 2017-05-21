@@ -3,6 +3,7 @@ import os
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 
 
 class Tag(models.Model):
@@ -15,11 +16,11 @@ class Heritage(models.Model):
     title = models.TextField(max_length=255, null=False)
     description = models.TextField(null=False)
     annotationCount = models.IntegerField(default=0)
-    tags = models.ManyToManyField(to=Tag, related_name="tags")
+    tags = models.ManyToManyField(to=Tag, related_name="tags", null=True)
 
-    startDate = models.TextField()
-    endDate = models.TextField()
-    exactDate = models.TextField()
+    startDate = models.TextField(null=True, default="", blank=True)
+    endDate = models.TextField(null=True, default="", blank=True)
+    exactDate = models.TextField(null=True, default="", blank=True)
 
     def delete(self, using=None, keep_parents=False):
         for m in self.multimedia.all():
@@ -57,9 +58,9 @@ class Multimedia(models.Model):
     heritage = models.ForeignKey(to=Heritage, related_name="multimedia", on_delete=models.CASCADE)
     createdAt = models.DateTimeField(auto_now_add=True)
     type = models.CharField(choices=CATEGORIES.to_set(), max_length=10)
-    url = models.URLField()
-    file = models.FileField(upload_to="uploads/")
-    meta = models.TextField()
+    url = models.URLField(blank=True)
+    file = models.FileField(upload_to="uploads/", blank=True, null=True)
+    meta = models.TextField(blank=True)
 
     def delete(self, using=None, keep_parents=False):
         os.remove(os.path.join(self.file.name))
@@ -193,9 +194,20 @@ class Selector(models.Model):
     value = models.CharField(max_length=255, null=False)
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name="profile")
+    email = models.EmailField('email', null=True)
+    note = models.TextField('Notes', blank=True, null=True)
+
+    def __unicode__(self):
+        return self.user.username
+
+
 @receiver(post_save, sender=Annotation, dispatch_uid="annotation_id_setter")
 def annotation_id_setter(sender, instance, **kwargs):
     annotation_id = "http://574heritago.com/annotations/{}/".format(instance.id)
     instance.annotation_id = annotation_id
+
+
 
 

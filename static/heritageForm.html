@@ -17,6 +17,7 @@
     <link type="text/css" rel="stylesheet" href="assets/css/theme-default/font-awesome.min.css?1422529194" />
     <link type="text/css" rel="stylesheet" href="assets/css/theme-default/material-design-iconic-font.min.css?1421434286" />
     <link type="text/css" rel="stylesheet" href="assets/css/autocomplete.css" />
+    <link type="text/css" rel="stylesheet" href="assets/css/heritageForm.css" />
     <!-- END STYLESHEETS -->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -197,10 +198,10 @@
                             <div class="col-md-12">
                                 e.g. Architect (key) - Sedefkar Mehmed Agha (value)
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-12 basicInformation-name-value">
                                 <div class="col-md-5">
                                     <div class="form-group floating-label">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control basicInformation-name">
                                         <label>key</label>
                                     </div>
                                 </div>
@@ -209,7 +210,7 @@
                                 </div>
                                 <div class="col-md-5">
                                     <div class="form-group floating-label">
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control basicInformation-value">
                                         <label>value</label>
                                     </div>
                                 </div>
@@ -235,8 +236,8 @@
                             <form class="form" role="form">
                                 <div class="form-group floating-label">
                                     <select id="create_new_heritage_item_select_map_type" name="create_new_heritage_item_select_map_type" class="form-control">
-                                        <option value="not-selected" selected>select a marker/region type</option>
-                                        <option value="pin">pin</option>
+                                        <option value="not-selected">select a marker/region type</option>
+                                        <option value="pin" selected="">pin</option>
                                         <option value="circle">circle</option>
                                         <option value="polygon">polygon</option>
                                         <option value="path-polyline">path-polyline</option>
@@ -244,7 +245,7 @@
                                     <label for="create_new_heritage_item_select_map_type">Make sure you have selected a map type from dropdown below if you want to include geo-location for your item</label>
                                 </div>
                             </form>
-                            <div class="col-md-12 create_new_heritage_item_map_container" id="create_new_heritage_item_pin_gmap_container">
+                            <div class="col-md-12 create_new_heritage_item_map_container active" id="create_new_heritage_item_pin_gmap_container">
                                 <div class="col-md-10 col-md-offset-1">
                                     <div id="create_new_heritage_item_pin_gmap" style="height:300px;"></div>
                                 </div>
@@ -291,14 +292,22 @@
                         <div class="card-head style-primary">
                             <header>Image uploader</header>
                         </div>
-                        <div class="card-body no-padding">
+
+                        <form id="multimedia-images" class="card-body no-padding">
+
+                                <input type="file" class="multimedia-image">
+
+                        </form><!--end .card-body -->
+
+                        <!-- <div class="card-body no-padding">
                             <form action="../static/html/forms/advanced.html" class="dropzone" id="create_new_heritage_item_dropzone">
                                 <div class="dz-message">
                                     <h3>Drop images here or click to upload.</h3>
                                     <em>(Only images.)</em>
                                 </div>
                             </form>
-                        </div><!--end .card-body -->
+                        </div> -->
+                        <!--end .card-body -->
                     </div><!--end .card -->
                 </div>
                 <div class="col-md-4">
