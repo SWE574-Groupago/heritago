@@ -8,19 +8,19 @@ from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia
 class BasicInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasicInformation
-        fields = ("name", "value", )
+        fields = ("name", "value",)
 
 
 class OriginSerializer(serializers.ModelSerializer):
     class Meta:
         model = Origin
-        fields = ("name", )
+        fields = ("name",)
 
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ("name", )
+        fields = ("name",)
 
 
 class MultimediaSerializer(serializers.ModelSerializer):
@@ -66,7 +66,7 @@ class HeritageSerializer(serializers.ModelSerializer):
             "exactDate",
             "origin",
             "multimedia")
-        read_only_fields = ("id", )
+        read_only_fields = ("id",)
 
     def create(self, validated_data):
         basic_information = validated_data.pop("basicInformation")

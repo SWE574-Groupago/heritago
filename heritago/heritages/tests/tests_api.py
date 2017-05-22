@@ -1,28 +1,51 @@
 import unittest
+import os
 from django.test import Client
 
 heritagePath = '/api/v1/heritages/'
+testfile = 'testImage.jpg'
+
+""" TODO: I am aware long lines violate PEP 8, but for "coverage run --source='.' manage.py test heritages -v 2" command
+ to work properly, I had to do the docstrings this way."""
 
 
 class APITests(unittest.TestCase):
     def setUp(self):
-        """Creating a client"""
         self.client = Client()
+        file = open(testfile, "w")
+        file.close()
 
-    def test_heritages_endpoint_upandrunning(self):
+    def tearDown(self):
+        try:
+            os.remove(testfile)
+        except OSError:
+            pass
+
+    def createNewHeritageItem(self):
+        return self.client.post(heritagePath, {
+            "title": "Helva",
+            "description": "desc",
+            "startDate": "500",
+            "exactDate": "2000",
+            "origin": [{"name": "Turkey"}, {"name": "Afghanistan"}],
+            "basicInformation": [{"name": "AKA", "value": "Halawa"}],
+            "tags": [{"name": "religion"}, {"name": "christmas"}, {"name": "figure"}]
+        })
+
+    def test_heritages_endpoint_up_and_running(self):
+        """The endpoint api/heritages is up and running."""
         response = self.client.get(heritagePath)
         self.assertEqual(response.status_code, 200)
 
-    def test_heritages_addnewheritage_with_inadequateinfo(self):
-        """POSTing with inadequate fields"""
+    def test_heritages_add_new_heritage_with_inadequate_info(self):
+        """ENDPOINT: api/heritages, METHOD:POST, CONDITION: with only title information, EXPECTING: StatusCode:400"""
         response = self.client.post(heritagePath, {
             "title": "Ayasofya"
         })
-        print(response.status_code)
         self.assertEquals(response.status_code, 400)
 
-    def test_heritages_addnewheritage_withnoenddate(self):
-        """POSTing with no endDate"""
+    def test_heritages_add_new_heritage_with_no_enddate(self):
+        """ENDPOINT: api/heritages, METHOD: POST, with no endDate, EXPECTING: StatusCode:400"""
         response = self.client.post(heritagePath, {
             "title": "Helva",
             "description": "desc",
@@ -32,12 +55,10 @@ class APITests(unittest.TestCase):
             "basicInformation": [{"name": "AKA", "value": "Halawa"}],
             "tags": [{"name": "religion"}, {"name": "christmas"}, {"name": "figure"}]
         })
-        # I could have add an item without endDate
-        print("POST Heriatage With no endDate => response status code (*expecting 201): " + str(response.status_code))
         self.assertEqual(response.status_code, 201)
 
-    def test_heritages_addnewheritage(self):
-        """POSTing with full info"""
+    def test_heritages_add_new_heritage(self):
+        """ENDPOINT: api/heritages, METHOD: POST, CONDITION: with full info, EXPECTING: an onbject with a id property filled."""
         r = self.client.post(heritagePath, {
             "title": "Santa Clause",
             "description": "Santa Claus, also known as Saint Nicholas, Saint Nick, Kris Kringle, Father Christmas, "
@@ -53,5 +74,44 @@ class APITests(unittest.TestCase):
             "tags": [{"name": "religion"}, {"name": "christmas"}, {"name": "figure"}]
         })
         response = r.json()
-        print(response["id"])
         self.assertIsInstance(response["id"], int)
+
+    def test_heritages_search_heritages_by_keyword_existing(self):
+        """ENDPOINT: api/heritages, METHOD: GET, QUERYSTR: ?keyword=kwrd, CONDITION: search by a keyword, EXPECTING: not empty response."""
+        r = self.client.get(heritagePath + "?keyword=santa")
+        response = r.json()
+        self.assertGreaterEqual(len(response), 0)
+
+    def test_heritages_search_heritages_bykeyword_not_existing(self):
+        """ENDPOINT: api/heritages, METHOD: GET, QUERYSTR: ?keyword=kwrd, CONDITION: search by a keyword, EXPECTING: empty response"""
+        r = self.client.get(heritagePath + "?keyword=nonexistingitem")
+        response = r.json()
+        self.assertEqual(len(response), 0)
+
+    def test_heritages_get_multimedia_of_a_heritage_item(self):
+        """ENDPOINT: api/heritages/{hid}/multimedia, METHOD: GET, CONDITION: heritage item exists with no multimedia, EXPECTING: empty multimedia """
+        hitemresponse = APITests.createNewHeritageItem(self)
+        id = hitemresponse.json()["id"]
+        r = self.client.get(heritagePath + str(id) + "/multimedia")
+        response = r.json()
+        self.assertEqual(len(response), 0)
+
+    def test_heritages_try_to_get_non_existing_heritage_items_multimedia(self):
+        """ENDPOINT: api/heritages/{hid}/multimedia, METHOD: GET, CONDITION: heritage item does not exist, EXPECTING: empty multimedia """
+        r = self.client.get(heritagePath + "99/multimedia")
+        self.assertEqual(r.status_code, 404)
+
+    def test_heritages_try_to_create_non_existing_heritage_item_a_multimedia(self):
+        """ENDPOINT: api/heritages/{hid}/multimedia, METHOD: POST, CONDITION: create a multimedia for a heritage item that does not exist, EXPECTING: StatusCode:404 """
+        r = self.client.post(heritagePath + "99/multimedia", {
+            "type": "image"
+        })
+        self.assertEqual(r.status_code, 404)
+
+    def test_heritages_add_multimedia_to_heritage_item(self):
+        """ENDPOINT: api/heritages/{hid}/multimedia, METHOD: POST, CONDITION: create heritage item and add mmedia to it, EXPECTING: StatusCode:201 """
+        id = APITests.createNewHeritageItem(self).json()["id"]
+        r = self.client.post(heritagePath + str(id) + "/multimedia", {
+            "type": "image"
+        })
+        self.assertEqual(r.status_code, 201)

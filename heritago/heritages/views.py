@@ -65,7 +65,6 @@ class MultimediaView(generics.RetrieveDestroyAPIView):
 
 
 class MultimediaFileView(ViewSet):
-
     def get_file(self, request, heritage_id, multimedia_id):
         try:
             m = Multimedia.objects.get(pk=multimedia_id)
