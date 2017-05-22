@@ -1,11 +1,9 @@
 import unittest
 import requests
 from django.test import Client
-from unittest.mock import Mock, patch
 
 api_url = "/api/v1/annotations/"
 domain = "http://heritago.com/"
-annotation_id = domain + "testanno"
 
 
 def get_annotation():
@@ -17,37 +15,24 @@ def get_annotation():
 
 
 class AnnotationDataModelTests(unittest.TestCase):
-    @classmethod
-    def setup_class(cls):
-        cls.mock_get_patcher = patch('requests.get')
-        cls.mock_get = cls.mock_get_patcher.start()
-
-    @classmethod
-    def teardown_class(cls):
-        cls.mock_get_patcher.stop()
-
-    def test_annotation_must_have_1_or_more_context_property_mocked(self):
-        self.mock_get.return_value.ok = True
+    def setUp(self):
+        self.Client = Client()
+        annotation_id = domain + "testanno"
         annotation = [{
-                 '@context': 'http://www.w3.org/ns/anno.jsonld',
-                 'id': annotation_id,
-                 'type': 'Annotation',
-                 'body': 'http://example.org/note1',
-                 'target': {
-                     'source': 'http://example.org/page1.html',
-                     'selector': {
-                         'type': 'XPathSelector',
-                         'value': '/html/body/p[2]/table/tr[2]/td[3]/span'
-                     }
-                 }
-             }]
-        self.mock_get.return_value = Mock()
-        self.mock_get.return_value.json.return_value = annotation
+            '@context': 'http://www.w3.org/ns/anno.jsonld',
+            'id': annotation_id,
+            'type': 'Annotation',
+            'body': 'http://example.org/note1',
+            'target': {
+                'source': 'http://example.org/page1.html',
+                'selector': {
+                    'type': 'XPathSelector',
+                    'value': '/html/body/p[2]/table/tr[2]/td[3]/span'
+                }
+            }
+        }]
 
-        response = get_annotation()
-        print(response)
-
-
+        return self.Client.post(api_url, annotation)
 
     """
     EXAMPLE 1: Basic Annotation Model
@@ -63,7 +48,8 @@ class AnnotationDataModelTests(unittest.TestCase):
     def test_annotation_must_have_1_or_more_context_property(self):
         # TODO: code!: https://www.w3.org/TR/annotation-model/ 3.1 Annotations Example-1
         """The Annotation must have 1 or more @context values and http://www.w3.org/ns/anno.jsonld must be one of them. If there is only one value, then it must be provided as a string. PROPERTY: @context)        """
-        raise NotImplementedError
+        response = self.Client.get(api_url + "/" + domain + "testanno")
+        print(response)
 
     def test_an_annotation_must_have_exactly_1_IRI_that_defines_it(self):
         # TODO: code! https://www.w3.org/TR/annotation-model/ 3.1 Annotations Example-1

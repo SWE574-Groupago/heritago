@@ -125,7 +125,7 @@ class Heritage(models.Model):
     endDate = models.TextField(null=True, default="", blank=True)
     exactDate = models.TextField(null=True, default="", blank=True)
 
-    annotations = models.ForeignKey(to=Annotation, related_name="annotation")
+    annotations = models.ForeignKey(to=Annotation, related_name="annotation", blank=True, null=True)
 
     def delete(self, using=None, keep_parents=False):
         for m in self.multimedia.all():
