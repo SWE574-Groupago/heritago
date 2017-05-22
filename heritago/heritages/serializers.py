@@ -149,7 +149,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
         super(AnnotationSerializer, self).__init__(*args, **kwargs)
         self.fields["context"].label = "@context"
         self.fields["annotation_id"].label = "id"
-
+"""
     def create(self, validated_data):
         validated_body = validated_data.pop("body")
         validated_target = validated_data.pop("target")
@@ -163,3 +163,4 @@ class AnnotationSerializer(serializers.ModelSerializer):
             AnnotationTarget.objects.create(annotation=annotation, **entry)
 
         return annotation
+"""

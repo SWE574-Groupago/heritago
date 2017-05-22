@@ -33,13 +33,13 @@ class ModelsTest(TestCase):
             pass
 
     def test_tag_initial(self):
-        ancientTag = Tag.objects.get(name="TAG_ancient")
-        self.assertEqual(ancientTag.name, "TAG_ancient")
+        ancient_tag = Tag.objects.get(name="TAG_ancient")
+        self.assertEqual(ancient_tag.name, "TAG_ancient")
 
     def test_heritage_create(self):
         """Try to get created heritage object.."""
-        testMosq = Heritage.objects.get(title="Test Mosque")
-        self.assertEqual(testMosq.title, "Test Mosque")
+        test_mosque = Heritage.objects.get(title="Test Mosque")
+        self.assertEqual(test_mosque.title, "Test Mosque")
 
     def test_heritage_delete(self):
         """Try to get deleted heritage object.."""
