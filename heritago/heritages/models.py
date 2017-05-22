@@ -16,7 +16,7 @@ class Heritage(models.Model):
     title = models.TextField(max_length=255, null=False)
     description = models.TextField(null=False)
     annotationCount = models.IntegerField(default=0)
-    tags = models.ManyToManyField(to=Tag, related_name="tags", null=True)
+    tags = models.ManyToManyField(to=Tag, related_name="tags")
 
     startDate = models.TextField(null=True, default="", blank=True)
     endDate = models.TextField(null=True, default="", blank=True)
@@ -167,7 +167,7 @@ class AnnotationTarget(models.Model):
                 ("audio/midi", cls.MIDIAUDIO),
                 ("audio/mpeg", cls.MPEGAUDIO))
 
-    annotation = models.ForeignKey(to=Annotation, related_name="annotationTarget", on_delete=models.CASCADE)
+    annotation = models.ForeignKey(to=Annotation, related_name="target", on_delete=models.CASCADE)
     target_id = models.CharField(max_length=255, null=False, default="http://574heritago.com/heritages/null/")
     type = models.CharField(choices=TYPES.to_set(), max_length=10)
     format = models.CharField(choices=MIMES.to_set(), max_length=15)
