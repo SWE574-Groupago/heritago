@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    @GET("/heritages")
+    @GET("heritages")
     Call<List<Heritage>> getHeritages(
             @Query("q") String query,
             @Query("user") String username);

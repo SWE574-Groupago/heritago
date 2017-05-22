@@ -1,5 +1,8 @@
 package com.heritago.heritandroid.model;
 
+import com.heritago.heritandroid.api.ApiClient;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,10 +12,10 @@ import java.util.List;
 public class Heritage {
     private final String defaultImageUrl = "http://i.sozcu.com.tr/wp-content/uploads/2015/04/01/670sultanahmetcamii.jpg";
     public String id;
-    public String title;
-    public String description;
+    private String title;
+    private String description;
     public String createdAt;
-    public List<BasicInformation> basicInformation;
+    private List<BasicInformation> basicInformation;
     public List<String> origins;
     public List<String> tags;
     public int annotationCount;
@@ -30,7 +33,7 @@ public class Heritage {
     public String getThumbnailImageUrl(){
         for (Multimedia m: multimedia){
             if (m.getType().equals(Multimedia.Type.image)){
-                return m.url;
+                return ApiClient.imageBaseUrl + m.url;
             }
         }
 
@@ -38,7 +41,23 @@ public class Heritage {
     }
 
     public String getOwnerName(){
-        return owner.name;
+        try {
+            return owner.name;
+        }catch (Exception e){
+            return "";
+        }
+    }
+
+    public String getTitle() {
+        return (title != null)? title : "" ;
+    }
+
+    public String getDescription() {
+        return (title != null)? description : "";
+    }
+
+    public List<BasicInformation> getBasicInformation() {
+        return (basicInformation != null)? basicInformation : new ArrayList<BasicInformation>();
     }
 
     public static class Owner {
@@ -51,11 +70,11 @@ public class Heritage {
         }
     }
     public static class BasicInformation {
-        public String key;
+        public String name;
         public String value;
 
-        public BasicInformation(String key, String value) {
-            this.key = key;
+        public BasicInformation(String name, String value) {
+            this.name = name;
             this.value = value;
         }
     }

@@ -84,7 +84,8 @@ public class SearchFragment extends Fragment {
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                Log.d(TAG, "api call success");
+                Log.d(TAG, "api call success: "+call.request().url());
+                Log.d(TAG, "response: "+response.body());
                 ArrayList<Heritage> heritages;
                 try {
                     heritages = (ArrayList<Heritage>) response.body();
@@ -92,7 +93,7 @@ public class SearchFragment extends Fragment {
                     heritageList.addAll(heritages);
                     adapter.notifyDataSetChanged();
                 }catch (Exception e){
-                    Log.d(TAG, "heritages cast error");
+                    Log.d(TAG, "heritages cast error "+e.getMessage());
                     return;
                 }
 

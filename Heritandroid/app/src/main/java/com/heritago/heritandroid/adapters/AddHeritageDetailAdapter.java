@@ -62,7 +62,7 @@ public class AddHeritageDetailAdapter extends BaseAdapter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                detailList.get(position).key = s.toString();
+                detailList.get(position).name = s.toString();
             }
 
             @Override
