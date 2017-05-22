@@ -6,10 +6,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.heritago.heritandroid.R;
 import com.heritago.heritandroid.model.Heritage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by onurtokoglu on 02/04/2017.
@@ -30,8 +36,51 @@ public class HeritageDetailFragment extends Fragment {
         TextView title = (TextView) view.findViewById(R.id.title);
         title.setText(heritage.title);
 
+        TextView description = (TextView) view.findViewById(R.id.description);
+        description.setText(heritage.description);
+
+        ListView heritageDetailList = (ListView) view.findViewById(R.id.heritage_detail_list);
+        DetailAdapter detailAdapter = new DetailAdapter(heritage.basicInformation);
+        heritageDetailList.setAdapter(detailAdapter);
+
         return view;
     }
 
 
+    private class DetailAdapter extends BaseAdapter {
+        private List<Heritage.BasicInformation> detailList;
+
+        public DetailAdapter(List<Heritage.BasicInformation> detailList) {
+            this.detailList = detailList;
+        }
+
+        @Override
+        public int getCount() {
+            return detailList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return detailList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_heritage_detail_list, parent, false);
+
+            TextView key = (TextView) view.findViewById(R.id.key_text);
+            key.setText(detailList.get(position).key);
+
+            TextView value = (TextView) view.findViewById(R.id.value_text);
+            value.setText(detailList.get(position).value);
+
+
+            return null;
+        }
+    }
 }
