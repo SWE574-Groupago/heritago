@@ -32,7 +32,9 @@ class AnnotationDataModelTests(unittest.TestCase):
             }
         }]
 
-        return self.Client.post(api_url, annotation)
+        response = self.Client.post(api_url, annotation)
+        print(response.json())
+        return response
 
     """
     EXAMPLE 1: Basic Annotation Model
@@ -44,11 +46,29 @@ class AnnotationDataModelTests(unittest.TestCase):
       "target": "http://example.com/page1"
     }
     """
+    def test_create_annotation(self):
+        annotation_id = domain + "testanno"
+        annotation = [{
+            '@context': 'http://www.w3.org/ns/anno.jsonld',
+            'id': annotation_id,
+            'type': 'Annotation',
+            'body': 'http://example.org/note1',
+            'target': {
+                'source': 'http://example.org/page1.html',
+                'selector': {
+                    'type': 'XPathSelector',
+                    'value': '/html/body/p[2]/table/tr[2]/td[3]/span'
+                }
+            }
+        }]
+
+        response = self.Client.post(api_url, annotation)
+        print(response.json())
 
     def test_annotation_must_have_1_or_more_context_property(self):
         # TODO: code!: https://www.w3.org/TR/annotation-model/ 3.1 Annotations Example-1
         """The Annotation must have 1 or more @context values and http://www.w3.org/ns/anno.jsonld must be one of them. If there is only one value, then it must be provided as a string. PROPERTY: @context)        """
-        response = self.Client.get(api_url + "/" + domain + "testanno")
+        response = self.Client.get(api_url + "/" + "testanno")
         print(response)
 
     def test_an_annotation_must_have_exactly_1_IRI_that_defines_it(self):
