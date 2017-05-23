@@ -1,4 +1,55 @@
+ 
+ var heritageId;
+
+ var myAnnotator = {
+    "onSubmit": function(annotation) {
+        console.log(annotation);
+        var $element = $(annotation.highlights[0])
+        var selected_motivation = $('#add-annotation-on-description-modal-select-motivation').val();
+        var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
+        var given_url = $("#add-annotation-on-description-modal-url").val();
+
+        var targetId = window.location.href.split("#")[0] + "#description";
+        var data = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "creator": "osman",
+            "motivation": $("#add-annotation-on-description-modal-select-motivation").val(),
+            "body": [{
+                "type": "text",
+                "value": given_textual_body || given_url,
+                "format": "text/plain"
+            }],
+            "target": [{
+                "id": targetId,
+                "type": "text",
+                "format": "text/plain",
+                "selector": [{
+                    "type": "FragmentSelector",
+                    "conformsTo": "http://tools.ietf.org/rfc/rfc5147",
+                    "value": "char=" + annotation.ranges[0].startOffset + ", " + annotation.ranges[0].endOffset
+                }]
+            }]
+        };
+        
+        $.ajax({
+            "url": "/api/v1/heritages/" + heritageId + "/annotations",
+            "method": "POST",
+            "data": JSON.stringify(data),
+            "contentType": "application/json",
+        }).always(function(response){
+            console.log($element); // TODO: id'yi kut diye bas
+            console.log(response);
+        });
+
+    }
+ };
+
+
+
  $(function() {
+    var annotator;
+    var annoations;
 
     function bind() {
         $('#heritage-item-description-read-more').click(function() {
@@ -30,7 +81,7 @@
             }]
         }).Load();
 
-        $('#heritage-item-description').annotator();
+        annotator = $('#heritage-item-description').annotator();
 
         $('.annotator-adder button').attr( "data-toggle", "modal" );
         $('.annotator-adder button').attr( "data-target", "#add-annotation-on-description-modal" );
@@ -51,34 +102,21 @@
              $("#add-annotation-on-description-modal-text-errors").html("&nbsp;");
              // Checks if motivation selected
              var selected_motivation = $('#add-annotation-on-description-modal-select-motivation').val();
-             // Check if motivation is "linking"
-             if (selected_motivation == "linking") {
-                 var given_url = $("#add-annotation-on-description-modal-url").val();
-                 if (given_url == "") {
-                     // Give error since given URL cannot be empty string
-                     $("#add-annotation-on-description-modal-text-errors").html("Given URL cannot be empty string while selected motivation is 'linking'.");
-                 }
-                 else {
-                     // Submit annotation with selected_motivation "linking"
-
-                     $('.annotator-save').click();
-                     $('#add-annotation-on-description-modal-close-but').click();
-                 }
+             var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
+             var given_url = $("#add-annotation-on-description-modal-url").val();
+             if (selected_motivation == "linking" && given_url == "") {
+                 // Give error since given URL cannot be empty string
+                 $("#add-annotation-on-description-modal-text-errors").html("Given URL cannot be empty string while selected motivation is 'linking'.");
+                 return
+            }
+            else if (given_textual_body == "") {
+                 // Give error since entered textual body cannot be empty string
+                 $("#add-annotation-on-description-modal-text-errors").html("Textual body cannot be empty string while selected motivation is '" + selected_motivation + "'." );
+                 return;
              }
-             // Selected motivation other than linking
-             else {
-                 var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
-                 if (given_textual_body == "") {
-                     // Give error since entered textual body cannot be empty string
-                     $("#add-annotation-on-description-modal-text-errors").html("Textual body cannot be empty string while selected motivation is '" + selected_motivation + "'." );
-                 }
-                 else {
-                     // Submit annotation with selected_motivation which is other than linking
 
-                     $('.annotator-save').click();
-                     $('#add-annotation-on-description-modal-close-but').click();
-                 }
-             }
+            $('.annotator-save').click();
+            $('#add-annotation-on-description-modal-close-but').click();
 
          });
 
@@ -212,9 +250,48 @@
 
         bind();
     }
+    
+    function renderAnnotations() {
+        for (var i = annotations.length - 1; i >= 0; i--) {
+            var a = annotations[i];
 
-    function fetch(id) {
-        var url = "/api/v1/heritages/" + id;
+            if (a.target[0].format == "text/plain") {
+                var position = a.target[0].selector[0].value.split("=")[1].split(",");
+                console.log(position);
+                annotator.annotator("loadAnnotations", [{
+                    "id": position[0], // TODO: duzgun bir id
+                    "ranges": [
+                        {
+                          "start": "",
+                          "end": "",
+                          "startOffset": position[0],
+                          "endOffset": position[1]
+                        }
+                      ]
+                }]);
+
+            }
+        }
+    }
+
+    function fetchAnnotations() {
+        var url = "/api/v1/heritages/" + heritageId + "/annotations";
+        $.getJSON(url, {
+            format: "json"
+        })
+        .fail(function(xhr, status){
+            toastr.error("annotations not found");
+        })
+        .done(function( data ) {
+            annoations = data;
+            console.log("fetched annoations")
+            console.log(data);
+            renderAnnotations();
+        });
+    }
+
+    function fetch() {
+        var url = "/api/v1/heritages/" + heritageId;
         $.getJSON(url, {
             format: "json"
         })
@@ -224,12 +301,13 @@
         .done(function( data ) {
             render(data);
             $("#content").show();
+            fetchAnnotations();
         }).always(function(data){
             $("#page-loading").hide();
         });
     }
 
-    var heritageId = getParameterByName("id");
+    heritageId = getParameterByName("id");
     if (!heritageId)
         toastr.error("heritage item id not found in the url");
     else
