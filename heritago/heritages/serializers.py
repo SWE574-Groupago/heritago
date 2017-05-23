@@ -144,10 +144,13 @@ class AnnotationSerializer(serializers.ModelSerializer):
                   "body",
                   "target")
 
-    def __init__(self, *args, **kwargs):
-        super(AnnotationSerializer, self).__init__(*args, **kwargs)
-        self.fields["context"].label = "@context"
-        self.fields["annotation_id"].label = "id"
+    def to_representation(self, instance):
+        data = super(AnnotationSerializer, self).to_representation(instance)
+        data["@context"] = instance.context
+        data["id"] = instance.annotation_id
+        del data["context"]
+        del data["annotation_id"]
+        return data
 
     def create(self, validated_data):
         validated_body = validated_data.pop("body")
