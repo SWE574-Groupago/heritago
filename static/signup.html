@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Heritago - Signup</title>
+
+        <!-- BEGIN META -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="your,keywords">
+        <meta name="description" content="Short explanation about this website">
+        <!-- END META -->
+
+        <!-- BEGIN STYLESHEETS -->
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300italic,400italic,300,400,500,700,900' rel='stylesheet' type='text/css'/>
+        <link type="text/css" rel="stylesheet" href="assets/css/theme-default/bootstrap.css?1422792965" />
+        <link type="text/css" rel="stylesheet" href="assets/css/theme-default/materialadmin.css?1425466319" />
+        <link type="text/css" rel="stylesheet" href="assets/css/theme-default/font-awesome.min.css?1422529194" />
+        <link type="text/css" rel="stylesheet" href="assets/css/theme-default/material-design-iconic-font.min.css?1421434286" />
+        <link type="text/css" rel="stylesheet" href="assets/css/theme-default/libs/bootstrap-datepicker/datepicker3.css?1424887858" />
+        <link type="text/css" rel="stylesheet" href="assets/css/authentication.css" />
+        <!-- END STYLESHEETS -->
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="assets/js/libs/utils/html5shiv.js?1403934957"></script>
+        <script type="text/javascript" src="assets/js/libs/utils/respond.min.js?1403934956"></script>
+        <![endif]-->
+    </head>
+    <body class=" ">
+
+
+        <!-- BEGIN BASE-->
+        <section class="page ">
+
+            <div class="col-sm-6 col-md-7 page-splash">
+                <div class="login-bg" style=""></div>
+            </div>
+
+            <div class="col-sm-6 col-md-5 page-forms">
+
+                <div id="signin-card">
+                    <div>
+                        <h2 class="text-primary">Heritago</h2>
+                        <p class="lead">
+                        Heritago is the best application you can ever find. Believe me, it is the best.
+                        Even Chuck Norris cannot resists its greatness. So, come join us, los panpas.
+                        </p>
+                    </div>
+                    <div lass="card contain-sm">
+                        <div class="card-body floating-label">
+                            <div class="col-sm-12">
+                                <form class="form">
+                                    <div class="card contain-sm">
+                                        <div class="card-head style-primary">
+                                            <header>Create an account</header>
+                                        </div>
+                                        <div class="card-body floating-label">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="signup-firstname">
+                                                        <label for="signup-firstname">Firstname</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="signup-lastname">
+                                                        <label for="signup-lastname">Lastname</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="email" class="form-control" id="signup-email">
+                                                <label for="signup-email">Email</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" id="signup-password">
+                                                <label for="signup-password">Password</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control" id="signup-password">
+                                                <label for="signup-password">Password Again</label>
+                                            </div>
+                                            <div class="alert alert-danger" role="alert" id="signup-error-message">
+                                                <strong>Error:</strong> <span></span>
+                                            </div>
+                                        </div><!--end .card-body -->
+                                        <div class="card-actionbar">
+                                            <div class="card-actionbar-row">
+                                                <button type="submit" class="btn btn-flat btn-primary ink-reaction">Create account</button>
+                                            </div>
+                                        </div>
+                                    </div><!--end .card -->
+                                </form>
+                            </div><!--end .col -->
+                        </div>
+                    </div>
+                </div><!--end .row -->
+            </div> <!-- end of page-forms -->
+
+
+        </section>
+            <!-- END LOGIN SECTION -->
+
+        <!-- END BASE -->
+
+        <!-- BEGIN JAVASCRIPT -->
+        <script src="assets/js/libs/jquery/jquery-1.11.2.min.js"></script>
+        <script src="assets/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
+        <script src="assets/js/libs/bootstrap/bootstrap.min.js"></script>
+
+        <script src="assets/js/libs/autosize/jquery.autosize.min.js"></script>
+        <script src="assets/js/libs/nanoscroller/jquery.nanoscroller.min.js"></script>
+        <script src="assets/js/libs/mustache.min.js"></script>
+        <script src="assets/js/libs/js.cookie.js"></script>
+        <script src="assets/js/libs/spin.js/spin.min.js"></script>
+        <script src="assets/js/libs/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="assets/css/theme-default/libs/toastr/toastr.css?1425466569">
+        <script src="assets/js/libs/toastr/toastr.js"></script>
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+        <script type="text/javascript" src="assets/js/libs/moment/moment-timezone-with-data.js"></script>
+
+        <script src="assets/js/core/source/App.js"></script>
+        <script src="assets/js/core/source/AppNavigation.js"></script>
+        <script src="assets/js/core/source/AppOffcanvas.js"></script>
+        <script src="assets/js/core/source/AppCard.js"></script>
+        <script src="assets/js/core/source/AppForm.js"></script>
+        <script src="assets/js/core/source/AppNavSearch.js"></script>
+        <script src="assets/js/core/source/AppVendor.js"></script>
+        <script src="assets/js/core/demo/Demo.js"></script>
+        <!-- END JAVASCRIPT -->
+
+
+        <script type="text/javascript" src="assets/js/user.js"></script>
+        <script type="text/javascript" src="assets/js/weights.js"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function(){
+
+            $("#signup-card form").submit(function(e){
+                e.preventDefault();
+                var data = {
+                    "first_name": $("#signup-firstname").val(),
+                    "last_name": $("#signup-lastname").val(),
+                    "email": $("#signup-email").val(),
+                    "username": $("#signup-email").val(),
+                    "password": $("#signup-password").val(),
+                    "userprofile": {
+                        "gender": $("input[name='signup-gender']:checked").val(),
+                        "birth_date": $("#signup-birth-date").data('datepicker').getFormattedDate('yyyy-mm-dd'),
+                        "height": $("#signup-height").val(),
+                    }
+                };
+
+                $("#signup-error-message").hide()
+                User.register(data, {
+                    success: function(res){
+                        Weights.insertWeight(moment().format('YYYY-MM-DD'), $("#signup-weight").val(), {
+                            success: function(){
+                                login(data.email, data.password);
+                            },
+                            error: function() {
+                                login(data.email, data.password);
+                            }
+                        })
+                    },
+                    error: function(res){
+                        var errors = JSON.parse(res.responseText);
+                        $("#signup-error-message").show()
+                        for(var i in errors) {
+                            $("#signup-error-message span").html(i + ": " + errors[i]);
+                            break;
+                        }
+                        console.log(res)
+                    }
+                })
+
+
+            });
+
+        });
+        </script>
+
+    </body>
+</html>
