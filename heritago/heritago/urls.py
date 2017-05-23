@@ -22,10 +22,8 @@ from django.contrib.auth.views import password_reset
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r"api/v1/heritages/", include("heritages.urls")),
-    url(r"api/v1/annotations/",
-        views.AnnotationListView.as_view()),
-    url(r"api/v1/annotations/(?P<pk>\d+)$",
-        views.AnnotationView.as_view()),
+    # url(r"api/v1/annotations/", views.AnnotationListView.as_view()),
+    # url(r"api/v1/annotations/(?P<pk>\d+)$", views.AnnotationView.as_view()),
 
     # user auth urls
     # url(r'^$', views.diary, name='home'),
@@ -36,7 +34,4 @@ urlpatterns = [
     url(r'^register/$', views.register_user, name='register_user'),
     url(r'^profile/$', views.user_profile, name='user_profile'),
     url(r'^change_password/$', views.change_password , name='password-change'),
-
-
-
 ]
