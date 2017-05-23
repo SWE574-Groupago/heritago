@@ -69,11 +69,14 @@ class Multimedia(models.Model):
 class Annotation(models.Model):
     heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE, blank=True)
     context = models.URLField(null=False, default="http://www.w3.org/ns/anno.jsonld")
-    annotation_id = models.URLField(max_length=255, default="http://574heritago.com/annotations/null/")
     type = models.CharField(max_length=255, null=False, default="Annotation")
     creator = models.CharField(max_length=255, null=False)
     created = models.DateTimeField(auto_now_add=True)
     votes = models.IntegerField(null=False, default=0)
+
+    @property
+    def annotation_id(self):
+        return "http://574heritago.com/annotations/{}/".format(self.id)
 
 
 class AnnotationBody(models.Model):
@@ -197,9 +200,3 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return self.user.username
-
-
-@receiver(post_save, sender=Annotation, dispatch_uid="annotation_id_setter")
-def annotation_id_setter(sender, instance, **kwargs):
-    annotation_id = "http://574heritago.com/annotations/{}/".format(instance.id)
-    instance.annotation_id = annotation_id
