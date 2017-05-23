@@ -67,7 +67,7 @@ class Multimedia(models.Model):
 
 
 class Annotation(models.Model):
-    heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE)
+    heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE, blank=True)
     context = models.URLField(null=False, default="http://www.w3.org/ns/anno.jsonld")
     annotation_id = models.URLField(max_length=255, default="http://574heritago.com/annotations/null/")
     type = models.CharField(max_length=255, null=False, default="Annotation")
