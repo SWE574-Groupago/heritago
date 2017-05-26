@@ -4,7 +4,7 @@ var annotations;
 
  var myAnnotator = {
     "onSubmit": function(annotation) {
-        console.log(annotation);
+        
         var $element = $(annotation.highlights[0])
         var selected_motivation = $('#add-annotation-on-description-modal-select-motivation').val();
         var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
@@ -32,7 +32,7 @@ var annotations;
                 }]
             }]
         };
-        console.log(data);
+        
         $.ajax({
             "url": "/api/v1/heritages/" + heritageId + "/annotations",
             "method": "POST",
@@ -203,11 +203,92 @@ function renderAnnotationNumber(n) {
 
 
         $('.heritage-item-details-thumbnail-img-to-expand').click(function() {
-             $('#heritage-item-details-add-annotation-on-image-modal-target-image').attr( "src", $( this ).children('img').attr('src') );
-         });
+            init_image_popup($( this ).children('img').attr('src') );
+
+             
+        });
+
+        $("#btn-start-annotate").click(function(){
+            start_image_annotation();
+        })
+
+        $("#btn-cancel-annotate").click(function(){
+            stop_image_annotation();
+        })
+
+
     }
 
+    function init_image_popup(src) {
+        // $('#heritage-item-details-add-annotation-on-image-modal-target-image').attr( "src", );
+        v = VGG({
+          "single_region": true,
+          "url": src,
+          "canvas_container": document.getElementById("canvas_panel"),
+          "onLoaded": function(status) {
+            console.log(status);
+          },
+          "show_message": function(msg, t) {
+            console.log(msg)
+          },
+          "new_region_created": function(region) {
+            console.log(region)
+          },
+          "initialized": function(status) {
+            setTimeout(function(){
+            v.import_region({
+              "0": {
+                "shape_attributes": {
+                  "name": "polygon",
+                  "all_points_x": [
+                    119,
+                    102,
+                    196,
+                    406,
+                    395,
+                    433,
+                    413,
+                    336,
+                    332,
+                    247,
+                    164,
+                    119
+                  ],
+                  "all_points_y": [
+                    175,
+                    218,
+                    285,
+                    288,
+                    232,
+                    227,
+                    140,
+                    138,
+                    210,
+                    182,
+                    195,
+                    175
+                  ]
+                },
+                "region_attributes": {
+                  "name": "Swan",
+                  "color": "white"
+                }
+              }
+            });}, 200);
+          }
+        });
+    }
 
+    function start_image_annotation() {
+        $("#btn-start-annotate").hide();
+        $("#image-region-form").show();
+
+    }
+    
+    function stop_image_annotation() {
+        $("#btn-start-annotate").show();
+        $("#image-region-form").hide();
+    }
 
     var $title = $("#heritage-item-title");
     var $description = $("#heritage-item-description");
@@ -267,7 +348,7 @@ function renderAnnotationNumber(n) {
             if (a.target[0].target_id == heritageId) {
                 if (a.target[0].format == "text/plain") {
                     var position = a.target[0].selector[0].value.split("=")[1].split(",");
-                    console.log(position);
+                    
                     annotator.annotator("loadAnnotations", [{
                         "id": a.id, // TODO: duzgun bir id
                         "ranges": [
@@ -299,7 +380,6 @@ function renderAnnotationNumber(n) {
         .done(function( data ) {
             annotations = data;
             console.log("fetched annotations")
-            console.log(data);
             renderAnnotations();
         });
     }

@@ -16,6 +16,7 @@
     <link type="text/css" rel="stylesheet" href="assets/css/theme-default/materialadmin.css?1425466319" />
     <link type="text/css" rel="stylesheet" href="assets/css/theme-default/font-awesome.min.css?1422529194" />
     <link type="text/css" rel="stylesheet" href="assets/css/theme-default/material-design-iconic-font.min.css?1421434286" />
+    <link type="text/css" rel="stylesheet" href="assets/css/VGG.css" />
     <link type="text/css" rel="stylesheet" href="assets/css/autocomplete.css" />
     <link type="text/css" rel="stylesheet" href="assets/css/heritageDetail.css" />
     <!-- END STYLESHEETS -->
@@ -476,17 +477,69 @@
 
 
         <!-- BEGIN HERITAGE-ITEM-DETAILS-ANNOTATION-ON-IMAGE MODAL MARKUP -->
-        <div class="modal fade" id="heritage-item-details-add-annotation-on-image-modal" tabindex="-1" role="dialog" aria-labelledby="heritage-item-details-add-annotation-on-image-modal-label" aria-hidden="true" style="display: none;">
+        <div class="modal fade image-detail" id="heritage-item-details-add-annotation-on-image-modal" tabindex="-1" role="dialog" aria-labelledby="heritage-item-details-add-annotation-on-image-modal-label" aria-hidden="true" style="display: none;">
             <div class="modal-dialog" id="heritage-item-details-add-annotation-on-image-modal-dialog" style="width: 75%;">
                 <div class="modal-content" style="overflow: auto; height: 100%">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="heritage-item-details-add-annotation-on-image-modal-close-but">×</button>
-                        <h4 class="modal-title" id="heritage-item-details-add-annotation-on-image-modal-label">Annotation on image</h4>
+                        <h4 id="heritage-item-details-add-annotation-on-image-modal-label">
+
+                             <button type="button" class="btn ink-reaction btn-raised btn-sm btn-primary" id="btn-start-annotate">Start annotation</button>
+                        
+                          <div id="image-region-form">     
+                                <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                  <defs>
+                                    <symbol id="shape_rectangle">
+                                      <title>Rectangular region shape</title>
+                                      <rect width="20" height="12" x="6" y="10" stroke-width="2"/>
+                                    </symbol>
+                                    <symbol id="shape_circle">
+                                      <title>Circular region shape</title>
+                                      <circle r="10" cx="16" cy="16" stroke-width="2"/>
+                                    </symbol>
+                                    <symbol id="shape_ellipse">
+                                      <title>Elliptical region shape</title>
+                                      <ellipse rx="12" ry="8" cx="16" cy="16" stroke-width="2"/>
+                                    </symbol>
+                                    <symbol id="shape_polygon">
+                                      <title>Polyline region shape</title>
+                                      <path d="M 15.25,2.2372 3.625,11.6122 6,29.9872 l 20.75,-9.625 2.375,-14.75 z" stroke-width="2"/>
+                                    </symbol>
+                                    <symbol id="shape_point">
+                                      <title>Point region shape</title>
+                                      <circle r="3" cx="16" cy="16" stroke-width="2"/>
+                                    </symbol>
+                                  </defs>
+                                </svg>
+                                
+                                <div class="leftsidebar_accordion_panel" id="region_shape_panel">
+                                  <ul class="region_shape">
+                                    <li id="region_shape_rect" class="selected" onclick="v.select_region_shape('rect')" title="Rectangle"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_rectangle"></use></svg></li>
+                                    <li id="region_shape_circle" onclick="v.select_region_shape('circle')" title="Circle"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_circle"></use></svg></li>
+                                    <li id="region_shape_ellipse" onclick="v.select_region_shape('ellipse')" title="Ellipse"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_ellipse"></use></svg></li>
+                                    <li id="region_shape_polygon" onclick="v.select_region_shape('polygon')" title="Polygon"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_polygon"></use></svg></li>
+                                    <li id="region_shape_point" onclick="v.select_region_shape('point')" title="Point"><svg height="32" viewbox="0 0 32 32"><use xlink:href="#shape_point"></use></svg></li>
+                                  </ul>
+                                </div>
+
+
+                                <button type="button" class="btn ink-reaction btn-raised btn-sm btn-primary" id="btn-continue-annotate">Continue</button>
+                                <button type="button" class="btn ink-reaction btn-raised btn-sm btn-primary" id="btn-cancel-annotate">Cancel</button>
+                                
+                            </div>
+                        </h4>
+
                     </div>
                     <div class="modal-body" style="overflow-y: auto; overflow-x: auto">
                         <div class="col-md-9">
-                            <div>
+                            <!-- <div>
                                 <img class="img-responsive" id="heritage-item-details-add-annotation-on-image-modal-target-image">
+                            </div> -->
+                            <div id="display_area">
+                              <div id="canvas_panel">
+                                <canvas id="image_canvas"></canvas>
+                                <canvas id="region_canvas">Sorry, your browser does not support HTML5 Canvas functionality which is required for this application.</canvas>
+                              </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -539,6 +592,7 @@
 <script src="assets/js/core/source/AppVendor.js"></script>
 <script src="assets/js/core/demo/Demo.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js"></script>
+<script src="assets/js/VGG.js"></script>
 
 <!-- BEGIN MAPLACE JS -->
 <script src="https://maps.google.com/maps/api/js?sensor=false&libraries=geometry&v=3.22&key=AIzaSyDRPEdno_kUtxizDFj9JTyxHE3L57xhEGU"></script>

@@ -114,11 +114,16 @@ $(function() {
             geo_location_polyline_map = new Maplace({
                 map_div: '#create_new_heritage_item_path_polyline_gmap',
                 type: 'polyline',
+                dragStart: function(a){
+                    console.log(a)
+                },
                 locations: [{
                     lat: 37,
                     lon: 31,
                     draggable: true,
-                    zoom: 5
+                    zoom: 5,
+                    html: '<h3>Content B1</h3>',
+                    show_infowindow: true
                 },
                 {
                     lat: 39.5,
