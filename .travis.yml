@@ -12,7 +12,7 @@ env:
   - DJANGO_VERSION=1.10.6
 
 install:
-  - heritago/docker-compose up -d
+  - heritago/docker-compose.yml up -d
   - pip install -r heritago/requirements.txt --quiet
 
 before_install:
