@@ -1,0 +1,16 @@
+language: python
+
+python:
+  - "3.6"
+
+env:
+  - DJANGO_VERSION=1.10.6
+
+install:
+  - pip install -r heritago/requirements.txt --quiet
+
+before_install:
+  - export DJANGO_SETTINGS_MODULE=heritago.settings
+
+script:
+  - python heritago/manage.py test heritago/heritages
