@@ -1,5 +1,6 @@
  
- var heritageId;
+var heritageId;
+var annotations; 
 
  var myAnnotator = {
     "onSubmit": function(annotation) {
@@ -38,18 +39,21 @@
             "data": JSON.stringify(data),
             "contentType": "application/json",
         }).always(function(response){
-            console.log($element); // TODO: id'yi kut diye bas
-            console.log(response);
+            $element.attr("data-annotation-id", response.id)
+            annotations.push(response);
+            renderAnnotationNumber(annotations.length);
         });
 
     }
  };
 
 
+function renderAnnotationNumber(n) {
+    $("#heritage-item-total-no-annotations").text(n);
+}
 
  $(function() {
     var annotator;
-    var annotations;
 
     function bind() {
         $('#heritage-item-description-read-more').click(function() {
@@ -265,7 +269,7 @@
                     var position = a.target[0].selector[0].value.split("=")[1].split(",");
                     console.log(position);
                     annotator.annotator("loadAnnotations", [{
-                        "id": position[0], // TODO: duzgun bir id
+                        "id": a.id, // TODO: duzgun bir id
                         "ranges": [
                             {
                               "start": "",
@@ -281,6 +285,7 @@
 
 
         }
+        renderAnnotationNumber(annotations.length);
     }
 
     function fetchAnnotations() {
@@ -324,27 +329,7 @@
 
 
     
-    updateTotalAnnotationNo(heritageId);
-    function updateTotalAnnotationNo(heritageItemId) {
-        var url = "/api/v1/heritages/" + heritageItemId + "/annotations";
-        $.getJSON(url, {
-            format: "json"
-        })
-        .fail(function(xhr, status){
-            toastr.error("no annotations found");
-        })
-        .done(function( data ) {
-            var totalAnnotationsNo = 0;
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].target[0].target_id == heritageItemId) {
-                    totalAnnotationsNo++;
-                }
-            }
-            $("#heritage-item-total-no-annotations").text(totalAnnotationsNo);
-            console.log("totalAnnotationsNo: " + totalAnnotationsNo);
 
-        });
-    }
 
 
  });
