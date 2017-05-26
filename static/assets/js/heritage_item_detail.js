@@ -31,7 +31,7 @@
                 }]
             }]
         };
-        
+        console.log(data);
         $.ajax({
             "url": "/api/v1/heritages/" + heritageId + "/annotations",
             "method": "POST",
@@ -49,7 +49,7 @@
 
  $(function() {
     var annotator;
-    var annoations;
+    var annotations;
 
     function bind() {
         $('#heritage-item-description-read-more').click(function() {
@@ -109,6 +109,9 @@
                  $("#add-annotation-on-description-modal-text-errors").html("Given URL cannot be empty string while selected motivation is 'linking'.");
                  return
             }
+            else if (selected_motivation == "linking") {
+                 // successful, pass
+             }
             else if (given_textual_body == "") {
                  // Give error since entered textual body cannot be empty string
                  $("#add-annotation-on-description-modal-text-errors").html("Textual body cannot be empty string while selected motivation is '" + selected_motivation + "'." );
@@ -200,6 +203,8 @@
          });
     }
 
+
+
     var $title = $("#heritage-item-title");
     var $description = $("#heritage-item-description");
     var $basicInformation = $("#basic-information");
@@ -255,22 +260,26 @@
         for (var i = annotations.length - 1; i >= 0; i--) {
             var a = annotations[i];
 
-            if (a.target[0].format == "text/plain") {
-                var position = a.target[0].selector[0].value.split("=")[1].split(",");
-                console.log(position);
-                annotator.annotator("loadAnnotations", [{
-                    "id": position[0], // TODO: duzgun bir id
-                    "ranges": [
-                        {
-                          "start": "",
-                          "end": "",
-                          "startOffset": position[0],
-                          "endOffset": position[1]
-                        }
-                      ]
-                }]);
+            if (a.target[0].target_id == heritageId) {
+                if (a.target[0].format == "text/plain") {
+                    var position = a.target[0].selector[0].value.split("=")[1].split(",");
+                    console.log(position);
+                    annotator.annotator("loadAnnotations", [{
+                        "id": position[0], // TODO: duzgun bir id
+                        "ranges": [
+                            {
+                              "start": "",
+                              "end": "",
+                              "startOffset": position[0],
+                              "endOffset": position[1]
+                            }
+                          ]
+                    }]);
 
+                }
             }
+
+
         }
     }
 
@@ -283,8 +292,8 @@
             toastr.error("annotations not found");
         })
         .done(function( data ) {
-            annoations = data;
-            console.log("fetched annoations")
+            annotations = data;
+            console.log("fetched annotations")
             console.log(data);
             renderAnnotations();
         });
@@ -312,5 +321,30 @@
         toastr.error("heritage item id not found in the url");
     else
         fetch(heritageId);
+
+
+    
+    updateTotalAnnotationNo(heritageId);
+    function updateTotalAnnotationNo(heritageItemId) {
+        var url = "/api/v1/heritages/" + heritageItemId + "/annotations";
+        $.getJSON(url, {
+            format: "json"
+        })
+        .fail(function(xhr, status){
+            toastr.error("no annotations found");
+        })
+        .done(function( data ) {
+            var totalAnnotationsNo = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].target[0].target_id == heritageItemId) {
+                    totalAnnotationsNo++;
+                }
+            }
+            $("#heritage-item-total-no-annotations").text(totalAnnotationsNo);
+            console.log("totalAnnotationsNo: " + totalAnnotationsNo);
+
+        });
+    }
+
 
  });
