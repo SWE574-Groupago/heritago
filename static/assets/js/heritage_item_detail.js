@@ -38,7 +38,7 @@
             "data": JSON.stringify(data),
             "contentType": "application/json",
         }).always(function(response){
-            console.log($element); // TODO: id'yi kut diye bas
+            $element.attr("data-annotation-id", response.id)
             console.log(response);
         });
 
@@ -265,7 +265,7 @@
                     var position = a.target[0].selector[0].value.split("=")[1].split(",");
                     console.log(position);
                     annotator.annotator("loadAnnotations", [{
-                        "id": position[0], // TODO: duzgun bir id
+                        "id": a.id, // TODO: duzgun bir id
                         "ranges": [
                             {
                               "start": "",
