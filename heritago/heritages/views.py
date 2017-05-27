@@ -83,7 +83,7 @@ class AnnotationListView(generics.ListCreateAPIView):
         queryset = Annotation.objects.all()
         heritage_id = self.kwargs["heritage_id"]
         if heritage_id is not None:
-            queryset = queryset.filter(pk=heritage_id)
+            queryset = queryset.filter(target__target_id__contains=heritage_id)
             return queryset
         else:
             return NotFound()
