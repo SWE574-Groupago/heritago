@@ -117,10 +117,9 @@ class AnnotationTargetSerializer(serializers.ModelSerializer):
         validated_selector = validated_data.pop("selector")
         target = AnnotationTarget.objects.create(**validated_data)
         target.target_id = "http://574heritago.com/heritages/{}/".format(self.context["target_id"])
-        target.save()
-
         for entry in validated_selector:
             Selector.objects.create(target=target, **entry)
+        return target
 
 
 class AnnotationBodySerializer(serializers.ModelSerializer):
@@ -145,10 +144,13 @@ class AnnotationSerializer(serializers.ModelSerializer):
                   "body",
                   "target")
 
-    def __init__(self, *args, **kwargs):
-        super(AnnotationSerializer, self).__init__(*args, **kwargs)
-        self.fields["context"].label = "@context"
-        self.fields["annotation_id"].label = "id"
+    def to_representation(self, instance):
+        data = super(AnnotationSerializer, self).to_representation(instance)
+        data["@context"] = instance.context
+        data["id"] = instance.annotation_id
+        del data["context"]
+        del data["annotation_id"]
+        return data
 
     def create(self, validated_data):
         validated_body = validated_data.pop("body")
@@ -160,6 +162,15 @@ class AnnotationSerializer(serializers.ModelSerializer):
             AnnotationBody.objects.create(annotation=annotation, **entry)
 
         for entry in validated_target:
-            AnnotationTarget.objects.create(annotation=annotation, **entry)
+            target = AnnotationTarget.objects.create(annotation=annotation,
+                                                     target_id=self.context["target_id"],
+                                                     type=entry["type"],
+                                                     format=entry["format"])
+            selector_data = entry.pop("selector")
+            for data in selector_data:
+                Selector.objects.create(target=target,
+                                        type=data["type"],
+                                        conformsTo=data["conformsTo"],
+                                        value=data["value"])
 
         return annotation

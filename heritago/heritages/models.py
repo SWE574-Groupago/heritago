@@ -16,7 +16,7 @@ class Heritage(models.Model):
     title = models.TextField(max_length=255, null=False)
     description = models.TextField(null=False)
     annotationCount = models.IntegerField(default=0)
-    tags = models.ManyToManyField(to=Tag, related_name="tags", null=True)
+    tags = models.ManyToManyField(to=Tag, related_name="tags")
 
     startDate = models.TextField(null=True, default="", blank=True)
     endDate = models.TextField(null=True, default="", blank=True)
@@ -67,13 +67,16 @@ class Multimedia(models.Model):
 
 
 class Annotation(models.Model):
-    heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE)
+    heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE, blank=True)
     context = models.URLField(null=False, default="http://www.w3.org/ns/anno.jsonld")
-    annotation_id = models.URLField(max_length=255, default="http://574heritago.com/annotations/null/")
     type = models.CharField(max_length=255, null=False, default="Annotation")
     creator = models.CharField(max_length=255, null=False)
     created = models.DateTimeField(auto_now_add=True)
     votes = models.IntegerField(null=False, default=0)
+
+    @property
+    def annotation_id(self):
+        return "http://574heritago.com/annotations/{}/".format(self.id)
 
 
 class AnnotationBody(models.Model):
@@ -164,7 +167,7 @@ class AnnotationTarget(models.Model):
                 ("audio/midi", cls.MIDIAUDIO),
                 ("audio/mpeg", cls.MPEGAUDIO))
 
-    annotation = models.ForeignKey(to=Annotation, related_name="annotationTarget", on_delete=models.CASCADE)
+    annotation = models.ForeignKey(to=Annotation, related_name="target", on_delete=models.CASCADE)
     target_id = models.CharField(max_length=255, null=False, default="http://574heritago.com/heritages/null/")
     type = models.CharField(choices=TYPES.to_set(), max_length=10)
     format = models.CharField(choices=MIMES.to_set(), max_length=15)
@@ -197,9 +200,3 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return self.user.username
-
-
-@receiver(post_save, sender=Annotation, dispatch_uid="annotation_id_setter")
-def annotation_id_setter(sender, instance, **kwargs):
-    annotation_id = "http://574heritago.com/annotations/{}/".format(instance.id)
-    instance.annotation_id = annotation_id

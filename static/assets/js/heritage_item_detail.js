@@ -1,4 +1,59 @@
+ 
+var heritageId;
+var annotations; 
+
+ var myAnnotator = {
+    "onSubmit": function(annotation) {
+        console.log(annotation);
+        var $element = $(annotation.highlights[0])
+        var selected_motivation = $('#add-annotation-on-description-modal-select-motivation').val();
+        var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
+        var given_url = $("#add-annotation-on-description-modal-url").val();
+
+        var targetId = window.location.href.split("#")[0] + "#description";
+        var data = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "creator": "osman",
+            "motivation": $("#add-annotation-on-description-modal-select-motivation").val(),
+            "body": [{
+                "type": "text",
+                "value": given_textual_body || given_url,
+                "format": "text/plain"
+            }],
+            "target": [{
+                "id": targetId,
+                "type": "text",
+                "format": "text/plain",
+                "selector": [{
+                    "type": "FragmentSelector",
+                    "conformsTo": "http://tools.ietf.org/rfc/rfc5147",
+                    "value": "char=" + annotation.ranges[0].startOffset + ", " + annotation.ranges[0].endOffset
+                }]
+            }]
+        };
+        console.log(data);
+        $.ajax({
+            "url": "/api/v1/heritages/" + heritageId + "/annotations",
+            "method": "POST",
+            "data": JSON.stringify(data),
+            "contentType": "application/json",
+        }).always(function(response){
+            $element.attr("data-annotation-id", response.id)
+            annotations.push(response);
+            renderAnnotationNumber(annotations.length);
+        });
+
+    }
+ };
+
+
+function renderAnnotationNumber(n) {
+    $("#heritage-item-total-no-annotations").text(n);
+}
+
  $(function() {
+    var annotator;
 
     function bind() {
         $('#heritage-item-description-read-more').click(function() {
@@ -30,7 +85,7 @@
             }]
         }).Load();
 
-        $('#heritage-item-description').annotator();
+        annotator = $('#heritage-item-description').annotator();
 
         $('.annotator-adder button').attr( "data-toggle", "modal" );
         $('.annotator-adder button').attr( "data-target", "#add-annotation-on-description-modal" );
@@ -39,15 +94,60 @@
 
         $('.annotator-adder button').click(function() {
             $('.annotator-outer.annotator-editor').css('display','none');
+            $('#add-annotation-on-description-modal-textarea').val("");
+            $('#add-annotation-on-description-modal-url').val("");
+            $('#add-annotation-on-description-modal-select-motivation').val("");
+            $("#add-annotation-on-description-modal-textarea").attr( "disabled", "disabled" );
+            $("#add-annotation-on-description-modal-url").attr( "disabled", "disabled" );
+            $("#add-annotation-on-description-modal-text-errors").html("&nbsp;");
         });
 
          $('#annotate-description-modal-submit-text-but').click(function() {
-             // if textarea is not empty, user can click submit
-             console.log("Button, for submitting text annotation, clicked.");
-             // if adding annotation is successful, then following lines will be done
-             $('.annotator-save').click();
-             $('#add-annotation-on-description-modal-close-but').click();
+             $("#add-annotation-on-description-modal-text-errors").html("&nbsp;");
+             // Checks if motivation selected
+             var selected_motivation = $('#add-annotation-on-description-modal-select-motivation').val();
+             var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
+             var given_url = $("#add-annotation-on-description-modal-url").val();
+             if (selected_motivation == "linking" && given_url == "") {
+                 // Give error since given URL cannot be empty string
+                 $("#add-annotation-on-description-modal-text-errors").html("Given URL cannot be empty string while selected motivation is 'linking'.");
+                 return
+            }
+            else if (selected_motivation == "linking") {
+                 // successful, pass
+             }
+            else if (given_textual_body == "") {
+                 // Give error since entered textual body cannot be empty string
+                 $("#add-annotation-on-description-modal-text-errors").html("Textual body cannot be empty string while selected motivation is '" + selected_motivation + "'." );
+                 return;
+             }
+
+            $('.annotator-save').click();
+            $('#add-annotation-on-description-modal-close-but').click();
+
          });
+
+
+        $('#add-annotation-on-description-modal-select-motivation').on('change', function() {
+          $("#add-annotation-on-description-modal-text-errors").html("&nbsp;");
+          if (this.value == "") {
+              $("#add-annotation-on-description-modal-textarea, #add-annotation-on-description-modal-url").attr( "disabled", "disabled" );
+              $("#add-annotation-on-description-modal-textarea, #add-annotation-on-description-modal-url").val( "" );
+          } else if (this.value == "linking") {
+              // Enable URL field for entry
+              $("#add-annotation-on-description-modal-textarea").attr( "disabled", "disabled" );
+              $("#add-annotation-on-description-modal-textarea").val( "" );
+              $("#add-annotation-on-description-modal-url").removeAttr( "disabled" );
+              $("#add-annotation-on-description-modal-url").focus();
+          } else {
+              // Selected motivation other than linking
+              // Enable Textarea field for entry
+              $("#add-annotation-on-description-modal-url").attr( "disabled", "disabled" );
+              $("#add-annotation-on-description-modal-url").val( "" );
+              $("#add-annotation-on-description-modal-textarea").removeAttr( "disabled" );
+              $("#add-annotation-on-description-modal-textarea").focus();
+          }
+        });
 
          $('#annotate-description-modal-submit-image-but').click(function() {
              // if uploaded image file is validated, user can click submit
@@ -88,24 +188,30 @@
          });
 
 
+         $('#heritage-item-all-annotations').click(function() {
+             $('#all-annotations-on-heritage-item-modal-item-title').text($('#heritage-item-title').text());
+
+             var $allAnnotationsModalDescriptionAnnotations = $("#all-annotations-modal-description-annotations");
+
+             var $template = $('#template-all-annotations-modal-description-annotations').html();
+             Mustache.parse($template);
+             var rendered = Mustache.render($template, annotations);
+             $allAnnotationsModalDescriptionAnnotations.html(rendered);
+         });
+
+
 
          $('#heritage-item-guide-but').click(function() {
              introJs().start();
          });
 
 
-
-
-    // heritage-item-total-no-annotations
-    // heritage-item-title
-    // heritage-item-description
-    // heritage-item-owner
-
-
         $('.heritage-item-details-thumbnail-img-to-expand').click(function() {
              $('#heritage-item-details-add-annotation-on-image-modal-target-image').attr( "src", $( this ).children('img').attr('src') );
          });
     }
+
+
 
     var $title = $("#heritage-item-title");
     var $description = $("#heritage-item-description");
@@ -139,6 +245,8 @@
         var rendered = Mustache.render($template, images);
         $images.html(rendered);
 
+
+
         // LOCATION
         for (var i = heritage.multimedia.length - 1; i >= 0; i--) {
             var mm = heritage.multimedia[i];
@@ -157,9 +265,53 @@
 
         bind();
     }
+    
+    function renderAnnotations() {
+        for (var i = annotations.length - 1; i >= 0; i--) {
+            var a = annotations[i];
 
-    function fetch(id) {
-        var url = "/api/v1/heritages/" + id;
+            if (a.target[0].target_id == heritageId) {
+                if (a.target[0].format == "text/plain") {
+                    var position = a.target[0].selector[0].value.split("=")[1].split(",");
+                    console.log(position);
+                    annotator.annotator("loadAnnotations", [{
+                        "id": a.id, // TODO: duzgun bir id
+                        "ranges": [
+                            {
+                              "start": "",
+                              "end": "",
+                              "startOffset": position[0],
+                              "endOffset": position[1]
+                            }
+                          ]
+                    }]);
+
+                }
+            }
+
+
+        }
+        renderAnnotationNumber(annotations.length);
+    }
+
+    function fetchAnnotations() {
+        var url = "/api/v1/heritages/" + heritageId + "/annotations";
+        $.getJSON(url, {
+            format: "json"
+        })
+        .fail(function(xhr, status){
+            toastr.error("annotations not found");
+        })
+        .done(function( data ) {
+            annotations = data;
+            console.log("fetched annotations")
+            console.log(data);
+            renderAnnotations();
+        });
+    }
+
+    function fetch() {
+        var url = "/api/v1/heritages/" + heritageId;
         $.getJSON(url, {
             format: "json"
         })
@@ -167,17 +319,24 @@
             toastr.error("heritage not found");
         })
         .done(function( data ) {
+            console.log(data);
             render(data);
             $("#content").show();
+            fetchAnnotations();
         }).always(function(data){
             $("#page-loading").hide();
         });
     }
 
-    var heritageId = getParameterByName("id");
+    heritageId = getParameterByName("id");
     if (!heritageId)
         toastr.error("heritage item id not found in the url");
     else
         fetch(heritageId);
+
+
+    
+
+
 
  });
