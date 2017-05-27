@@ -75,8 +75,16 @@ class MultimediaFileView(ViewSet):
 
 
 class AnnotationListView(generics.ListCreateAPIView):
-    queryset = Annotation.objects.all()
     serializer_class = AnnotationSerializer
+
+    def get_queryset(self):
+        queryset = Annotation.objects.all()
+        heritage_id = self.kwargs["heritage_id"]
+        if heritage_id is not None:
+            queryset = queryset.filter(pk=heritage_id)
+            return queryset
+        else:
+            return NotFound()
 
     def get_serializer_context(self):
         return {"target_id": self.kwargs["heritage_id"]}
