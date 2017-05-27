@@ -1,5 +1,6 @@
  
- var heritageId;
+var heritageId;
+var annotations; 
 
  var myAnnotator = {
     "onSubmit": function(annotation) {
@@ -38,18 +39,21 @@
             "data": JSON.stringify(data),
             "contentType": "application/json",
         }).always(function(response){
-            console.log($element); // TODO: id'yi kut diye bas
-            console.log(response);
+            $element.attr("data-annotation-id", response.id)
+            annotations.push(response);
+            renderAnnotationNumber(annotations.length);
         });
 
     }
  };
 
 
+function renderAnnotationNumber(n) {
+    $("#heritage-item-total-no-annotations").text(n);
+}
 
  $(function() {
     var annotator;
-    var annotations;
 
     function bind() {
         $('#heritage-item-description-read-more').click(function() {
@@ -177,10 +181,42 @@
              $('.annotator-cancel').click();
          });
 
+
+
          $('.annotator-hl').attr( "data-toggle", "modal" );
          $('.annotator-hl').attr( "data-target", "#display-annotations-on-highlighted-text-modal" );
+         var $allAnnotationsModalDescriptionAnnotations = $("#display-text-annotations-on-highlighted-text-tab");
+         var $templateDisplayTextAnnotation = $('#template-display-text-annotations-on-highlighted-text-tab').html();
          $('.annotator-hl').click(function() {
              $('#display-annotations-modal-highlighted-text').text('"' + $(this).text() + '"');
+             var selected_highlighted_text_id = parseInt($(this).attr("data-annotation-id").split("annotations/")[1]);
+             console.log(selected_highlighted_text_id);
+             var selected_highlighted_text_url = "/api/v1/heritages/" + heritageId + "/annotations/" + selected_highlighted_text_id;
+              $.getJSON(selected_highlighted_text_url)
+              .fail(function(xhr, status){
+                  toastr.error("annotation not found");
+              })
+              .done(function( response ) {
+                  console.log("annotation response for highlighted text");
+                  console.log(response);
+                  Mustache.parse($templateDisplayTextAnnotation);
+                  var rendered = Mustache.render($templateDisplayTextAnnotation, response);
+                  $allAnnotationsModalDescriptionAnnotations.html(rendered);
+              });
+
+
+         });
+
+
+         $('#heritage-item-all-annotations').click(function() {
+             $('#all-annotations-on-heritage-item-modal-item-title').text($('#heritage-item-title').text());
+
+             var $allAnnotationsModalDescriptionAnnotations = $("#all-annotations-modal-description-tab");
+
+             var $template = $('#template-all-annotations-modal-description-tab').html();
+             Mustache.parse($template);
+             var rendered = Mustache.render($template, annotations);
+             $allAnnotationsModalDescriptionAnnotations.html(rendered);
          });
 
 
@@ -188,14 +224,6 @@
          $('#heritage-item-guide-but').click(function() {
              introJs().start();
          });
-
-
-
-
-    // heritage-item-total-no-annotations
-    // heritage-item-title
-    // heritage-item-description
-    // heritage-item-owner
 
 
         $('.heritage-item-details-thumbnail-img-to-expand').click(function() {
@@ -237,6 +265,8 @@
         var rendered = Mustache.render($template, images);
         $images.html(rendered);
 
+
+
         // LOCATION
         for (var i = heritage.multimedia.length - 1; i >= 0; i--) {
             var mm = heritage.multimedia[i];
@@ -265,7 +295,7 @@
                     var position = a.target[0].selector[0].value.split("=")[1].split(",");
                     console.log(position);
                     annotator.annotator("loadAnnotations", [{
-                        "id": position[0], // TODO: duzgun bir id
+                        "id": a.id, // TODO: duzgun bir id
                         "ranges": [
                             {
                               "start": "",
@@ -281,6 +311,7 @@
 
 
         }
+        renderAnnotationNumber(annotations.length);
     }
 
     function fetchAnnotations() {
@@ -308,6 +339,7 @@
             toastr.error("heritage not found");
         })
         .done(function( data ) {
+            console.log(data);
             render(data);
             $("#content").show();
             fetchAnnotations();
@@ -324,27 +356,7 @@
 
 
     
-    updateTotalAnnotationNo(heritageId);
-    function updateTotalAnnotationNo(heritageItemId) {
-        var url = "/api/v1/heritages/" + heritageItemId + "/annotations";
-        $.getJSON(url, {
-            format: "json"
-        })
-        .fail(function(xhr, status){
-            toastr.error("no annotations found");
-        })
-        .done(function( data ) {
-            var totalAnnotationsNo = 0;
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].target[0].target_id == heritageItemId) {
-                    totalAnnotationsNo++;
-                }
-            }
-            $("#heritage-item-total-no-annotations").text(totalAnnotationsNo);
-            console.log("totalAnnotationsNo: " + totalAnnotationsNo);
 
-        });
-    }
 
 
  });
