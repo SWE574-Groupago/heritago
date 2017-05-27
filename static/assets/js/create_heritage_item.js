@@ -47,7 +47,43 @@ $(function() {
         showMapSelector(selected_map_type);
     });
 
+    $( "#create_new_heritage_item_new_marker_but" ).click(function() {
+        var latestIndexNumber = map.markers.length-1;
+        var indexNumberForNewsMarker = latestIndexNumber+1;
+        $('#create_new_heritage_item_select_marker').html(
+            "<option value='none'>select a marker index</option>"
+        );
+        map.AddLocation({lat:41.0082, lon:28.9784, draggable:true, zoom:5}, indexNumberForNewsMarker , true);
+    });
+
+    $( "#create_new_heritage_item_remove_marker_but" ).click(function() {
+        var selectedIndexNumber = $('#create_new_heritage_item_select_marker option:selected').text();
+        var lastIndexInOptions = $('#create_new_heritage_item_select_marker option:last-child').text();
+
+        if (selectedIndexNumber == "select a marker index") {
+            // not selected any index
+            console.log("not selected any index");
+        }
+        else {
+            if (lastIndexInOptions == 0) {
+                // don't do anything as this is the last index
+                console.log("Last index left, not allowed to delete");
+            }
+            else {
+                $('#create_new_heritage_item_select_marker').html(
+                    "<option value='none'>select a marker index</option>"
+                );
+                map.RemoveLocations(selectedIndexNumber , true);
+            }
+        }
+
+
+    });
+
     function showMapSelector(selected_map_type) {
+        $('#create_new_heritage_item_select_marker').html(
+            "<option value='none'>select a marker index</option>"
+        );
         $( ".create_new_heritage_item_map_container").removeClass("active")
 
         if (selected_map_type == "pin") {
@@ -55,6 +91,16 @@ $(function() {
             geo_location_pin_map = new Maplace({
                 map_div: '#create_new_heritage_item_pin_gmap',
                 type: 'marker',
+                controls_on_map: false,
+                dragEnd: function(index, location, marker) {
+                    geo_location_pin_map.o.locations[index].lat = marker.position.lat();
+                    geo_location_pin_map.o.locations[index].lon = marker.position.lng();
+                },
+                afterCreateMarker: function(index, location, marker) {
+                    $('#create_new_heritage_item_select_marker').append(
+                        "<option value='"+index+"'>"+index+"</option>"
+                    );
+                },
                 locations: [{
                     lat: 38.9637,
                     lon: 35.2433,
@@ -70,6 +116,16 @@ $(function() {
             geo_location_circle_map = new Maplace({
                 map_div: '#create_new_heritage_item_circle_gmap',
                 type: 'circle',
+                controls_on_map: false,
+                dragEnd: function(index, location, marker) {
+                    geo_location_circle_map.o.locations[index].lat = marker.position.lat();
+                    geo_location_circle_map.o.locations[index].lon = marker.position.lng();
+                },
+                afterCreateMarker: function(index, location, marker) {
+                    $('#create_new_heritage_item_select_marker').append(
+                        "<option value='"+index+"'>"+index+"</option>"
+                    );
+                },
                 locations: [{
                     lat: 38.9637,
                     lon: 35.2433,
@@ -88,6 +144,16 @@ $(function() {
             geo_location_polygon_map = new Maplace({
                 map_div: '#create_new_heritage_item_polygon_gmap',
                 type: 'polygon',
+                controls_on_map: false,
+                dragEnd: function(index, location, marker) {
+                    geo_location_polygon_map.o.locations[index].lat = marker.position.lat();
+                    geo_location_polygon_map.o.locations[index].lon = marker.position.lng();
+                },
+                afterCreateMarker: function(index, location, marker) {
+                    $('#create_new_heritage_item_select_marker').append(
+                        "<option value='"+index+"'>"+index+"</option>"
+                    );
+                },
                 locations: [{
                     lat: 39.5,
                     lon: 32.2433,
@@ -114,6 +180,16 @@ $(function() {
             geo_location_polyline_map = new Maplace({
                 map_div: '#create_new_heritage_item_path_polyline_gmap',
                 type: 'polyline',
+                controls_on_map: false,
+                dragEnd: function(index, location, marker) {
+                    geo_location_polyline_map.o.locations[index].lat = marker.position.lat();
+                    geo_location_polyline_map.o.locations[index].lon = marker.position.lng();
+                },
+                afterCreateMarker: function(index, location, marker) {
+                    $('#create_new_heritage_item_select_marker').append(
+                        "<option value='"+index+"'>"+index+"</option>"
+                    );
+                },
                 locations: [{
                     lat: 37,
                     lon: 31,
