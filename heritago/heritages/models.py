@@ -114,6 +114,7 @@ class Annotation(models.Model):
 
 
 class AnnotationBody(models.Model):
+
     class TYPES(object):
         VIDEO = "video"
         AUDIO = "audio"
@@ -161,6 +162,7 @@ class AnnotationBody(models.Model):
 
 
 class AnnotationTarget(models.Model):
+
     class TYPES(object):
         VIDEO = "video"
         AUDIO = "audio"
@@ -209,6 +211,7 @@ class AnnotationTarget(models.Model):
 
 # W3C Specification for selectors at https://www.w3.org/TR/annotation-model/#selectors
 class Selector(models.Model):
+
     class SPECIFICATIONS(object):
         TEXT = "http://tools.ietf.org/rfc/rfc5147"
         MEDIA = "http://www.w3.org/TR/media-frags/"
