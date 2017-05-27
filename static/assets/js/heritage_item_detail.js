@@ -188,18 +188,22 @@ function renderAnnotationNumber(n) {
          });
 
 
+         $('#heritage-item-all-annotations').click(function() {
+             $('#all-annotations-on-heritage-item-modal-item-title').text($('#heritage-item-title').text());
 
-         $('#heritage-item-guide-but').click(function() {
-             introJs().start();
+             var $allAnnotationsModalDescriptionAnnotations = $("#all-annotations-modal-description-annotations");
+
+             var $template = $('#template-all-annotations-modal-description-annotations').html();
+             Mustache.parse($template);
+             var rendered = Mustache.render($template, annotations);
+             $allAnnotationsModalDescriptionAnnotations.html(rendered);
          });
 
 
 
-
-    // heritage-item-total-no-annotations
-    // heritage-item-title
-    // heritage-item-description
-    // heritage-item-owner
+         $('#heritage-item-guide-but').click(function() {
+             introJs().start();
+         });
 
 
         $('.heritage-item-details-thumbnail-img-to-expand').click(function() {
@@ -240,6 +244,8 @@ function renderAnnotationNumber(n) {
         }
         var rendered = Mustache.render($template, images);
         $images.html(rendered);
+
+
 
         // LOCATION
         for (var i = heritage.multimedia.length - 1; i >= 0; i--) {
@@ -313,6 +319,7 @@ function renderAnnotationNumber(n) {
             toastr.error("heritage not found");
         })
         .done(function( data ) {
+            console.log(data);
             render(data);
             $("#content").show();
             fetchAnnotations();
