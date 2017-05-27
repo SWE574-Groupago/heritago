@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from heritages import views
 
 urlpatterns = [

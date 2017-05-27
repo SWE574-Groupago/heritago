@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-
 from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, Selector, AnnotationTarget, \
-    AnnotationBody, Annotation, UserProfile
+    AnnotationBody, Annotation
 
 
 class BasicInformationSerializer(serializers.ModelSerializer):
@@ -174,3 +173,28 @@ class AnnotationSerializer(serializers.ModelSerializer):
                                         value=data["value"])
 
         return annotation
+
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = ("id", "first_name", "last_name", "username",
+                  "email", "password")
+        read_only_fields = ["id"]
+
+    def create(self, validated_data):
+        password = validated_data["password"]
+        user = User.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
+        return user
+
+    def update(self, instance, validated_data):
+        instance.email = validated_data["email"]
+        instance.first_name = validated_data["first_name"]
+        instance.last_name = validated_data["last_name"]
+        instance.set_password(validated_data["password"])
+        instance.save()
+        return instance
