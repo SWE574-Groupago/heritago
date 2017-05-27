@@ -21,6 +21,8 @@ from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 
+json_ld_content_type = "application/ld+json; profile=\"http://www.w3.org/ns/anno.jsonld\""
+
 
 class HeritagesListView(generics.ListCreateAPIView):
     queryset = Heritage.objects.all()
