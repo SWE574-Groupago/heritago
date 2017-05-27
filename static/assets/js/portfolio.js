@@ -1,16 +1,19 @@
 (function() {
-	var uNameJSON = "http://localhost:3000/userName";
+	//var uNameJSON = "http://127.0.0.1:8000/api/users/me";
 	var itemsJSON = "http://localhost:3000/usersItems";
-	
+/*
 	$.getJSON( uNameJSON, {
 		format: "json"
 	})
 		.done(function( data ) {
-			$.each( data, function(key, userName) {
-				$('#userName').text(userName);
+			$.each( data, function(key, first_name) {
+				$('#userName').text(first_name);
 			});
 		});
-	
+*/
+
+    $('#userName').text(User.username); //TODO: Should be User.first_name or User.data.first_name
+
 	$.getJSON( itemsJSON, {
 		format: "json"
 	})
@@ -34,4 +37,5 @@
             });
             $('#cards').append( items.join('') );
 		});
-})();
+}
+)();
