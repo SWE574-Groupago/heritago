@@ -394,80 +394,29 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="display-annotations-on-highlighted-text-modal-close-but">×</button>
-                        <h4 class="modal-title" id="display-annotations-on-highlighted-text-modal-label">Displaying annotations for <span id="display-annotations-modal-highlighted-text">&nbsp;</span></h4>
-                        <ul class="nav nav-tabs nav-justified" data-toggle="tabs">
-                            <li class="active"><a href="#display-text-annotations-on-highlighted-text-tab">Text(s)</a></li>
-                            <li><a href="#display-image-annotations-on-highlighted-text-tab">Image(s)</a></li>
-                            <li><a href="#display-video-annotations-on-highlighted-text-tab">Video(s)</a></li>
-                            <li><a href="#display-audio-annotations-on-highlighted-text-tab">Audio(s)</a></li>
-                        </ul>
+                        <h4 class="modal-title" id="display-annotations-on-highlighted-text-modal-label">Displaying annotation for <span id="display-annotations-modal-highlighted-text">&nbsp;</span></h4>
                     </div>
-                    <form class="form-horizontal" role="form">
-                        <div class="modal-body tab-content">
-                            <div class="tab-pane active" id="display-text-annotations-on-highlighted-text-tab">
-                                <div class="heritage-item-text-annotation-on-description-comment">
-                                    Ahmed I was the Sultan of the Ottoman Empire from 1603 until his death in 1617.
-                                </div>
-                                <div>
-                                    <div class="pull-right heritage-item-text-annotation-on-description-date">28/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Ayşe Güneş</span></div>
-                                </div>
-                                <div>
-                                    &nbsp;
-                                </div>
-                                <hr>
-                                <div class="heritage-item-text-annotation-on-description-comment">
-                                    Ahmed ascended the throne after his father's death in 1603.
-                                </div>
-                                <div>
-                                    <div class="pull-right heritage-item-text-annotation-on-description-date">24/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Ali Kara</span></div>
-                                </div>
-                                <div>
-                                    &nbsp;
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="tab-pane" id="display-image-annotations-on-highlighted-text-tab">
-                                <div>
-                                <img class="img-responsive" src="http://orig06.deviantart.net/7a2a/f/2014/095/a/b/the_sultan_ahmed_i_by_eduartinehistorise-d7d4zt8.jpg">
-                            </div>
-                                <div>
-                                    <div class="pull-right heritage-item-text-annotation-on-description-date">27/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Mehmet Sedef</span></div>
-                                </div>
-                                <div>
-                                    &nbsp;
-                                </div>
-                                <hr>
-                                <div>
-                                    <img class="img-responsive" src="https://upload.wikimedia.org/wikipedia/commons/5/59/Ahmed_I_by_John_Young.jpg">
-                                </div>
-                                <div>
-                                    <div class="pull-right heritage-item-text-annotation-on-description-date">25/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Bulut Güney</span></div>
-                                </div>
-                                <div>
-                                    &nbsp;
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="tab-pane" id="display-video-annotations-on-highlighted-text-tab">
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="//www.youtube.com/embed/nglTZh4EpSc"></iframe>
-                                </div>
-                                <div>
-                                    <div class="pull-right heritage-item-text-annotation-on-description-date">20/04/2017 - <span class="heritage-item-text-annotation-on-description-owner">Ali Gün</span></div>
-                                </div>
-                                <div>
-                                    &nbsp;
-                                </div>
-                                <hr>
-                            </div>
-                            <div class="tab-pane" id="display-audio-annotations-on-highlighted-text-tab">
-
-                            </div>
+                        <div class="modal-body" id="display-text-annotations-on-highlighted-text-tab">
+                            <script id="template-display-text-annotations-on-highlighted-text-tab" type="x-tmpl-mustache">
+                                    {{#.}}
+                                    <div class="heritage-item-text-annotation-on-description-comment">
+                                    {{#body}}
+                                        {{value}}
+                                    {{/body}}
+                                    </div>
+                                    <div>
+                                        <div class="pull-right heritage-item-text-annotation-on-description-date">{{created}} - <span class="heritage-item-text-annotation-on-description-owner">{{creator}}</span></div>
+                                    </div>
+                                    <div>
+                                        &nbsp;
+                                    </div>
+                                    <hr>
+                                    {{/.}}
+                                </script>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal" id="display-annotations-on-highlighted-text-modal-cancel-but">Cancel</button>
                         </div>
-                    </form>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div>
@@ -529,11 +478,7 @@
                     <form class="form-horizontal" role="form">
                         <div class="modal-body tab-content">
                             <div class="tab-pane active" id="all-annotations-modal-description-tab">
-                                <div class="col-md-12" id="all-annotations-modal-description-annotations">
-
-                                </div>
-
-                                <script id="template-all-annotations-modal-description-annotations" type="x-tmpl-mustache">
+                                <script id="template-all-annotations-modal-description-tab" type="x-tmpl-mustache">
                                     {{#.}}
                                     <div class="all-annotations-modal-description-tab-annotation-body">
                                     {{#body}}
