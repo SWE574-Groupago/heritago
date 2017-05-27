@@ -226,11 +226,3 @@ class Selector(models.Model):
     conformsTo = models.CharField(choices=SPECIFICATIONS.to_set(), max_length=50)
     value = models.CharField(max_length=255, null=False)
 
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name="profile")
-    email = models.EmailField('email', null=True)
-    note = models.TextField('Notes', blank=True, null=True)
-
-    def __unicode__(self):
-        return self.user.username

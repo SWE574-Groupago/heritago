@@ -134,37 +134,35 @@
 
 
         <script type="text/javascript" src="assets/js/user.js"></script>
-        <script type="text/javascript" src="assets/js/weights.js"></script>
 
         <script type="text/javascript">
         $(document).ready(function(){
 
-            $("#signup-card form").submit(function(e){
+            function login(email, password) {
+                User.login(email, password, {
+                    success: function(){
+                        location.href="my_portfolio.html";
+                    },
+                    error: function() {
+                        toastr.error("login failed")
+                    }
+                });
+            }
+
+            $("#signin-card form").submit(function(e){
                 e.preventDefault();
                 var data = {
                     "first_name": $("#signup-firstname").val(),
                     "last_name": $("#signup-lastname").val(),
                     "email": $("#signup-email").val(),
                     "username": $("#signup-email").val(),
-                    "password": $("#signup-password").val(),
-                    "userprofile": {
-                        "gender": $("input[name='signup-gender']:checked").val(),
-                        "birth_date": $("#signup-birth-date").data('datepicker').getFormattedDate('yyyy-mm-dd'),
-                        "height": $("#signup-height").val(),
-                    }
+                    "password": $("#signup-password").val()
                 };
 
                 $("#signup-error-message").hide()
                 User.register(data, {
                     success: function(res){
-                        Weights.insertWeight(moment().format('YYYY-MM-DD'), $("#signup-weight").val(), {
-                            success: function(){
                                 login(data.email, data.password);
-                            },
-                            error: function() {
-                                login(data.email, data.password);
-                            }
-                        })
                     },
                     error: function(res){
                         var errors = JSON.parse(res.responseText);
@@ -176,10 +174,7 @@
                         console.log(res)
                     }
                 })
-
-
             });
-
         });
         </script>
 

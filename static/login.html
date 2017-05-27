@@ -55,7 +55,7 @@
                                 <form class="form floating-label" action="" id="login-form" accept-charset="utf-8" method="post">
                                     <div class="form-group">
                                         <input type="email" class="form-control" id="login-email" name="email">
-                                        <label for="email">email</label>
+                                        <label for="email">Email</label>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control" id="login-password" name="password">
@@ -130,6 +130,7 @@
                                     <input type="password" class="form-control" id="signup-password">
                                     <label for="signup-password">Password Again</label>
                                 </div>
+                                <!--
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
@@ -144,6 +145,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                -->
                                 <div class="form-group control-width-normal">
                                     <div class="input-group date" id="signup-birth-date">
                                         <div class="input-group-content">
@@ -208,7 +210,6 @@
 
 
         <script type="text/javascript" src="assets/js/user.js"></script>
-        <script type="text/javascript" src="assets/js/weights.js"></script>
 
         <script type="text/javascript">
         $(document).ready(function(){
@@ -225,20 +226,24 @@
                 autoclose: true,
                 todayHighlight: true});
 
+
+
             function login(email, password) {
                 User.login(email, password, {
                     success: function(){
-                        location.href="timeline.html";
+                        location.href="my_portfolio.html";
                     },
                     error: function() {
-                        toastr.error("login failed")
+                    toastr.error("login failed")
                     }
                 });
             }
 
             $("#login-form").submit(function(e){
+                conseole.log("aaa");
                 e.preventDefault();
                 var email = $("#login-email").val();
+
                 var password = $("#login-password").val();
                 var that = this;
                 login(email, password);
@@ -256,21 +261,13 @@
                     "userprofile": {
                         "gender": $("input[name='signup-gender']:checked").val(),
                         "birth_date": $("#signup-birth-date").data('datepicker').getFormattedDate('yyyy-mm-dd'),
-                        "height": $("#signup-height").val(),
                     }
                 };
 
                 $("#signup-error-message").hide()
                 User.register(data, {
                     success: function(res){
-                        Weights.insertWeight(moment().format('YYYY-MM-DD'), $("#signup-weight").val(), {
-                            success: function(){
-                                login(data.email, data.password);
-                            },
-                            error: function() {
-                                login(data.email, data.password);
-                            }
-                        })
+                        login(data.email, data.password);
                     },
                     error: function(res){
                         var errors = JSON.parse(res.responseText);
@@ -282,8 +279,6 @@
                         console.log(res)
                     }
                 })
-
-
             });
 
         });
