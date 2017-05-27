@@ -1,7 +1,12 @@
+sudo: required
+
 language: python
 
 python:
-  - "3.6"
+  - "3.5"
+ 
+services:
+  - docker
 
 env:
   - DJANGO_VERSION=1.10.6
