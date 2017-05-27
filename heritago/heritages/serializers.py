@@ -139,6 +139,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
         fields = ("context",
                   "annotation_id",
                   "type",
+                  "motivation",
                   "creator",
                   "created",
                   "body",
