@@ -67,9 +67,43 @@ class Multimedia(models.Model):
 
 
 class Annotation(models.Model):
+
+    class MOTIVATIONS(object):
+        ASSESSING = "assessing"
+        BOOKMARKING = "bookmarking"
+        CLASSIFYING = "classifying"
+        COMMENTING = "commenting"
+        DESCRIBING = "describing"
+        EDITING = "editing"
+        HIGHLIGHTING = "highlighting"
+        IDENTIFYING = "highlighting"
+        LINKING = "linking"
+        MODERATING = "moderating"
+        QUESTIONING = "questioning"
+        REPLYING = "replying"
+        TAGGING = "tagging"
+
+        @classmethod
+        def to_set(cls):
+            return (
+                ("assessing", cls.ASSESSING),
+                ("bookmarking", cls.BOOKMARKING),
+                ("classifying", cls.CLASSIFYING),
+                ("commenting", cls.COMMENTING),
+                ("describing", cls.DESCRIBING),
+                ("editing", cls.EDITING),
+                ("highlighting", cls.HIGHLIGHTING),
+                ("identifying", cls.IDENTIFYING),
+                ("linking", cls.LINKING),
+                ("moderating", cls.MODERATING),
+                ("questioning", cls.QUESTIONING),
+                ("replying", cls.REPLYING),
+                ("tagging", cls.TAGGING))
+
     heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE, blank=True)
     context = models.URLField(null=False, default="http://www.w3.org/ns/anno.jsonld")
     type = models.CharField(max_length=255, null=False, default="Annotation")
+    motivation = models.CharField(choices=MOTIVATIONS.to_set(), max_length=20, null=True)
     creator = models.CharField(max_length=255, null=False)
     created = models.DateTimeField(auto_now_add=True)
     votes = models.IntegerField(null=False, default=0)
