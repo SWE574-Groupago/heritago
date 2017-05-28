@@ -4,7 +4,7 @@ var annotations;
 
  var myAnnotator = {
     "onSubmit": function(annotation) {
-        console.log(annotation);
+        
         var $element = $(annotation.highlights[0])
         var selected_motivation = $('#add-annotation-on-description-modal-select-motivation').val();
         var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
@@ -32,7 +32,7 @@ var annotations;
                 }]
             }]
         };
-        console.log(data);
+        
         $.ajax({
             "url": "/api/v1/heritages/" + heritageId + "/annotations",
             "method": "POST",
@@ -93,6 +93,7 @@ function renderAnnotationNumber(n) {
         $('.annotator-adder button').attr( "data-keyboard", "false" );
 
         $('.annotator-adder button').click(function() {
+            $("#annotation-form-resource-type").val("text");
             $('.annotator-outer.annotator-editor').css('display','none');
             $('#add-annotation-on-description-modal-textarea').val("");
             $('#add-annotation-on-description-modal-url').val("");
@@ -104,26 +105,35 @@ function renderAnnotationNumber(n) {
 
          $('#annotate-description-modal-submit-text-but').click(function() {
              $("#add-annotation-on-description-modal-text-errors").html("&nbsp;");
+             var resourceType = $("#annotation-form-resource-type").val();
+
              // Checks if motivation selected
              var selected_motivation = $('#add-annotation-on-description-modal-select-motivation').val();
              var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
              var given_url = $("#add-annotation-on-description-modal-url").val();
+
              if (selected_motivation == "linking" && given_url == "") {
                  // Give error since given URL cannot be empty string
                  $("#add-annotation-on-description-modal-text-errors").html("Given URL cannot be empty string while selected motivation is 'linking'.");
                  return
             }
-            else if (selected_motivation == "linking") {
-                 // successful, pass
-             }
             else if (given_textual_body == "") {
                  // Give error since entered textual body cannot be empty string
                  $("#add-annotation-on-description-modal-text-errors").html("Textual body cannot be empty string while selected motivation is '" + selected_motivation + "'." );
                  return;
-             }
+            }
 
-            $('.annotator-save').click();
-            $('#add-annotation-on-description-modal-close-but').click();
+            if (resourceType == "text") {
+                $('.annotator-save').click();
+                $('#add-annotation-on-description-modal-close-but').click();
+            } else {
+                var targetId = $("#image-target-id").val();
+                submit_image_annotation_form(targetId, selected_motivation, given_textual_body, given_url, function(response){
+                    stop_image_annotation();
+                    show_image_annotations();
+                    $('#add-annotation-on-description-modal-close-but').click();
+                });
+            }
 
          });
 
@@ -220,18 +230,130 @@ function renderAnnotationNumber(n) {
          });
 
 
+        $('.heritage-item-details-thumbnail-img-to-expand').click(function() {
+            init_image_popup($(this).children('img').attr('src'));
+        });
+
+        $("#btn-start-annotate").click(function(){
+            start_image_annotation();
+        })
+
+        $("#btn-cancel-annotate").click(function(){
+            stop_image_annotation();
+            show_image_annotations();
+        })
+
+        $("#btn-continue-annotate").click(function(){
+            show_image_annotation_form();
+        })
 
          $('#heritage-item-guide-but').click(function() {
              introJs().start();
          });
 
 
-        $('.heritage-item-details-thumbnail-img-to-expand').click(function() {
-             $('#heritage-item-details-add-annotation-on-image-modal-target-image').attr( "src", $( this ).children('img').attr('src') );
-         });
     }
 
+    function init_image_popup(src) {
+        // $('#heritage-item-details-add-annotation-on-image-modal-target-image').attr( "src", );
+        $("#image-target-id").val(src);
+        v = VGG({
+          "single_region": false,
+          "url": src,
+          "canvas_container": document.getElementById("canvas_panel"),
+          "onLoaded": function(status) {
+            console.log(status);
+          },
+          "show_message": function(msg, t) {
+            console.log(msg)
+          },
+          "new_region_created": function(region) {
+            console.log(region)
+          },
+          "initialized": function(status) {
+            show_image_annotations();
+          }
+        });
+    }
 
+    function start_image_annotation() {
+        $("#btn-start-annotate").hide();
+        $("#image-region-form").show();
+        v.clearRegions();
+    }
+    
+    function stop_image_annotation() {
+        $("#btn-start-annotate").show();
+        $("#image-region-form").hide();
+    }
+    
+    function show_image_annotation_form() {
+        $("#annotation-form-resource-type").val("image");
+    }
+
+    function show_image_annotations() {
+        
+
+        setTimeout(function(){
+
+            var regions = {};
+            var region_id = 0;
+            for (var i = annotations.length - 1; i >= 0; i--) {
+                var a = annotations[i];
+                if (a.target[0].type == "image") {
+                    var annotation_regions = JSON.parse(a.target[0].selector[0].value);
+                    for (var j = annotation_regions.length - 1; j >= 0; j--) {
+                        regions[region_id] = {"shape_attributes": annotation_regions[j], "region_attributes": {}};
+                        region_id++;
+                    }
+                }
+            }
+            v.setRegions([]);
+            console.log(regions);
+            v.import_region(regions);
+        }, 900);
+    }
+
+    function submit_image_annotation_form(targetId, selected_motivation, given_textual_body, given_url, callback) {
+        var regions = [];
+        for(var i = 0; i < v.getRegions().length; i++) {
+             regions.push(JSON.parse(v.map_to_json(v.getRegions()[i].shape_attributes)));
+        }
+        
+        var data = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            "type": "Annotation",
+            "creator": "osman",
+            "motivation": selected_motivation,
+            "body": [{
+                "type": "text",
+                "value": given_textual_body || given_url,
+                "format": "text/plain"
+            }],
+            "target": [{
+                "id": targetId,
+                "type": "image",
+                "format": "image/jpeg",
+                "selector": [{
+                    "type": "FragmentSelector",
+                    "conformsTo": "http://tools.ietf.org/rfc/rfc5147",
+                    "value": JSON.stringify(regions)
+                }]
+            }]
+        };
+        
+        $.ajax({
+            "url": "/api/v1/heritages/" + heritageId + "/annotations",
+            "method": "POST",
+            async: false,
+            "data": JSON.stringify(data),
+            "contentType": "application/json",
+        }).always(function(response){
+            callback(response);
+            annotations.push(response);
+            renderAnnotationNumber(annotations.length);
+        });
+    }
 
     var $title = $("#heritage-item-title");
     var $description = $("#heritage-item-description");
@@ -293,9 +415,9 @@ function renderAnnotationNumber(n) {
             if (a.target[0].target_id == heritageId) {
                 if (a.target[0].format == "text/plain") {
                     var position = a.target[0].selector[0].value.split("=")[1].split(",");
-                    console.log(position);
+                    
                     annotator.annotator("loadAnnotations", [{
-                        "id": a.id, // TODO: duzgun bir id
+                        "id": a.id, 
                         "ranges": [
                             {
                               "start": "",
@@ -325,7 +447,6 @@ function renderAnnotationNumber(n) {
         .done(function( data ) {
             annotations = data;
             console.log("fetched annotations")
-            console.log(data);
             renderAnnotations();
         });
     }
