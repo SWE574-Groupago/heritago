@@ -169,7 +169,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
 
         for entry in validated_target:
             target = AnnotationTarget.objects.create(annotation=annotation,
-                                                     target_id=self.context["target_id"],
+                                                     target_id=entry["target_id"],
                                                      type=entry["type"],
                                                      format=entry["format"])
             selector_data = entry.pop("selector")

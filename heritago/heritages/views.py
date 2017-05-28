@@ -78,14 +78,13 @@ class AnnotationListView(generics.ListCreateAPIView):
         queryset = Annotation.objects.all()
         heritage_id = self.kwargs["heritage_id"]
         if heritage_id is not None:
-            queryset = queryset.filter(target__target_id__contains=heritage_id)
+            queryset = queryset.filter(target__target_id__contains="api/v1/heritages/{}".format(heritage_id))
             return queryset
         else:
             return NotFound()
 
     def get_serializer_context(self):
-        return {"target_id": self.request.build_absolute_uri(),
-                "heritage_id": self.kwargs["heritage_id"]}
+        return {"heritage_id": self.kwargs["heritage_id"]}
 
     def list(self, request, *args, **kwargs):
         keyword = self.request.query_params.get("keyword", None)
