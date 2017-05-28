@@ -3,16 +3,22 @@ package com.heritago.heritandroid.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.heritago.heritandroid.R;
+import com.heritago.heritandroid.adapters.HeritageMultimediaAdapter;
 import com.heritago.heritandroid.model.Heritage;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +28,7 @@ import java.util.List;
  */
 
 public class HeritageDetailFragment extends Fragment {
+    private static final String TAG = "Detail";
     private Heritage heritage;
 
     public void setHeritage(Heritage heritage) {
@@ -42,6 +49,19 @@ public class HeritageDetailFragment extends Fragment {
         ListView heritageDetailList = (ListView) view.findViewById(R.id.heritage_detail_list);
         DetailAdapter detailAdapter = new DetailAdapter(heritage.getBasicInformation());
         heritageDetailList.setAdapter(detailAdapter);
+
+
+        List<Heritage.Multimedia> multimediaList = new ArrayList<>();
+        for (Heritage.Multimedia m: heritage.multimedia){
+            if (m.getType() == Heritage.Multimedia.Type.image){
+                multimediaList.add(m);
+            }
+        }
+        RecyclerView multimediaRecycler = (RecyclerView) view.findViewById(R.id.recycler);
+        HeritageMultimediaAdapter multimediaAdapter = new HeritageMultimediaAdapter(multimediaList);
+        multimediaRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        multimediaRecycler.setAdapter(multimediaAdapter);
+
 
         return view;
     }
@@ -82,4 +102,5 @@ public class HeritageDetailFragment extends Fragment {
             return view;
         }
     }
+
 }

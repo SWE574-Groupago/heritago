@@ -23,6 +23,7 @@ import java.util.List;
  */
 
 public class HeritageMultimediaAdapter extends RecyclerView.Adapter<HeritageMultimediaAdapter.MultimediaViewHolder> {
+    static private final String TAG = "Adapter";
 
     private List<Heritage.Multimedia> multimediaList;
     private HashMap<Integer, Bitmap> bitmaps;
@@ -45,6 +46,10 @@ public class HeritageMultimediaAdapter extends RecyclerView.Adapter<HeritageMult
         bitmaps.put(position, map);
     }
 
+    public HashMap<Integer, Bitmap> getBitmaps(){
+        return bitmaps;
+    }
+
     @Override
     public MultimediaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -57,8 +62,8 @@ public class HeritageMultimediaAdapter extends RecyclerView.Adapter<HeritageMult
         final Heritage.Multimedia multimedia = multimediaList.get(position);
         switch (multimedia.getType()){
             case image:
-                if (multimedia.url != null){
-                    ImageLoader.getInstance().displayImage(multimedia.url, holder.image);
+                if (multimedia.getUrl() != null){
+                    ImageLoader.getInstance().displayImage(multimedia.getUrl(), holder.image);
                 }else if (bitmaps.get(position) != null){
                     holder.image.setImageBitmap(bitmaps.get(position));
                 }
