@@ -6,4 +6,4 @@ class HeritagesConfig(AppConfig):
 
     def ready(self):
         super().ready()
-        from heritago.heritages import search
+        from heritages import search

@@ -3,8 +3,8 @@ from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from elasticsearch import Elasticsearch
 
-from heritago.heritages.models import Heritage
-from heritago.heritages.serializers import HeritageSerializer
+from heritages.models import Heritage
+from heritages.serializers import HeritageSerializer
 
 es = Elasticsearch(settings.ELASTICSEARCH_URL)
 index_name = settings.HERITAGE_SEARCH["INDEX"]
