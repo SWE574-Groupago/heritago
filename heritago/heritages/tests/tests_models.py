@@ -1,5 +1,6 @@
 from django.test import TestCase
-from heritago.heritages.models import Tag, Heritage, Multimedia, UserProfile, User
+
+from heritages.models import Tag, Heritage, Multimedia, UserProfile, User
 
 import os
 
@@ -50,9 +51,3 @@ class ModelsTest(TestCase):
         Multimedia.objects.get(url="A").delete()
         with self.assertRaises(Multimedia.DoesNotExist):
             Multimedia.objects.get(url="A")
-
-    def test_userprofile(self):
-        user = User.objects.create(username="testuser")
-        user_profile = UserProfile.objects.create(user=user, email="test@user.com", note="Test Note")
-        self.assertEqual("testuser", str(user_profile)
-                         , "__unicode__ fails, replace with __str__ then you'll pass this test")
