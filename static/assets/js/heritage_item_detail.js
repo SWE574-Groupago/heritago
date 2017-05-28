@@ -414,7 +414,7 @@ function renderAnnotationNumber(n) {
         for (var i = annotations.length - 1; i >= 0; i--) {
             var a = annotations[i];
 
-            if (a.target[0].target_id == heritageId) {
+
                 if (a.target[0].format == "text/plain") {
                     var position = a.target[0].selector[0].value.split("=")[1].split(",");
                     
@@ -431,7 +431,7 @@ function renderAnnotationNumber(n) {
                     }]);
 
                 }
-            }
+            
 
 
         }
