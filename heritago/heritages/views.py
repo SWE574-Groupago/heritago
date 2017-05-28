@@ -84,7 +84,14 @@ class AnnotationListView(generics.ListCreateAPIView):
             return NotFound()
 
     def get_serializer_context(self):
-        return {"heritage_id": self.kwargs["heritage_id"]}
+        try:
+            target_id = []
+            for target in self.request.data["target"]:
+                target_id.append(target["id"])
+            return {"target_id": target_id,
+                    "heritage_id": self.kwargs["heritage_id"]}
+        except KeyError:
+            return {"heritage_id": self.kwargs["heritage_id"]}
 
     def list(self, request, *args, **kwargs):
         keyword = self.request.query_params.get("keyword", None)
