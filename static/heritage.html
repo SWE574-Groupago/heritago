@@ -153,11 +153,13 @@
 
                     <script id="template-basic-information" type="x-tmpl-mustache">
                         {{#basicInformation}}
-                        <div class="col-md-2 col-md-offset-1" style="font-weight: bold">
-                            {{name}}
-                        </div>
-                        <div class="col-md-9">
-                            {{value}}
+                        <div class="col-md-11 col-md-offset-1">
+                            <span style="font-weight: bold">
+                               {{name}}
+                            </span>
+                            <span>
+                                {{value}}
+                            </span>
                         </div>
                         {{/basicInformation}}
                     </script>
@@ -165,18 +167,34 @@
                     <div class="col-md-12">
                         <div class="pull-left"><h3>Origin</h3></div>
                     </div>
-                    <div class="col-md-12" id="heritage-origin">
+                    <div class="col-md-11 col-md-offset-1" id="heritage-origin">
                     </div>
 
                     <script id="template-origin" type="x-tmpl-mustache">
                         <ul>
                         {{#origin}}
+
                         <li>
                             {{name}}
                         </li>
                         {{/origin}}
                         </ul>
                     </script>
+
+                    <div class="col-md-12">
+                        <div class="pull-left"><h3>Dates</h3></div>
+                    </div>
+                    <div class="col-md-11 col-md-offset-1">
+                        <div class="col-md-12">
+                            <span style="font-weight: bold">Start Date: </span><span id="heritage-item-start-date">{{STARTDATE}}</span>
+                        </div>
+                        <div class="col-md-12">
+                            <span style="font-weight: bold">End Date: </span><span id="heritage-item-end-date">{{ENDDATE}}</span>
+                        </div>
+                        <div class="col-md-12">
+                            <span style="font-weight: bold">Exact Date: </span><span id="heritage-item-exact-date">{{EXACTDATE}}</span>
+                        </div>
+                    </div>
 
                     <div class="col-md-12">
                         <hr>
@@ -370,17 +388,23 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <div>
-                                <div class="heritage-item-details-add-annotation-on-image-comment">
-                                    Truely an amazing view.
-                                </div>
-                                <div>
-                                    <div class="pull-right heritage-item-details-add-annotation-on-image-date">22/04/2017 - <span class="heritage-item-details-add-annotation-on-image-owner">Ece Mutlu</span></div>
-                                </div>
-                                <div>
-                                    &nbsp;
-                                </div>
-                                <hr>
+                            <div id="heritage-item-details-add-annotation-on-image-annotations">
+                                <script id="template-heritage-item-details-add-annotation-on-image-annotations" type="x-tmpl-mustache">
+                                    {{#.}}
+                                    <div class="heritage-item-details-add-annotation-on-image-annotations-comment">
+                                    {{#body}}
+                                        {{value}}
+                                    {{/body}}
+                                    </div>
+                                    <div>
+                                        <div class="pull-right heritage-item-details-add-annotation-on-image-annotations-date">{{created}} - <span class="heritage-item-details-add-annotation-on-image-annotations-owner">{{creator}}</span></div>
+                                    </div>
+                                    <div>
+                                        &nbsp;
+                                    </div>
+                                    <hr>
+                                    {{/.}}
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -528,8 +552,8 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="all-annotations-on-heritage-item-modal-close-but">×</button>
                         <h4 class="modal-title" id="all-annotations-on-heritage-item-modal-label">All annotations for heritage item "<span id="all-annotations-on-heritage-item-modal-item-title">&nbsp;</span>"</h4>
                         <ul class="nav nav-tabs nav-justified" data-toggle="tabs">
-                            <li class="active"><a href="#all-annotations-modal-description-tab">On Description</a></li>
-                            <li><a href="#all-annotations-modal-image-tab">On Image</a></li>
+                            <li class="active"><a href="#all-annotations-modal-description-tab" id="all-annotations-modal-description-tab-button">On Description</a></li>
+                            <li><a href="#all-annotations-modal-image-tab" id="all-annotations-modal-image-tab-button">On Image</a></li>
                         </ul>
                     </div>
                     <form class="form-horizontal" role="form">
@@ -553,16 +577,22 @@
                                 </script>
                             </div>
                             <div class="tab-pane" id="all-annotations-modal-image-tab">
-                                <div class="all-annotations-modal-image-tab-annotation-body">
-                                    Annotation on image - annotation body.
-                                </div>
-                                <div>
-                                    <div class="pull-right all-annotations-modal-image-tab-annotation-date">22/02/2017 - <span class="all-annotations-modal-image-tab-annotation-owner">Ali Kara</span></div>
-                                </div>
-                                <div>
-                                    &nbsp;
-                                </div>
-                                <hr>
+                                <script id="template-all-annotations-modal-image-tab" type="x-tmpl-mustache">
+                                    {{#.}}
+                                    <div class="all-annotations-modal-image-tab-annotation-body">
+                                    {{#body}}
+                                        {{value}}
+                                    {{/body}}
+                                    </div>
+                                    <div>
+                                        <div class="pull-right all-annotations-modal-image-tab-annotation-date">{{created}} - <span class="all-annotations-modal-image-tab-annotation-owner">{{creator}}</span></div>
+                                    </div>
+                                    <div>
+                                        &nbsp;
+                                    </div>
+                                    <hr>
+                                    {{/.}}
+                                </script>
                             </div>
                         </div>
                         <div class="modal-footer">
