@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from heritago.heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, Selector, AnnotationTarget, \
+from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, Selector, AnnotationTarget, \
     AnnotationBody, Annotation
 
 

@@ -11,9 +11,9 @@ from rest_framework.viewsets import ViewSet
 from django.shortcuts import (render, render_to_response, redirect)
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
-from heritago.heritages.models import Heritage, Multimedia, Annotation
-from heritago.heritages.search import search_heritages, search_annotations
-from heritago.heritages.serializers import HeritageSerializer, MultimediaSerializer, AnnotationSerializer
+from heritages.models import Heritage, Multimedia, Annotation
+from heritages.search import search_heritages, search_annotations
+from heritages.serializers import HeritageSerializer, MultimediaSerializer, AnnotationSerializer
 from .forms import MyRegistrationForm
 from django.contrib.auth.forms import PasswordChangeForm
 from .forms import UserProfileForm
