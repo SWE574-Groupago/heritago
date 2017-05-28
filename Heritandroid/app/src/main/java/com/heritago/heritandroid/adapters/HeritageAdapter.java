@@ -53,7 +53,7 @@ public class HeritageAdapter extends RecyclerView.Adapter<HeritageAdapter.Herita
     @Override
     public void onBindViewHolder(HeritageViewHolder holder, int position) {
         final Heritage heritage = heritageList.get(position);
-        holder.title.setText(heritage.title);
+        holder.title.setText(heritage.getTitle());
         holder.creator.setText(heritage.getOwnerName());
         ImageLoader.getInstance().displayImage(heritage.getThumbnailImageUrl(), holder.image);
         holder.itemView.setOnClickListener(new View.OnClickListener() {

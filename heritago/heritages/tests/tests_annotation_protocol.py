@@ -4,6 +4,7 @@ from django.test import Client
 
 class AnnotationProtocolTests(unittest.TestCase):
     def setUp(self):
+        """Testing Travis"""
         self.client = Client()
 
     @classmethod
