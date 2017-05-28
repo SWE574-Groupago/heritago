@@ -15,6 +15,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userprofile',
             name='username',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='username'),
+            field=models.CharField(blank=True,
+                                   max_length=255,
+                                   null=True,
+                                   verbose_name='username'),
         ),
     ]

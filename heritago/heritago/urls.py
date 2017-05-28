@@ -1,4 +1,4 @@
-"""heritago URL Configuration
+""" heritago URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from heritages import views
-from django.contrib.auth.views import password_reset
+from heritago.heritages import views
+# from django.contrib.auth.views import password_reset
 
 
 urlpatterns = [
@@ -33,5 +33,5 @@ urlpatterns = [
     url(r'^invalid/$', views.invalid_login, name='invalid_login'),
     url(r'^register/$', views.register_user, name='register_user'),
     url(r'^profile/$', views.user_profile, name='user_profile'),
-    url(r'^change_password/$', views.change_password , name='password-change'),
+    url(r'^change_password/$', views.change_password, name='password-change'),
 ]
