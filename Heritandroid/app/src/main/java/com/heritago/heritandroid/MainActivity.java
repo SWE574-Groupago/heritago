@@ -22,6 +22,7 @@ import com.heritago.heritandroid.bus.BusProvider;
 import com.heritago.heritandroid.bus.DidTapHeritageCardEvent;
 import com.heritago.heritandroid.fragments.AddHeritageFragment;
 import com.heritago.heritandroid.fragments.HeritageDetailFragment;
+import com.heritago.heritandroid.fragments.ProfileFragment;
 import com.heritago.heritandroid.fragments.SearchFragment;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -139,7 +140,9 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction().addToBackStack(null)
                     .add(R.id.main_content, addFrag).commit();
         } else if (id == R.id.nav_profile) {
-
+            Fragment profileFrag = new ProfileFragment();
+            fragmentManager.beginTransaction().addToBackStack(null)
+                    .add(R.id.main_content, profileFrag).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -15,9 +15,9 @@ import com.heritago.heritandroid.R;
 import com.heritago.heritandroid.adapters.HeritageAdapter;
 import com.heritago.heritandroid.api.ApiClient;
 import com.heritago.heritandroid.api.ApiInterface;
+import com.heritago.heritandroid.helpers.LoginHelper;
 import com.heritago.heritandroid.model.Heritage;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +33,7 @@ public class SearchFragment extends Fragment {
     private HeritageAdapter adapter;
     private List<Heritage> heritageList = new ArrayList<>();
     private SearchView searchView;
+    public boolean parentIsProfile = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,35 +55,37 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
         searchView = (SearchView) view.findViewById(R.id.search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                searchView.clearFocus();
-                updateCardsForSearch(query);
-                return true;
-            }
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
+
+        if (parentIsProfile){
+            searchView.setAlpha(0f);
+            searchView.setEnabled(false);
+            updateCardsForSearch(null, LoginHelper.shared.getUsername());
+        }else{
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    searchView.clearFocus();
+                    updateCardsForSearch(query, null);
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return true;
+                }
+            });
+        }
 
         return view;
     }
 
-    private void updateCardsForSearch(String query){
-//        heritageList.clear();
-//        for (int i = 0; i < 10; i++){
-//            heritageList.add(new Heritage("id","Sultanahmet Mosque","description", new Heritage.Owner("1","Suzan U.")));
-//        }
-//        adapter.notifyDataSetChanged();
-
+    private void updateCardsForSearch(String query, String username){
         ApiInterface inter = ApiClient.getClient().create(ApiInterface.class);
-        Call call = inter.getHeritages();
+        Call call = inter.getHeritages(query, null);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                Log.d(TAG, "api call success");
+                Log.d(TAG, "api call success: "+call.request().url());
+                Log.d(TAG, "response: "+response.body());
                 ArrayList<Heritage> heritages;
                 try {
                     heritages = (ArrayList<Heritage>) response.body();
@@ -90,7 +93,7 @@ public class SearchFragment extends Fragment {
                     heritageList.addAll(heritages);
                     adapter.notifyDataSetChanged();
                 }catch (Exception e){
-                    Log.d(TAG, "heritages cast error");
+                    Log.d(TAG, "heritages cast error "+e.getMessage());
                     return;
                 }
 

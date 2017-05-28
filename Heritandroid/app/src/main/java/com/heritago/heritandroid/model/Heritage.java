@@ -1,5 +1,8 @@
 package com.heritago.heritandroid.model;
 
+import com.heritago.heritandroid.api.ApiClient;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,17 +10,17 @@ import java.util.List;
  */
 
 public class Heritage {
-    private final String defaultImageUrl = "http://i.sozcu.com.tr/wp-content/uploads/2015/04/01/670sultanahmetcamii.jpg";
+    private final String defaultImageUrl = "https://www.proyas.org/wp-content/themes/404/images/placeholder.jpg";
     public String id;
-    public String title;
-    public String description;
+    private String title;
+    private String description;
     public String createdAt;
-    public List<BasicInformation> basicInformation;
-    public List<String> origins;
-    public List<String> tags;
+    private List<BasicInformation> basicInformation = new ArrayList<>();
+    public List<Origin> origin = new ArrayList<>();
+    public List<String> tags = new ArrayList<>();
     public int annotationCount;
     private Owner owner;
-    private List<Multimedia> multimedia;
+    public List<Multimedia> multimedia;
 
 
     public Heritage(String id, String title, String description, Owner owner) {
@@ -30,7 +33,7 @@ public class Heritage {
     public String getThumbnailImageUrl(){
         for (Multimedia m: multimedia){
             if (m.getType().equals(Multimedia.Type.image)){
-                return m.url;
+                return ApiClient.imageBaseUrl + m.url;
             }
         }
 
@@ -38,7 +41,23 @@ public class Heritage {
     }
 
     public String getOwnerName(){
-        return owner.name;
+        try {
+            return owner.name;
+        }catch (Exception e){
+            return "";
+        }
+    }
+
+    public String getTitle() {
+        return (title != null)? title : "" ;
+    }
+
+    public String getDescription() {
+        return (title != null)? description : "";
+    }
+
+    public List<BasicInformation> getBasicInformation() {
+        return (basicInformation != null)? basicInformation : new ArrayList<BasicInformation>();
     }
 
     public static class Owner {
@@ -50,12 +69,20 @@ public class Heritage {
             this.name = name;
         }
     }
+    public static class Origin {
+        public String name;
+
+        public Origin(String name) {
+            this.name = name;
+        }
+    }
+
     public static class BasicInformation {
-        public String key;
+        public String name;
         public String value;
 
-        public BasicInformation(String key, String value) {
-            this.key = key;
+        public BasicInformation(String name, String value) {
+            this.name = name;
             this.value = value;
         }
     }
@@ -63,9 +90,13 @@ public class Heritage {
     public static class Multimedia {
         public String type;
         public String id;
-        public String url;
+        private String url;
         public String createdAt;
         public Selector selector;
+
+        public Multimedia(Type t){
+            this.type = t.name();
+        }
 
         public Type getType(){
             for (Type t: Type.values()){
@@ -74,6 +105,11 @@ public class Heritage {
                 }
             }
             return Type.unknown;
+        }
+
+        public String getUrl(){
+            if (url == null) return null;
+            return ApiClient.imageBaseUrl + url;
         }
 
         public class Selector {
