@@ -262,6 +262,20 @@ $(function() {
         $(this).parent().parent().remove();
     });
 
+    $('#multimedia-image-card .md-add').click(function() {
+        var $template = $($('#template-multimedia-file-input').html());
+        $("#multimedia-image-card ul").append($template);
+        $('.fa-trash', $template).click(function() {
+            $(this).parent().parent().remove();    
+        });
+    });
+
+    $('#multimedia-image-card .fa-trash').click(function() {
+        $(this).parent().parent().remove();
+    });
+
+    
+
     $('body').on('click', '.add-key-value-field-but', function() {
         var key_field_input = $(this).parent().prev().prev().prev().children().eq(0).children().eq(0).val();
         var value_field_input = $(this).parent().prev().children().eq(0).children().eq(0).val();
@@ -323,7 +337,6 @@ $(function() {
 
 
     function saveMultimedia(instanceId, mm) {
-        console.log("mm is saving")
         mm.meta = JSON.stringify(mm.meta);
         $.ajax({
             method: "POST",

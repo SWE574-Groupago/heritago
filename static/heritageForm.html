@@ -304,14 +304,58 @@
             </div>
             <div class="col-md-12">
                 <div class="col-md-offset-1 col-md-7">
-                    <div class="card">
+                    <div class="card" id="multimedia-image-card">
                         <div class="card-head style-primary">
+                            <div class="tools">
+                                <div class="btn-group">
+                                    <a class="btn btn-icon-toggle"><i class="md md-add"></i></a>
+                                </div>
+                            </div>
                             <header>Image uploader</header>
                         </div>
 
                         <form id="multimedia-images" class="card-body no-padding">
 
-                                <input type="file" class="multimedia-image">
+
+
+                            <div class="card">
+                                <div class="card-body no-padding">
+                                    <script id="template-multimedia-file-input" type="x-tmpl-mustache">
+                                        <li class="tile ui-sortable-handle">
+                                            <div class=" tile-text">
+                                                <label>
+                                                    <input type="file" class="multimedia-image">
+                                                </label>
+                                            </div>
+                                            <a class="btn btn-flat ink-reaction btn-default">
+                                                <i class="fa fa-trash "></i>
+                                            </a>
+                                        </li>
+                                    </script>
+                                    <ul class="list ui-sortable" data-sortable="true">
+                                        <li class="tile ui-sortable-handle">
+                                            <div class=" tile-text">
+                                                <label>
+                                                    <input type="file" class="multimedia-image">
+                                                </label>
+                                            </div>
+                                            <a class="btn btn-flat ink-reaction btn-default">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </li>
+                                        <li class="tile ui-sortable-handle">
+                                            <div class=" tile-text">
+                                                <label>
+                                                    <input type="file" class="multimedia-image">
+                                                </label>
+                                            </div>
+                                            <a class="btn btn-flat ink-reaction btn-default">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div><!--end .card-body -->
+                            </div>
 
                         </form><!--end .card-body -->
 
