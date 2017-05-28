@@ -112,10 +112,12 @@ function renderAnnotationNumber(n) {
              var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
              var given_url = $("#add-annotation-on-description-modal-url").val();
 
-             if (selected_motivation == "linking" && given_url == "") {
-                 // Give error since given URL cannot be empty string
-                 $("#add-annotation-on-description-modal-text-errors").html("Given URL cannot be empty string while selected motivation is 'linking'.");
-                 return
+             if (selected_motivation == "linking") {
+                if (given_url == "") {
+                    // Give error since given URL cannot be empty string
+                    $("#add-annotation-on-description-modal-text-errors").html("Given URL cannot be empty string while selected motivation is 'linking'.");
+                     return
+                }
             }
             else if (given_textual_body == "") {
                  // Give error since entered textual body cannot be empty string
