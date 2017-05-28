@@ -2992,73 +2992,40 @@ var VGG = (function(options){
       }
 
       // user commands
-      if ( e.ctrlKey ) {
-          if ( e.which === 83 ) { // Ctrl + s
-              download_all_region_data('csv');
-              e.preventDefault();
-              return;
-          }
+      // if ( e.ctrlKey ) {
+      //     if ( e.which === 83 ) { // Ctrl + s
+      //         download_all_region_data('csv');
+      //         e.preventDefault();
+      //         return;
+      //     }
 
-          if ( e.which === 65 ) { // Ctrl + a
-              sel_all_regions();
-              e.preventDefault();
-              return;
-          }
+      //     if ( e.which === 65 ) { // Ctrl + a
+      //         sel_all_regions();
+      //         e.preventDefault();
+      //         return;
+      //     }
 
-          if ( e.which === 67 ) { // Ctrl + c
-              if (_via_is_region_selected ||
-                  _via_is_all_region_selected) {
-                  copy_sel_regions();
-                  e.preventDefault();
-              }
-              return;
-          }
+      //     if ( e.which === 67 ) { // Ctrl + c
+      //         if (_via_is_region_selected ||
+      //             _via_is_all_region_selected) {
+      //             copy_sel_regions();
+      //             e.preventDefault();
+      //         }
+      //         return;
+      //     }
 
-          if ( e.which === 86 ) { // Ctrl + v
-              paste_sel_regions();
-              e.preventDefault();
-              return;
-          }
-      }
+      //     if ( e.which === 86 ) { // Ctrl + v
+      //         paste_sel_regions();
+      //         e.preventDefault();
+      //         return;
+      //     }
+      // }
 
-      if( e.which === 46 || e.which === 8) { // Del or Backspace
-          del_sel_regions();
-          e.preventDefault();
-      }
-      if (e.which === 78 || e.which === 39) { // n or right arrow
-          move_to_next_image();
-          e.preventDefault();
-          return;
-      }
-      if (e.which === 80 || e.which === 37) { // n or right arrow
-          move_to_prev_image();
-          e.preventDefault();
-          return;
-      }
-      if (e.which === 32 && _via_current_image_loaded) { // Space
-          toggle_img_list();
-          e.preventDefault();
-          return;
-      }
-
-      // zoom
-      if (_via_current_image_loaded) {
-          // see: http://www.javascripter.net/faq/keycodes.htm
-          if (e.which === 61 || e.which === 187) { // + for zoom in
-              if (e.shiftKey) {
-                  zoom_in();
-              } else {  // = for zoom reset
-                  reset_zoom_level();
-              }
-              return;
-          }
-
-          if (e.which === 173 || e.which === 189) { // - for zoom out
-              zoom_out();
-              return;
-          }
-      }
-
+      // if( e.which === 46 || e.which === 8) { // Del or Backspace
+      //     del_sel_regions();
+      //     e.preventDefault();
+      // }
+      
       if ( e.which === 27 ) { // Esc
           if (_via_is_user_updating_attribute_value ||
               _via_is_user_updating_attribute_name ||
