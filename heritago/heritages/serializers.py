@@ -1,3 +1,4 @@
+import django.dispatch
 from rest_framework import serializers
 
 from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, Selector, AnnotationTarget, \
@@ -51,6 +52,9 @@ class MultimediaSerializer(serializers.ModelSerializer):
         return multimedia
 
 
+heritage_created = django.dispatch.Signal(providing_args=["instance"])
+
+
 class HeritageSerializer(serializers.ModelSerializer):
     basicInformation = BasicInformationSerializer(many=True)
     origin = OriginSerializer(many=True)
@@ -94,6 +98,7 @@ class HeritageSerializer(serializers.ModelSerializer):
             if not heritage_tags:
                 heritage.tags.add(*Tag.objects.get_or_create(**entry))
 
+        heritage_created.send(sender=self.__class__, instance=heritage)
         return heritage
 
 

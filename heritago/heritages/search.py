@@ -4,14 +4,14 @@ from django.dispatch import receiver
 from elasticsearch import Elasticsearch
 
 from heritages.models import Heritage
-from heritages.serializers import HeritageSerializer
+from heritages.serializers import HeritageSerializer, heritage_created
 
 es = Elasticsearch(settings.ELASTICSEARCH_URL)
 index_name = settings.HERITAGE_SEARCH["INDEX"]
 type_name = settings.HERITAGE_SEARCH["TYPE"]
 
 
-@receiver(post_save, sender=Heritage)
+@receiver(heritage_created, sender=HeritageSerializer)
 def heritage_saved(sender, instance, **kwargs):
     serialized = HeritageSerializer(instance)
     es.index(index_name, type_name, serialized.data, id=instance.id)
