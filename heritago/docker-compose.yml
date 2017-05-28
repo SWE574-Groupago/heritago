@@ -15,10 +15,6 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-#  redis:
-#    image: redis
-#    ports:
-#      - "6379:6379"
   mysql:
     image: mysql
     ports:
