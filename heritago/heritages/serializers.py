@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
 
 from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, Selector, AnnotationTarget, \
-    AnnotationBody, Annotation, UserProfile
+    AnnotationBody, Annotation
 
 
 class BasicInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasicInformation
-        fields = ("name", "value",)
+        fields = ("name",
+                  "value")
 
 
 class OriginSerializer(serializers.ModelSerializer):
@@ -30,8 +30,14 @@ class MultimediaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Multimedia
-        fields = ("createdAt", "url", "type", "id", "file", "meta")
-        read_only_fields = ("id", "url",)
+        fields = ("createdAt",
+                  "url",
+                  "type",
+                  "id",
+                  "file",
+                  "meta")
+        read_only_fields = ("id",
+                            "url")
         # "write_only_fields" is a PendingDeprecation and it is replaced with "extra_kwargs" /
         # Source: http://www.django-rest-framework.org/topics/3.0-announcement/#the-extra_kwargs-option
         extra_kwargs = {'file': {'write_only': True}}
@@ -116,7 +122,6 @@ class AnnotationTargetSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_selector = validated_data.pop("selector")
         target = AnnotationTarget.objects.create(**validated_data)
-        target.target_id = "http://574heritago.com/heritages/{}/".format(self.context["target_id"])
         for entry in validated_selector:
             Selector.objects.create(target=target, **entry)
         return target
@@ -139,6 +144,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
         fields = ("context",
                   "annotation_id",
                   "type",
+                  "motivation",
                   "creator",
                   "created",
                   "body",
@@ -155,7 +161,7 @@ class AnnotationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_body = validated_data.pop("body")
         validated_target = validated_data.pop("target")
-        annotation = Annotation.objects.create(heritage=Heritage.objects.get(pk=self.context["target_id"]),
+        annotation = Annotation.objects.create(heritage=Heritage.objects.get(pk=self.context["heritage_id"]),
                                                **validated_data)
 
         for entry in validated_body:

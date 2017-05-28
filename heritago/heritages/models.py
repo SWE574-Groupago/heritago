@@ -1,8 +1,6 @@
 import os
 
 from django.db import models
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
 from django.contrib.auth.models import User
 
 
@@ -66,10 +64,45 @@ class Multimedia(models.Model):
         return super().delete(using, keep_parents)
 
 
+# W3C Web Annotation Specification at https://www.w3.org/TR/annotation-model/
 class Annotation(models.Model):
+
+    class MOTIVATIONS(object):
+        ASSESSING = "assessing"
+        BOOKMARKING = "bookmarking"
+        CLASSIFYING = "classifying"
+        COMMENTING = "commenting"
+        DESCRIBING = "describing"
+        EDITING = "editing"
+        HIGHLIGHTING = "highlighting"
+        IDENTIFYING = "highlighting"
+        LINKING = "linking"
+        MODERATING = "moderating"
+        QUESTIONING = "questioning"
+        REPLYING = "replying"
+        TAGGING = "tagging"
+
+        @classmethod
+        def to_set(cls):
+            return (
+                ("assessing", cls.ASSESSING),
+                ("bookmarking", cls.BOOKMARKING),
+                ("classifying", cls.CLASSIFYING),
+                ("commenting", cls.COMMENTING),
+                ("describing", cls.DESCRIBING),
+                ("editing", cls.EDITING),
+                ("highlighting", cls.HIGHLIGHTING),
+                ("identifying", cls.IDENTIFYING),
+                ("linking", cls.LINKING),
+                ("moderating", cls.MODERATING),
+                ("questioning", cls.QUESTIONING),
+                ("replying", cls.REPLYING),
+                ("tagging", cls.TAGGING))
+
     heritage = models.ForeignKey(to=Heritage, related_name="annotation", on_delete=models.CASCADE, blank=True)
     context = models.URLField(null=False, default="http://www.w3.org/ns/anno.jsonld")
     type = models.CharField(max_length=255, null=False, default="Annotation")
+    motivation = models.CharField(choices=MOTIVATIONS.to_set(), max_length=20, null=True)
     creator = models.CharField(max_length=255, null=False)
     created = models.DateTimeField(auto_now_add=True)
     votes = models.IntegerField(null=False, default=0)
@@ -80,6 +113,7 @@ class Annotation(models.Model):
 
 
 class AnnotationBody(models.Model):
+
     class TYPES(object):
         VIDEO = "video"
         AUDIO = "audio"
@@ -127,6 +161,7 @@ class AnnotationBody(models.Model):
 
 
 class AnnotationTarget(models.Model):
+
     class TYPES(object):
         VIDEO = "video"
         AUDIO = "audio"
@@ -175,6 +210,7 @@ class AnnotationTarget(models.Model):
 
 # W3C Specification for selectors at https://www.w3.org/TR/annotation-model/#selectors
 class Selector(models.Model):
+
     class SPECIFICATIONS(object):
         TEXT = "http://tools.ietf.org/rfc/rfc5147"
         MEDIA = "http://www.w3.org/TR/media-frags/"

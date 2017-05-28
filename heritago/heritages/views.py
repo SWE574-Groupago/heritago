@@ -1,6 +1,7 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import UploadedFile
+from django.conf import settings
 from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.exceptions import NotFound
@@ -67,7 +68,9 @@ class MultimediaView(generics.RetrieveDestroyAPIView):
 
 
 class MultimediaFileView(ViewSet):
-    def get_file(self, request, heritage_id, multimedia_id):
+
+    @staticmethod
+    def get_file(request, multimedia_id):
         try:
             m = Multimedia.objects.get(pk=multimedia_id)
         except ObjectDoesNotExist:
@@ -77,11 +80,20 @@ class MultimediaFileView(ViewSet):
 
 
 class AnnotationListView(generics.ListCreateAPIView):
-    queryset = Annotation.objects.all()
     serializer_class = AnnotationSerializer
 
+    def get_queryset(self):
+        queryset = Annotation.objects.all()
+        heritage_id = self.kwargs["heritage_id"]
+        if heritage_id is not None:
+            queryset = queryset.filter(target__target_id__contains=heritage_id)
+            return queryset
+        else:
+            return NotFound()
+
     def get_serializer_context(self):
-        return {"target_id": self.kwargs["heritage_id"]}
+        return {"target_id": self.request.build_absolute_uri(),
+                "heritage_id": self.kwargs["heritage_id"]}
 
     def list(self, request, *args, **kwargs):
         keyword = self.request.query_params.get("keyword", None)
@@ -100,7 +112,7 @@ class AnnotationView(generics.RetrieveUpdateDestroyAPIView):
 def login(request):
     c = {}
     c.update(csrf(request))
-    return render_to_response('login.html', c)
+    return render_to_response(settings.STATIC_URL + 'login.html', c)
 
 
 def auth_view(request):
@@ -116,12 +128,12 @@ def auth_view(request):
 
 
 def invalid_login(request):
-    return render_to_response('invalid_loggedin.html')
+    return render_to_response(settings.STATIC_URL + 'invalid_loggedin.html')
 
 
 def logout(request):
     auth.logout(request)
-    return render_to_response('logout.html')
+    return render_to_response(settings.STATIC_URL + 'logout.html')
 
 
 def register_user(request):
@@ -145,7 +157,7 @@ def register_user(request):
     args['user_form'] = user_form
     args['profile_form'] = profile_form
 
-    return render_to_response('register.html', args)
+    return render_to_response(settings.STATIC_URL + 'register.html', args)
 
 
 @login_required
@@ -167,7 +179,7 @@ def user_profile(request):
 
     args['form'] = form
 
-    return render(request, 'profile.html', args)
+    return render(request, settings.STATIC_URL + 'profile.html', args)
 
 
 @login_required
@@ -183,6 +195,6 @@ def change_password(request):
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'change_password.html', {
+    return render(request, settings.STATIC_URL + 'change_password.html', {
         'form': form
     })
