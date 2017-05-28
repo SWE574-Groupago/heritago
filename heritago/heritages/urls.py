@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from heritages import views
+from heritago.heritages import views
 
 urlpatterns = [
     url(r"^$", views.HeritagesListView.as_view()),

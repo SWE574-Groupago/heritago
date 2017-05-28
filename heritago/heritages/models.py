@@ -1,8 +1,6 @@
 import os
 
 from django.db import models
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
 from django.contrib.auth.models import User
 
 
@@ -66,6 +64,7 @@ class Multimedia(models.Model):
         return super().delete(using, keep_parents)
 
 
+# W3C Web Annotation Specification at https://www.w3.org/TR/annotation-model/
 class Annotation(models.Model):
 
     class MOTIVATIONS(object):
@@ -114,6 +113,7 @@ class Annotation(models.Model):
 
 
 class AnnotationBody(models.Model):
+
     class TYPES(object):
         VIDEO = "video"
         AUDIO = "audio"
@@ -161,6 +161,7 @@ class AnnotationBody(models.Model):
 
 
 class AnnotationTarget(models.Model):
+
     class TYPES(object):
         VIDEO = "video"
         AUDIO = "audio"
@@ -209,6 +210,7 @@ class AnnotationTarget(models.Model):
 
 # W3C Specification for selectors at https://www.w3.org/TR/annotation-model/#selectors
 class Selector(models.Model):
+
     class SPECIFICATIONS(object):
         TEXT = "http://tools.ietf.org/rfc/rfc5147"
         MEDIA = "http://www.w3.org/TR/media-frags/"

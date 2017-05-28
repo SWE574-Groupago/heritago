@@ -1,5 +1,5 @@
 from django.test import TestCase
-from heritages.models import Tag, Heritage, Multimedia, UserProfile, User
+from heritago.heritages.models import Tag, Heritage, Multimedia, UserProfile, User
 
 import os
 
