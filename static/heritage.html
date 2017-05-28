@@ -262,131 +262,7 @@
             </div>
         </section>
 
-        <!-- BEGIN ANNOTATION-ON-DESCRIPTION MODAL MARKUP -->
-        <div class="modal fade" id="add-annotation-on-description-modal" tabindex="-1" role="dialog" aria-labelledby="add-annotation-on-description-modal-label" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="add-annotation-on-description-modal-close-but">×</button>
-                        <h4 class="modal-title" id="add-annotation-on-description-modal-label">Add annotation on selected text</h4>
-                        <ul class="nav nav-tabs nav-justified" data-toggle="tabs">
-                            <li class="active"><a href="#annotate-description-by-text-tab">by text</a></li>
-                            <li><a href="#annotate-description-by-image-tab">by image</a></li>
-                            <li><a href="#annotate-description-by-video-tab">by video</a></li>
-                            <li><a href="#annotate-description-by-audio-tab">by audio</a></li>
-                        </ul>
-                    </div>
-                    <form class="form-horizontal" role="form">
-                        <div class="modal-body tab-content">
-                            <div class="tab-pane active" id="annotate-description-by-text-tab">
-                                <div class="form-group">
-                                    <div class="col-sm-3">
-                                        <label for="add-annotation-on-description-modal-select-motivation">Select motivation:&nbsp;</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <select id="add-annotation-on-description-modal-select-motivation" name="add-annotation-on-description-modal-select-motivation" class="form-control">
-                                            <option value="">&nbsp;</option>
-                                            <option value="commenting">commenting</option>
-                                            <option value="describing">describing</option>
-                                            <option value="questioning">questioning</option>
-                                            <option value="replying">replying</option>
-                                            <option value="linking">linking</option>
-                                        </select>
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="col-sm-3">
-                                        <label for="add-annotation-on-description-modal-textarea">Textual body:&nbsp;</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <textarea id="add-annotation-on-description-modal-textarea" class="form-control" rows="3" placeholder="type here"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-3">
-                                        <label for="add-annotation-on-description-modal-url">Link to resource:&nbsp;</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="add-annotation-on-description-modal-url">
-                                    </div>
-                                </div>
-                                <div class="col-md-12" style="text-align: left; color: #ff9700" id="add-annotation-on-description-modal-text-errors">
-                                    &nbsp;
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-9">
-                                        &nbsp;
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-text-but">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="annotate-description-by-image-tab">
-                                <div class="form-group">
-                                    <div class="col-sm-3">
-                                        <label for="add-annotation-on-description-modal-upload-image">Upload image :</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                            <input type="file" id="add-annotation-on-description-modal-upload-image">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-9">
-                                        &nbsp;
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-image-but">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="annotate-description-by-video-tab">
-                                <div class="form-group">
-                                    <div class="col-sm-3">
-                                        <label for="add-annotation-on-description-modal-upload-video">Upload video :</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="file" id="add-annotation-on-description-modal-upload-video">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-9">
-                                        &nbsp;
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-video-but">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="annotate-description-by-audio-tab">
-                                <div class="form-group">
-                                    <div class="col-sm-3">
-                                        <label for="add-annotation-on-description-modal-upload-audio">Upload audio :</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="file" id="add-annotation-on-description-modal-upload-audio">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-9">
-                                        &nbsp;
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-audio-but">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" id="add-annotation-on-description-modal-cancel-but">Cancel</button>
-                        </div>
-                    </form>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-        <!-- END ANNOTATION-ON-DESCRIPTION MODAL MARKUP -->
 
 
         <!-- BEGIN DISPLAY-ANNOTATIONS-ON-HIGHLIGHTED-TEXT MODAL MARKUP -->
@@ -522,10 +398,12 @@
                                   </ul>
                                 </div>
 
-
-                                <button type="button" class="btn ink-reaction btn-raised btn-sm btn-primary" id="btn-continue-annotate">Continue</button>
+                                <input type="hidden" id="image-target-id"  value="">
+                                <button type="button" 
+                                    class="btn ink-reaction btn-raised btn-sm btn-primary" id="btn-continue-annotate"
+                                     data-toggle="modal" data-target="#add-annotation-on-description-modal">Continue</button>
                                 <button type="button" class="btn ink-reaction btn-raised btn-sm btn-primary" id="btn-cancel-annotate">Cancel</button>
-                                
+
                             </div>
                         </h4>
 
@@ -536,9 +414,9 @@
                                 <img class="img-responsive" id="heritage-item-details-add-annotation-on-image-modal-target-image">
                             </div> -->
                             <div id="display_area">
-                              <div id="canvas_panel">
-                                <canvas id="image_canvas"></canvas>
-                                <canvas id="region_canvas">Sorry, your browser does not support HTML5 Canvas functionality which is required for this application.</canvas>
+                              <div id="canvas_panel" style="height: 400px">
+                                <canvas id="image_canvas" style="height: 400px"></canvas>
+                                <canvas id="region_canvas" style="height: 400px" >Sorry, your browser does not support HTML5 Canvas functionality which is required for this application.</canvas>
                               </div>
                             </div>
                         </div>
@@ -566,6 +444,132 @@
         <!-- /.modal -->
         <!-- END HERITAGE-ITEM-DETAILS-ANNOTATION-ON-IMAGE MODAL MARKUP -->
 
+                <!-- BEGIN ANNOTATION-ON-DESCRIPTION MODAL MARKUP -->
+        <div class="modal fade" id="add-annotation-on-description-modal" tabindex="-1" role="dialog" aria-labelledby="add-annotation-on-description-modal-label" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="add-annotation-on-description-modal-close-but">×</button>
+                        <h4 class="modal-title" id="add-annotation-on-description-modal-label">Add annotation on selected text</h4>
+                        <ul class="nav nav-tabs nav-justified" data-toggle="tabs">
+                            <li class="active"><a href="#annotate-description-by-text-tab">by text</a></li>
+                            <li><a href="#annotate-description-by-image-tab">by image</a></li>
+                            <li><a href="#annotate-description-by-video-tab">by video</a></li>
+                            <li><a href="#annotate-description-by-audio-tab">by audio</a></li>
+                        </ul>
+                    </div>
+                    <form class="form-horizontal" role="form">
+                        <input type="hidden" id="annotation-form-resource-type" value="text">
+                        <div class="modal-body tab-content">
+                            <div class="tab-pane active" id="annotate-description-by-text-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-select-motivation">Select motivation:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <select id="add-annotation-on-description-modal-select-motivation" name="add-annotation-on-description-modal-select-motivation" class="form-control">
+                                            <option value="">&nbsp;</option>
+                                            <option value="commenting">commenting</option>
+                                            <option value="describing">describing</option>
+                                            <option value="questioning">questioning</option>
+                                            <option value="replying">replying</option>
+                                            <option value="linking">linking</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-textarea">Textual body:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <textarea id="add-annotation-on-description-modal-textarea" class="form-control" rows="3" placeholder="type here"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-url">Link to resource:&nbsp;</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="add-annotation-on-description-modal-url">
+                                    </div>
+                                </div>
+                                <div class="col-md-12" style="text-align: left; color: #ff9700" id="add-annotation-on-description-modal-text-errors">
+                                    &nbsp;
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-text-but">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="annotate-description-by-image-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-upload-image">Upload image :</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                            <input type="file" id="add-annotation-on-description-modal-upload-image">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-image-but">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="annotate-description-by-video-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-upload-video">Upload video :</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="file" id="add-annotation-on-description-modal-upload-video">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-video-but">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="annotate-description-by-audio-tab">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <label for="add-annotation-on-description-modal-upload-audio">Upload audio :</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input type="file" id="add-annotation-on-description-modal-upload-audio">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-9">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <button type="button" class="btn btn-primary" id="annotate-description-modal-submit-audio-but">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" id="add-annotation-on-description-modal-cancel-but">Cancel</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <!-- END ANNOTATION-ON-DESCRIPTION MODAL MARKUP -->
 
     </div><!--end #content-->
     <!-- END CONTENT -->

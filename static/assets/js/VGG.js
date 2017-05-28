@@ -1,3 +1,4 @@
+
 var VGG = (function(options){
 
 
@@ -623,10 +624,12 @@ var VGG = (function(options){
     var image_id = _via_image_id;
     var regions = regions;
       for ( var i in regions ) {
+          
           var regioni = new ImageRegion();
           for ( var key in regions[i].shape_attributes ) {
               regioni.shape_attributes.set(key, regions[i].shape_attributes[key]);
           }
+
           for ( var key in regions[i].region_attributes ) {
               regioni.region_attributes.set(key, regions[i].region_attributes[key]);
               if ( !_via_region_attributes.has(key) ) {
@@ -1023,8 +1026,17 @@ var VGG = (function(options){
               // set the size of canvas
               // based on the current dimension of browser window
               var de = document.documentElement;
+
               canvas_panel_width = de.clientWidth - 230;
               canvas_panel_height = de.clientHeight;
+              options.maxHeight = 600;
+              options.maxWidth = 600;
+              if (canvas_panel_width > options.maxWidth)
+                canvas_panel_width = options.maxWidth;
+
+              if (canvas_panel_height > options.maxHeight)
+                canvas_panel_height = options.maxHeight;
+
               _via_canvas_width = _via_current_image_width;
               _via_canvas_height = _via_current_image_height;
               var scale_width, scale_height;
@@ -1043,6 +1055,7 @@ var VGG = (function(options){
               _via_canvas_width = Math.round(_via_canvas_width);
               _via_canvas_height = Math.round(_via_canvas_height);
               _via_canvas_scale = _via_current_image.naturalWidth / _via_canvas_width;
+              _via_canvas_scale= 1.0
               _via_canvas_scale_without_zoom = _via_canvas_scale;
               set_all_canvas_size(_via_canvas_width, _via_canvas_height);
               //set_all_canvas_scale(_via_canvas_scale_without_zoom);
@@ -1071,10 +1084,10 @@ var VGG = (function(options){
               // @todo: let the height of image list match that of window
               _via_reload_img_table = true;
               var img_list_height = document.documentElement.clientHeight/3 + 'px';
-              img_list_panel.setAttribute('style', 'height: ' + img_list_height);
-              if (_via_is_loaded_img_list_visible) {
-                  show_img_list();
-              }
+              // img_list_panel.setAttribute('style', 'height: ' + img_list_height);
+              // if (_via_is_loaded_img_list_visible) {
+              //     show_img_list();
+              // }
               options.onLoaded("load")
           });
           _via_current_image.src = img_reader.result;
@@ -1353,12 +1366,13 @@ var VGG = (function(options){
   }
 
   function img_loading_spinbar(show) {
-      var panel = document.getElementById('loaded_img_panel');
-      if ( show ) {
-          panel.innerHTML = 'Loaded Images &nbsp;&nbsp;<div class="loading_spinbox"></div>';
-      } else {
-          panel.innerHTML = 'Loaded Images &nbsp;&nbsp;';
-      }
+
+      // var panel = document.getElementById('loaded_img_panel');
+      // if ( show ) {
+      //     panel.innerHTML = 'Loaded Images &nbsp;&nbsp;<div class="loading_spinbox"></div>';
+      // } else {
+      //     panel.innerHTML = 'Loaded Images &nbsp;&nbsp;';
+      // }
   }
 
   function toggle_leftsidebar() {
@@ -1440,6 +1454,7 @@ var VGG = (function(options){
                     del_sel_regions();
                     
                   }
+                  console.log("new selection")
                   options.new_region_created(_via_canvas_regions[_via_canvas_regions.length -1]);
 
                   show_message(_via_canvas_regions.length, 1)
@@ -1764,6 +1779,7 @@ var VGG = (function(options){
                           canvas_polygon_region.shape_attributes.set('all_points_x', [Math.round(_via_click_x0)]);
                           canvas_polygon_region.shape_attributes.set('all_points_y', [Math.round(_via_click_y0)]);
                           _via_canvas_regions.push(canvas_polygon_region);
+
                           _via_current_polygon_region_id =_via_canvas_regions.length - 1;
                           break;
                       case VIA_REGION_SHAPE.POINT:
@@ -3782,10 +3798,16 @@ var VGG = (function(options){
       }
       _via_is_user_adding_attribute_name = false;
   }
+  
   init_iimage();
 
   return {
-    "regions": _via_canvas_regions
+    "show_image": show_image,
+    "map_to_json": map_to_json,
+    "clear_image_display_area": clear_image_display_area,
+    "getRegions": function(){return _via_canvas_regions;},
+    "setRegions": function(regions){_via_img_metadata["img1"].regions = regions},
+    "clearRegions": function(){_via_img_metadata["img1"].regions = []; clear_image_display_area(); show_image(0);},
     "select_region_shape": select_region_shape,
     "import_region": import_region
   }
