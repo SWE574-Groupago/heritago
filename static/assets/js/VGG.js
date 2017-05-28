@@ -1230,6 +1230,7 @@ var VGG = (function(options){
   }
 
   function toggle_img_list(panel) {
+    return;
       if ( typeof panel === 'undefined' ) {
           // invoked from accordion in the top navigation toolbar
           panel = document.getElementById('loaded_img_panel');

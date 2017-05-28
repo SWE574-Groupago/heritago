@@ -112,7 +112,7 @@ function renderAnnotationNumber(n) {
              var given_textual_body =  $("#add-annotation-on-description-modal-textarea").val();
              var given_url = $("#add-annotation-on-description-modal-url").val();
 
-             if (selected_motivation == "linking") {
+            if (selected_motivation == "linking") {
                 if (given_url == "") {
                     // Give error since given URL cannot be empty string
                     $("#add-annotation-on-description-modal-text-errors").html("Given URL cannot be empty string while selected motivation is 'linking'.");
@@ -264,10 +264,10 @@ function renderAnnotationNumber(n) {
           "url": src,
           "canvas_container": document.getElementById("canvas_panel"),
           "onLoaded": function(status) {
-            console.log(status);
+            
           },
           "show_message": function(msg, t) {
-            console.log(msg)
+            
           },
           "new_region_created": function(region) {
             console.log(region)
@@ -313,7 +313,7 @@ function renderAnnotationNumber(n) {
             v.setRegions([]);
             console.log(regions);
             v.import_region(regions);
-        }, 900);
+        }, 400);
     }
 
     function submit_image_annotation_form(targetId, selected_motivation, given_textual_body, given_url, callback) {
