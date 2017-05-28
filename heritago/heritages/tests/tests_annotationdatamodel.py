@@ -5,20 +5,22 @@ from django.test import Client
 class AnnotationDataModelTests(unittest.TestCase):
     api_url_template = "/api/v1/heritages/#/annotations"
     xpath_annotation_response = ""
+    heritage_path = ""
+    api_url_set = ""
 
     @classmethod
     def setUpClass(cls):
-        cls.heritagePath = '/api/v1/heritages/'
+        cls.heritage_path = "/api/v1/heritages/"
         h_id = cls.create_heritage_item()
         cls.api_url_set = cls.api_url_template.replace("#", str(h_id))
         cls.ann_response = cls.create_XPATH_annotation()
-        cls.ann_id = cls.ann_response["id"].rsplit('/', 2)[-2]
-        cls.ann_get_response = Client().get(cls.api_url_set + '/' + str(cls.ann_id)).json()
+        cls.ann_id = cls.ann_response["id"].rsplit("/", 2)[-2]
+        cls.ann_get_response = Client().get(cls.api_url_set + "/" + str(cls.ann_id)).json()
 
     @classmethod
     def create_heritage_item(cls):
         client = Client()
-        r = client.post(cls.heritagePath, {
+        r = client.post(cls.heritage_path, {
             "title": "Santa Clause",
             "description": "Santa Claus, also known as Saint Nicholas, Saint Nick, Kris Kringle, Father Christmas, "
                            "or simply Santa (Santy in Hiberno-English), is a legendary figure of Western Christian "

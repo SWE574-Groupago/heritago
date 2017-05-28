@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.uploadedfile import UploadedFile
+from django.conf import settings
 from django.http import HttpResponse
 from rest_framework import generics
 from rest_framework.exceptions import NotFound
@@ -59,7 +60,9 @@ class MultimediaView(generics.RetrieveDestroyAPIView):
 
 
 class MultimediaFileView(ViewSet):
-    def get_file(self, request, heritage_id, multimedia_id):
+
+    @staticmethod
+    def get_file(request, multimedia_id):
         try:
             m = Multimedia.objects.get(pk=multimedia_id)
         except ObjectDoesNotExist:
@@ -75,13 +78,14 @@ class AnnotationListView(generics.ListCreateAPIView):
         queryset = Annotation.objects.all()
         heritage_id = self.kwargs["heritage_id"]
         if heritage_id is not None:
-            queryset = queryset.filter(pk=heritage_id)
+            queryset = queryset.filter(target__target_id__contains=heritage_id)
             return queryset
         else:
             return NotFound()
 
     def get_serializer_context(self):
-        return {"target_id": self.kwargs["heritage_id"]}
+        return {"target_id": self.request.build_absolute_uri(),
+                "heritage_id": self.kwargs["heritage_id"]}
 
     def list(self, request, *args, **kwargs):
         keyword = self.request.query_params.get("keyword", None)

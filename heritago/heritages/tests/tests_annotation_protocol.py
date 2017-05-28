@@ -79,15 +79,15 @@ class AnnotationProtocolTests(unittest.TestCase):
         self.assertTrue(len(response.json()) > 0)
         
     def test_responses_must_have_a_ContentType_header_with_the_application_ldjson_media_type(self):
-        response_POST = self.client.post(self.annotation_path, self.anno)["Content-Type"]
-        response_GET = self.client.get(self.annotation_path, self.anno)["Content-Type"]
-        response_HEAD = self.client.head(self.annotation_path)["Content-Type"]
-        response_OPTIONS = self.client.options(self.annotation_path)["Content-Type"]
+        response_post = self.client.post(self.annotation_path, self.anno)["Content-Type"]
+        response_get = self.client.get(self.annotation_path, self.anno)["Content-Type"]
+        response_head = self.client.head(self.annotation_path)["Content-Type"]
+        response_options = self.client.options(self.annotation_path)["Content-Type"]
         expected_content_type = "application/ld+json; profile=\"http://www.w3.org/ns/anno.jsonld\""
-        self.assertEqual(expected_content_type, response_POST, "POST")
-        self.assertEqual(expected_content_type, response_GET, "GET")
-        self.assertEqual(expected_content_type, response_HEAD, "HEAD")
-        self.assertEqual(expected_content_type, response_OPTIONS, "OPTIONS")
+        self.assertEqual(expected_content_type, response_post, "POST")
+        self.assertEqual(expected_content_type, response_get, "GET")
+        self.assertEqual(expected_content_type, response_head, "HEAD")
+        self.assertEqual(expected_content_type, response_options, "OPTIONS")
 
     def test_response_must_have_a_Link_header_entry_and_contains_rel_type(self):
         self.client.post(self.annotation_path, self.anno)
@@ -100,7 +100,7 @@ class AnnotationProtocolTests(unittest.TestCase):
 
     def test_HEAD_and_GET_requests_response_must_have_an_ETag_header_with_an_entity_reference_value(self):
         self.client.post(self.annotation_path, self.anno)
-        response_GET = self.client.get(self.annotation_path, self.anno)
-        response_HEAD = self.client.head(self.annotation_path)
-        self.assertTrue("ETag" in response_GET)
-        self.assertTrue("ETag" in response_HEAD)
+        response_get = self.client.get(self.annotation_path, self.anno)
+        response_head = self.client.head(self.annotation_path)
+        self.assertTrue("ETag" in response_get)
+        self.assertTrue("ETag" in response_head)

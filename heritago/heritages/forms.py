@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import (render_to_response, render)
@@ -31,7 +32,6 @@ def user_profile(request):
             form.save()
             return HttpResponseRedirect('/profile')
 
-
     else:
         user = request.user
         profile = user.profile
@@ -43,10 +43,10 @@ def user_profile(request):
 
     args['form'] = form
 
-    return render(request, 'profile.html', args)
+    return render(request, settings.STATIC_URL + 'profile.html', args)
 
 
 def profile_update(request):
-    return render_to_response('profile_update.html')
+    return render_to_response(settings.STATIC_URL + 'profile_update.html')
 
 
