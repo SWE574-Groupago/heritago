@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from heritages.models import Heritage, BasicInformation, Origin, Tag, Multimedia, Selector, AnnotationTarget, \
-    AnnotationBody, Annotation
+    AnnotationBody, Annotation, User
 
 
 class BasicInformationSerializer(serializers.ModelSerializer):
