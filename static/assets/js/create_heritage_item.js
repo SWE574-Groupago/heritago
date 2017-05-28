@@ -194,7 +194,9 @@ $(function() {
                     lat: 37,
                     lon: 31,
                     draggable: true,
-                    zoom: 5
+                    zoom: 5,
+                    html: '<h3>Content B1</h3>',
+                    show_infowindow: true
                 },
                 {
                     lat: 39.5,

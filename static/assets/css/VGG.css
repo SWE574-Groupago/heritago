@@ -1,0 +1,92 @@
+ 
+
+      /* Top panel : #navbar, #toolbar */
+      .top_panel {
+      position: relative;
+      top: 0;
+      left: 0;
+      display: block;
+      font-size: medium;
+      background-color: #000000;
+      color: white;
+      z-index: 10;
+      margin: 0;
+      padding: 0;
+      }
+
+     
+      #canvas_panel {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      }
+     
+
+      /* Region shape selection panel inside leftsidebar */
+      ul.region_shape {
+            display: inline;
+      font-size: xx-large;
+      list-style-type: none;
+      overflow: hidden;
+      margin: 0;
+      }
+      ul.region_shape li{
+      float: left;
+      padding: 0 0.2em;
+      fill: #ffffff;
+      stroke: #000000;
+      }
+      ul.region_shape li:hover {
+      cursor: pointer;
+      fill: #ffffff;
+      stroke: #ff0000;
+      }
+      ul.region_shape .selected {
+      fill: #ffffff;
+      stroke: #ff0000;
+      }
+
+
+      
+
+      /* layers of canvas */
+      #image_panel {
+      position: relative;
+      display: inline-block;
+      margin: auto;
+      margin-top: 1em;
+      }
+      #image_canvas {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 1;
+      }
+      #region_canvas {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 2;
+      }
+
+.image-detail .modal-header {
+      overflow: hidden;
+}      
+.image-detail .modal-header {
+      padding: 5px 12px;
+}
+.image-detail .btn-annotate {
+      float: left;
+}
+#image-region-form {
+      display: none;
+}
+
+#region_shape_panel{
+      display: inline;
+}
+
+#image_canvas, #region_canvas{
+      max-width: 600px;
+      max-height: 600px;
+}
