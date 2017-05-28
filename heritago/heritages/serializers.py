@@ -49,6 +49,7 @@ class MultimediaSerializer(serializers.ModelSerializer):
             multimedia.url = "/heritages/{}/{}/{}.png".format(
                 multimedia.heritage.id, multimedia.type, multimedia.id)
         multimedia.save()
+        heritage_created.send(sender=HeritageSerializer, instance=multimedia.heritage)
         return multimedia
 
 
