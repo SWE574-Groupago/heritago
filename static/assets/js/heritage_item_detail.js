@@ -14,7 +14,7 @@ var annotations;
         var data = {
             "@context": "http://www.w3.org/ns/anno.jsonld",
             "type": "Annotation",
-            "creator": "osman",
+            "creator": "demouser",
             "motivation": $("#add-annotation-on-description-modal-select-motivation").val(),
             "body": [{
                 "type": "text",
@@ -346,7 +346,7 @@ function renderAnnotationNumber(n) {
         var data = {
             "@context": "http://www.w3.org/ns/anno.jsonld",
             "type": "Annotation",
-            "creator": "osman",
+            "creator": "demouser",
             "motivation": selected_motivation,
             "body": [{
                 "type": "text",
