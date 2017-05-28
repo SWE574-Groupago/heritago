@@ -175,7 +175,7 @@ $(function() {
             }).Load();
             map = geo_location_polygon_map;
         }
-        if (selected_map_type == "path-polyline") {
+        if (selected_map_type == "polyline") {
             $("#create_new_heritage_item_polyline_gmap_container").addClass("active")
             geo_location_polyline_map = new Maplace({
                 map_div: '#create_new_heritage_item_path_polyline_gmap',
