@@ -297,6 +297,10 @@ function renderAnnotationNumber(n) {
             show_image_annotations();
           }
         });
+        Mustache.parse($templateDisplayImageAnnotationOnExpandedModal);
+        var filteredAnnotations = filterAnnotations("image");
+        var rendered = Mustache.render($templateDisplayImageAnnotationOnExpandedModal, filteredAnnotations);
+        $imageExpandedModalImageAnnotations.html(rendered);
     }
 
     function start_image_annotation() {
@@ -313,7 +317,6 @@ function renderAnnotationNumber(n) {
     function show_image_annotation_form() {
         $("#annotation-form-resource-type").val("image");
     }
-
     function show_image_annotations() {
         
 
@@ -375,9 +378,24 @@ function renderAnnotationNumber(n) {
             callback(response);
             annotations.push(response);
             renderAnnotationNumber(annotations.length);
+            updateImageModal(response);
         });
     }
 
+    function updateImageModal(response) {
+        $("#heritage-item-details-add-annotation-on-image-annotations").append(
+            "<div class=\"heritage-item-details-add-annotation-on-image-annotations-comment\">"+
+                response.body[0].value+
+            "</div>"+
+            "<div>"+
+                "<div class=\"pull-right heritage-item-details-add-annotation-on-image-annotations-date\">"+ response.created + "- <span class=\"heritage-item-details-add-annotation-on-image-annotations-owner\">"+ response.creator +"</span></div>"+
+            "</div>"+
+            "<div>"+
+                "&nbsp;"+
+            "</div>"+
+            "<hr>"
+        );
+    }
     var $title = $("#heritage-item-title");
     var $description = $("#heritage-item-description");
     var $basicInformation = $("#basic-information");
@@ -442,7 +460,6 @@ function renderAnnotationNumber(n) {
         for (var i = annotations.length - 1; i >= 0; i--) {
             var a = annotations[i];
 
-
                 if (a.target[0].format == "text/plain") {
                     var position = a.target[0].selector[0].value.split("=")[1].split(",");
                     
@@ -475,7 +492,14 @@ function renderAnnotationNumber(n) {
             toastr.error("annotations not found");
         })
         .done(function( data ) {
-            annotations = data;
+            annotations = [];
+            for (var i = 0; i<data.length; i++) {
+                if ((((data[i].target[0].target_id).split("heritages/")[1]).split("/annotations")[0]) == heritageId) {
+                    annotations.push(data[i]);
+                }
+
+            }
+
             console.log("fetched annotations")
             renderAnnotations();
         });
