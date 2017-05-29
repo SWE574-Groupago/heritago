@@ -297,6 +297,10 @@ function renderAnnotationNumber(n) {
             show_image_annotations();
           }
         });
+        Mustache.parse($templateDisplayImageAnnotationOnExpandedModal);
+        var filteredAnnotations = filterAnnotations("image");
+        var rendered = Mustache.render($templateDisplayImageAnnotationOnExpandedModal, filteredAnnotations);
+        $imageExpandedModalImageAnnotations.html(rendered);
     }
 
     function start_image_annotation() {
@@ -313,7 +317,6 @@ function renderAnnotationNumber(n) {
     function show_image_annotation_form() {
         $("#annotation-form-resource-type").val("image");
     }
-
     function show_image_annotations() {
         
 
