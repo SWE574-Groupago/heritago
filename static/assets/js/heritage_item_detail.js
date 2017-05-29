@@ -378,9 +378,24 @@ function renderAnnotationNumber(n) {
             callback(response);
             annotations.push(response);
             renderAnnotationNumber(annotations.length);
+            updateImageModal(response);
         });
     }
 
+    function updateImageModal(response) {
+        $("#heritage-item-details-add-annotation-on-image-annotations").append(
+            "<div class=\"heritage-item-details-add-annotation-on-image-annotations-comment\">"+
+                response.body[0].value+
+            "</div>"+
+            "<div>"+
+                "<div class=\"pull-right heritage-item-details-add-annotation-on-image-annotations-date\">"+ response.created + "- <span class=\"heritage-item-details-add-annotation-on-image-annotations-owner\">"+ response.creator +"</span></div>"+
+            "</div>"+
+            "<div>"+
+                "&nbsp;"+
+            "</div>"+
+            "<hr>"
+        );
+    }
     var $title = $("#heritage-item-title");
     var $description = $("#heritage-item-description");
     var $basicInformation = $("#basic-information");
