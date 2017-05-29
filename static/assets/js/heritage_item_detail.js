@@ -442,7 +442,6 @@ function renderAnnotationNumber(n) {
         for (var i = annotations.length - 1; i >= 0; i--) {
             var a = annotations[i];
 
-
                 if (a.target[0].format == "text/plain") {
                     var position = a.target[0].selector[0].value.split("=")[1].split(",");
                     
@@ -475,7 +474,14 @@ function renderAnnotationNumber(n) {
             toastr.error("annotations not found");
         })
         .done(function( data ) {
-            annotations = data;
+            annotations = [];
+            for (var i = 0; i<data.length; i++) {
+                if ((((data[i].target[0].target_id).split("heritages/")[1]).split("/annotations")[0]) == heritageId) {
+                    annotations.push(data[i]);
+                }
+
+            }
+
             console.log("fetched annotations")
             renderAnnotations();
         });
