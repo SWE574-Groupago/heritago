@@ -91,7 +91,8 @@ class AnnotationListView(generics.ListCreateAPIView):
             return {"target_id": target_id,
                     "heritage_id": self.kwargs["heritage_id"]}
         except KeyError:
-            return {"heritage_id": self.kwargs["heritage_id"]}
+            pass
+        return {"heritage_id": self.kwargs["heritage_id"]}
 
     def list(self, request, *args, **kwargs):
         keyword = self.request.query_params.get("keyword", None)
