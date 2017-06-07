@@ -27,8 +27,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r"api/v1/heritages/", include("heritages.urls")),
     url(r"^api/users/me$", views.UserDetail.as_view({"get": "get_me"})),
-    # url(r"api/v1/annotations/", views.AnnotationListView.as_view()),
-    # url(r"api/v1/annotations/(?P<pk>\d+)$", views.AnnotationView.as_view()),
+    url(r"api/v1/annotations/", views.AnnotationPaleListView.as_view()),
+    url(r"api/v1/annotations/(?P<pk>\d+)$", views.AnnotationPaleView.as_view()),
 
     # user auth urls
     # url(r'^$', views.diary, name='home'),

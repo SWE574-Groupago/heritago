@@ -13,7 +13,8 @@ from django.contrib.auth.models import User
 
 from heritages.models import Heritage, Multimedia, Annotation
 from heritages.search import search_heritages, search_annotations
-from heritages.serializers import HeritageSerializer, MultimediaSerializer, AnnotationSerializer, UserSerializer
+from heritages.serializers import HeritageSerializer, MultimediaSerializer, AnnotationSerializer, UserSerializer, \
+                                    AnnotationPaleSerializer
 from heritages.permissions import IsOwner, IsNotAnonymous, IsSelf
 
 
@@ -96,9 +97,32 @@ class AnnotationListView(generics.ListCreateAPIView):
         return Response(i["_source"] for i in result["hits"]["hits"])
 
 
+class AnnotationPaleListView(generics.ListCreateAPIView):
+    serializer_class = AnnotationPaleSerializer
+
+    def get_queryset(self):
+        return Annotation.objects.all()
+
+    def get_serializer_context(self):
+        return {"target_id": self.request.build_absolute_uri()}
+
+    def list(self, request, *args, **kwargs):
+        keyword = self.request.query_params.get("keyword", None)
+        if not keyword:
+            return super().list(request, *args, **kwargs)
+
+        result = Response(search_annotations(keyword)).data
+        return Response(i["_source"] for i in result["hits"]["hits"])
+
+
 class AnnotationView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Annotation.objects.all()
     serializer_class = AnnotationSerializer
+
+
+class AnnotationPaleView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Annotation.objects.all()
+    serializer_class = AnnotationPaleSerializer
 
 
 class Users(mixins.CreateModelMixin, viewsets.GenericViewSet):

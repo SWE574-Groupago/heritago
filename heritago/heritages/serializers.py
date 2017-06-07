@@ -188,6 +188,52 @@ class AnnotationSerializer(serializers.ModelSerializer):
         return annotation
 
 
+class AnnotationPaleSerializer(serializers.ModelSerializer):
+    body = AnnotationBodySerializer(many=True)
+    target = AnnotationTargetSerializer(many=True)
+
+    class Meta:
+        model = Annotation
+        fields = ("context",
+                  "annotation_id",
+                  "type",
+                  "motivation",
+                  "creator",
+                  "created",
+                  "body",
+                  "target")
+
+    def to_representation(self, instance):
+        data = super(AnnotationPaleSerializer, self).to_representation(instance)
+        data["@context"] = instance.context
+        data["id"] = instance.annotation_id
+        del data["context"]
+        del data["annotation_id"]
+        return data
+
+    def create(self, validated_data):
+        validated_body = validated_data.pop("body")
+        validated_target = validated_data.pop("target")
+        annotation = Annotation.objects.create(**validated_data)
+
+        for entry in validated_body:
+            AnnotationBody.objects.create(annotation=annotation, **entry)
+
+        for entry in validated_target:
+            target = AnnotationTarget.objects.create(annotation=annotation,
+                                                     target_id=self.context["target_id"],
+                                                     type=entry["type"],
+                                                     format=entry["format"])
+            selector_data = entry.pop("selector")
+            for data in selector_data:
+                Selector.objects.create(target=target,
+                                        type=data["type"],
+                                        conformsTo=data["conformsTo"],
+                                        value=data["value"])
+
+        return annotation
+
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
