@@ -173,9 +173,9 @@ class AnnotationSerializer(serializers.ModelSerializer):
         for entry in validated_body:
             AnnotationBody.objects.create(annotation=annotation, **entry)
 
-        for entry in validated_target:
+        for index, entry in enumerate(validated_target):
             target = AnnotationTarget.objects.create(annotation=annotation,
-                                                     target_id=self.context["target_id"],
+                                                     target_id=self.context["target_id"][index],
                                                      type=entry["type"],
                                                      format=entry["format"])
             selector_data = entry.pop("selector")
